@@ -65,13 +65,13 @@ public class BibiLibrary {
     }
 
     private static void BookType() {
-        //Chong Liang code
+        //Chong Liang code 
         System.out.println("\n--- Book Type Management ---");
     }
 
 
     private static void LoansAndStatus() {
-        //Dennis code
+        //Dennis code 
         System.out.println("\n--- Circulation Module ---");
     }
 

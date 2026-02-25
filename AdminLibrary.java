@@ -3,7 +3,7 @@ public class AdminLibrary {
     private String UserID;
     private String UserType;
     private String contactNumber;
-    private int BorrowLimit;
+    private int BorrowLimit; 
     private int CurrentBorrowedBooks;
 
     //Parameterized Constructor
