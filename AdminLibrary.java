@@ -13,6 +13,6 @@ public class AdminLibrary {
         this.UserType = UserType;
         this.Email = Email;
         this.BorrowLimit = BorrowLimit;
-        this.CurrentBorrowedBooks = CurrentBorrowedBooks;
+        this.CurrentBorrowedBooks = CurrentBorrowedBooks;vgn
     }
 }
