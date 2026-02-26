@@ -8,7 +8,7 @@ public class user {
     public user(String name, String UserID, String UserType, String UserEmail) {
         this.name = name;
         this.UserID = UserID;
-        this.UserType = UserType;
+        this.UserType = UserType;  
         this.UserEmail = UserEmail;
     }
 
