@@ -1,18 +1,23 @@
 public class AdminLibrary {
-    private String AdminName;
-    private String UserID;
-    private String UserType;
-    private String Email;;
-    private int BorrowLimit; 
-    private int CurrentBorrowedBooks;
+    private String adminName;
+    private String userID;
+    private String userType;
+    private String email;
+    private int borrowLimit; 
+    private int currentBorrowedBooks;
 
-    //Parameterized Constructor
-    public AdminLibrary(String AdminName, String UserID, String UserType, String Email, int BorrowLimit, int CurrentBorrowedBooks) {
-        this.AdminName = AdminName;
-        this.UserID = UserID;
-        this.UserType = UserType;
-        this.Email = Email;
-        this.BorrowLimit = BorrowLimit;
-        this.CurrentBorrowedBooks = CurrentBorrowedBooks;
+    public AdminLibrary(String adminName, String userID, String userType, String email, int borrowLimit, int currentBorrowedBooks) {
+        this.adminName = adminName;
+        this.userID = userID;
+        this.userType = userType;
+        this.email = email;
+        this.borrowLimit = borrowLimit;
+        this.currentBorrowedBooks = currentBorrowedBooks;
     }
+
+   
+    public String getUserID() { return userID; }
+    public String getAdminName() { return adminName; }
+    public String getUserType() { return userType; }
+    public String getEmail() { return email; }
 }
