@@ -1,35 +1,39 @@
 import java.util.ArrayList;
 
 public class LibraryManager {
-    private ArrayList<AdminLibrary> userList;
+    private ArrayList<AdminLibrary> userList = new ArrayList<>();
+    private ArrayList<Book> bookCatalog = new ArrayList<>();
 
     public LibraryManager() {
-        this.userList = new ArrayList<>();
+
+        bookCatalog.add(new Book("Java Basics", "Liang", "ISBN001", "Education"));
+        bookCatalog.add(new Book("Database Design", "Bibi", "ISBN002", "Education"));
     }
 
     public void addUser(AdminLibrary newUser) {
         userList.add(newUser);
-        System.out.println("System: User [" + newUser.getAdminName() + "] has been added to the list.");
+        System.out.println(" System: Profile [" + newUser.getAdminName() + "] created.");
     }
 
     public void displayAllUsers() {
-        if (userList.isEmpty()) {
-            System.out.println("no users found.");
-            return;
-        }
-        System.out.println("\n--- User List ---");
+        System.out.println("\n--- Registered Patrons ---");
         for (AdminLibrary u : userList) {
-            System.out.println("ID: " + u.getUserID() + " | Name: " + u.getAdminName() + " | Type: " + u.getUserType());
+            System.out.println("ID: " + u.getUserID() + " | Name: " + u.getAdminName() + " | Limit: " + u.getLoanDuration() + " days");
         }
     }
 
-    public void findUser(String id) {
-        for (AdminLibrary user : userList) {
-            if (user.getUserID().equals(id)) {
-                System.out.println("Find User: " + user.getAdminName());
-                return;
+
+    public void searchBooks(String query) {
+        System.out.println("\n--- Search Results ---");
+        boolean found = false;
+        for (Book b : bookCatalog) {
+            if (b.getTitle().toLowerCase().contains(query.toLowerCase()) || 
+                b.getAuthor().toLowerCase().contains(query.toLowerCase()) || 
+                b.getIsbn().equals(query)) {
+                System.out.println(b);
+                found = true;
             }
         }
-        System.out.println("Invalid User");
+        if (!found) System.out.println("No matching books found.");
     }
 }

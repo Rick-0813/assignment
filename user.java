@@ -1,5 +1,4 @@
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 import java.io.*;
 
 public class user {
@@ -8,70 +7,71 @@ public class user {
 
     static {
         loadAccounts();
-        if (accounts.isEmpty()) {
-            accounts.add(new Account("admin", "1234", "Admin"));
-        }
+
+        if (accounts.isEmpty()) accounts.add(new Account("admin", "1234", "Admin"));
     }
 
     static class Account {
         String username, password, type;
-        Account(String u, String p, String t) {
-            this.username = u; this.password = p; this.type = t;
-        }
+        Account(String u, String p, String t) { this.username = u; this.password = p; this.type = t; }
     }
 
     public static String loginProcess(Scanner input) {
-        System.out.println("\n--- Welcome to Bibi Library ---");
-        System.out.println("1. Login\n2. Register");
-        System.out.print("Choice: ");
-        
-        if (!input.hasNextInt()) { input.nextLine(); return loginProcess(input); }
-        int choice = input.nextInt();
-        input.nextLine(); 
+        while (true) {
+            System.out.println("\n=================================");
+            System.out.println("|    Welcome to Bibi Library    |");
+            System.out.println("|-------------------------------|");
+            System.out.println("| 1. Student                    |");
+            System.out.println("| 2. Faculty                    |");
+            System.out.println("| 3. Public Member              |");
+            System.out.println("| 4. Admin (Login Required)     |");
+            System.out.println("| 0. Exit                       |");
+            System.out.println("=================================");
+            System.out.print("Please select your role: ");
 
-        if (choice == 2) {
-            register(input);
-            return loginProcess(input); 
-        }
+            if (!input.hasNextInt()) {
+                input.nextLine();
+                System.out.println("Invalid input!");
+                continue;
+            }
+            int choice = input.nextInt();
+            input.nextLine();
 
-        System.out.print("Username: "); String u = input.nextLine();
-        System.out.print("Password: "); String p = input.nextLine();
 
-        for (Account acc : accounts) {
-            if (acc.username.equals(u) && acc.password.equals(p)) {
-                System.out.println("Login Success! Type: " + acc.type);
-                return acc.type; 
+            if (choice == 0) {
+                System.out.println("Thank you for visiting Bibi Library. Have a great day! ^o^");
+                return null;
+            } else if (choice >= 1 && choice <= 3) {
+                String[] roles = {"Student", "Faculty", "Public Member"};
+                System.out.println("Welcome, " + roles[choice - 1] + "! Enjoy exploring our collection.");
+                return roles[choice - 1];
+            } else if (choice == 4) {
+                System.out.print("Admin Username: ");
+                String u = input.nextLine();
+                System.out.print("Admin Password: ");
+                String p = input.nextLine();
+
+                for (Account acc : accounts) {
+                    if (acc.username.equals(u) && acc.password.equals(p) && acc.type.equals("Admin")) {
+                        System.out.println("Admin Login Success!");
+                        return "Admin";
+                    }
+                }
+                System.out.println("Access Denied: Incorrect Admin credentials.");
+
+            } else {
+                System.out.println("Invalid choice, please try again.");
             }
         }
-        System.out.println("Invalid credentials.");
-        return null;
     }
-
-    private static void register(Scanner input) {
-        System.out.print("New Username: "); String u = input.nextLine();
-        System.out.print("New Password: "); String p = input.nextLine();
-        System.out.println("Register as: 1. Student  2. Faculty");
-        int t = input.nextInt(); input.nextLine();
-        String type = (t == 1) ? "Student" : "Faculty";
-        accounts.add(new Account(u, p, type));
-        saveAccounts();
-        System.out.println("Register successful!");
-    }
-
-    private static void saveAccounts() {
-        try (PrintWriter writer = new PrintWriter(new FileWriter(FILE_NAME))) {
-            for (Account acc : accounts) writer.println(acc.username + "," + acc.password + "," + acc.type);
-        } catch (IOException e) { }
-    }
-
     private static void loadAccounts() {
         File file = new File(FILE_NAME);
         if (!file.exists()) return;
-        try (Scanner reader = new Scanner(file)) {
-            while (reader.hasNextLine()) {
-                String[] data = reader.nextLine().split(",");
-                if (data.length == 3) accounts.add(new Account(data[0], data[1], data[2]));
+        try (Scanner r = new Scanner(file)) {
+            while (r.hasNextLine()) {
+                String[] d = r.nextLine().split(",");
+                if (d.length == 3) accounts.add(new Account(d[0], d[1], d[2]));
             }
-        } catch (Exception e) { }
+        } catch (Exception e) {}
     }
 }
