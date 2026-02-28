@@ -58,7 +58,7 @@ public class BibiLibrary {
     private static void handleMenu(String userType, int choice) {
         if (userType.equals("Admin")) {
             switch (choice) {
-                case 1: Personal(); break;
+                case 1: ManagmentUser(); break;
                 case 2: manager.displayAllUsers(); break;
                 case 3: System.out.println("Generating fine reports..."); break;
                 default: System.out.println("Invalid choice.");
@@ -76,13 +76,35 @@ public class BibiLibrary {
         }
     }
 
-    private static void Personal() {
-        System.out.print("Full Name: "); String name = input.nextLine();
-        System.out.print("User ID: "); String id = input.nextLine();
-        System.out.print("Email: "); String email = input.nextLine();
-        System.out.print("Type (Faculty/Student): "); String type = input.nextLine();
-
-        AdminLibrary profile = new AdminLibrary(name, id, type, email);
-        manager.addUser(profile);
+    private static void ManagmentUser() {
+        System.out.println("=========================");
+        System.out.println("|User Management Options|");
+        System.out.println("=========================");
+        System.out.println("      1. Add User");
+        System.out.println("     2. Remove User");
+        System.out.println("    3. View All Users");
+        System.out.println("   0. Back to Admin Menu");
+        System.out.print("Select an option: ");
+        int userChoice = input.nextInt();
+        input.nextLine();
+        if (userChoice == 1) {
+            addUser();
+        } else if (userChoice == 2) {
+            removeUser();
+        } else if (userChoice == 3) {
+            manager.displayAllUsers();
+        } else if (userChoice == 0) {
+            return;
+        } else {
+            System.out.println("Invalid choice.");
+        }
     }
-}
+
+    private static void addUser() {
+        
+    }
+
+    private static void removeUser() {
+
+    }   
+} 

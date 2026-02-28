@@ -13,11 +13,21 @@ public class Book {
         this.status = "Available";
     }
 
-    public String getStatus() { return status; }
-    public String getTitle() { return title; }
-    public String getAuthor() { return author; }
-    public String getIsbn() { return isbn; }
-    public String getGenre() { return genre; }
+    public String getStatus() { 
+        return status; 
+    }
+    public String getTitle() { 
+        return title; 
+    }
+    public String getAuthor() { 
+        return author; 
+    }
+    public String getIsbn() { 
+        return isbn; 
+    }
+    public String getGenre() { 
+        return genre; 
+    }
 
     @Override
     public String toString() {
