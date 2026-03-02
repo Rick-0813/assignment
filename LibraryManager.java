@@ -31,7 +31,7 @@ public class LibraryManager {
                 b.getAuthor().toLowerCase().contains(query.toLowerCase()) || 
                 b.getIsbn().equals(query)) {
                 System.out.println(b);
-                found = true;
+                found = true; 
             }
         }
         if (!found) System.out.println("No matching books found.");
