@@ -11,7 +11,7 @@ public class BibiLibrary {
         while (true) {
             String userType = user.loginProcess(input);
             if (userType == null) {
-                break; 
+                break;
             }
             boolean loggedIn = true;
             while (loggedIn) {
@@ -42,7 +42,7 @@ public class BibiLibrary {
 
                 if (choice == 0) {
                     System.out.println("Logging out...");
-                    loggedIn = false; 
+                    loggedIn = false;
                 } else {
 
                     handleMenu(userType, choice);
@@ -56,13 +56,13 @@ public class BibiLibrary {
             switch (choice) {
                 case 1: ManagmentUser(); break;
                 case 2: System.out.println("Managing circulation..."); break;
-                case 3: System.out.println("Generating fine reports..."); break;
+                case 3: catalogMenu(); break;
                 case 4: System.out.println("Performing audits..."); break;
                 default: System.out.println("Invalid choice.");
             }
         } else {
             switch (choice) {
-                case 1: 
+                case 1:
                     System.out.print("Search: ");
                     manager.searchBooks(input.nextLine());
                     break;
@@ -143,4 +143,131 @@ public class BibiLibrary {
         String id = input.nextLine();
         manager.toggleUserStatus(id);
     }
-} 
+
+
+    private static void  catalogMenu() {
+        while(true){
+            System.out.println("\n============================");
+            System.out.println("| Catalog Inventory Menu   |");
+            System.out.println("============================");
+            System.out.println("|  1. Add New Item         |");
+            System.out.println("|  2. View All Catalog     |");
+            System.out.println("|  3. Update Stock         |");
+            System.out.println("|  4. Remove Item          |");
+            System.out.println("|  0. Back to Admin Menu   |");
+            System.out.println("============================");
+            System.out.print("Select an option: ");
+
+            if(!input.hasNextInt()){
+                System.out.println("Error: Please enter a number.");
+                    input.nextLine();
+                    continue;
+            }
+
+            int choice = input.nextInt();
+            input.nextLine();
+
+            if(choice == 0){
+                System.out.println("Returning to Admin Menu...");
+                break;
+            }
+            else if (choice == 1){
+                addNewCatalogItem();
+            }
+
+            else if (choice == 2) {
+                manager.displayAllcatalog();
+            }
+
+            else{
+                System.out.println("Function " + choice + " is under construction!");
+            }
+            }
+    }
+
+        private static void addNewCatalogItem() {
+            System.out.println("\n============================");
+            System.out.println("| Catalog Inventory Menu   |");
+            System.out.println("============================");
+            System.out.println("|  1. Add a Book           |");
+            System.out.println("|  2. Add a Magazine       |");
+            System.out.println("|  3. Add a DVD            |");
+            System.out.println("============================");
+            System.out.print("Select item type (1, 2, or 3): ");
+
+            if(!input.hasNextInt()){
+                System.out.println("Error! Invalid Input. Please enter number only .");
+                input.nextLine();
+                return;
+            }
+
+            int typeChoice = input.nextInt() ;
+            input.nextLine() ;
+
+            if (typeChoice <1 || typeChoice >3){
+                System.out.println("Error! Invalid Input.");
+                return;
+            }
+
+
+            System.out.print("Enter Item ID (e.g., B001 , M001 , D002) : ");
+            String itemId = input.nextLine();
+
+            System.out.print("Enter Title : ");
+            String title = input.nextLine();
+
+            System.out.print("Enter Stock QUantity : ");
+            if (!input.hasNextInt()){
+                System.out.println("Error ! Stock must be a number.");
+                input.nextLine();
+                return;
+            }
+            int stockQuantity = input.nextInt();
+            input.nextLine();
+
+            if(typeChoice ==1) {
+                System.out.print("Enter Author : ");
+                String author =  input.nextLine();
+                System.out.print("Enter ISBN : ");
+                String isbn = input.nextLine();
+
+                Book newBook = new Book (itemId , title , author , isbn , stockQuantity);
+                manager.addCatalogItem(newBook);
+            }
+
+            else if (typeChoice == 2){
+                System.out.print("Enter Publisher : ");
+                String publisher = input.nextLine();
+                System.out.print("Enter Issue Number : ");
+
+                if(!input.hasNextInt()){
+                    System.out.println("Error! Issue number must be a number.");
+                    input.nextLine();
+                    return;
+                }
+                int issueNumber = input.nextInt();
+                input.nextLine();
+
+                Magazine newMag = new Magazine (itemId, title , publisher, issueNumber , stockQuantity);
+                manager.addCatalogItem(newMag);
+            }
+
+            else if ( typeChoice == 3){
+                System.out.print("Enter Director : ");
+                String director = input.nextLine();
+                System.out.print("Enter Duration (in minutes) : ");
+
+                if (!input.hasNextInt()){
+                    System.out.println("Error! Duration must be a number");
+                    input.nextLine();
+                    return;
+                }
+                int duration = input.nextInt();
+                input.nextLine();
+
+                DVD newDvd = new DVD (itemId , title , director , duration , stockQuantity);
+                manager.addCatalogItem(newDvd);
+
+            }
+        }
+}

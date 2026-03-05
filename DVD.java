@@ -1,14 +1,14 @@
-public class Book extends LibraryItem {
+public class DVD extends LibraryItem {
 
-    private String author ;
-    private String isbn ;
+    private String director ;
+    private int duration ;
     private int stockQuantity ;
 
     //Constructor
-    public Book (String itemId , String title , String author , String isbn , int stockQuantity) {
+    public DVD (String itemId , String title , String director , int duration , int stockQuantity) {
         super(itemId , title);
-        this.author = author ;
-        this.isbn = isbn ;
+        this.director = director ;
+        this.duration = duration ;
         this.stockQuantity   = stockQuantity;
 
         if (this.stockQuantity > 0) {
@@ -21,12 +21,12 @@ public class Book extends LibraryItem {
 
 
     //Getter
-    public String getAuthor() {
-        return author;
+    public String getDirector() {
+        return director;
     }
 
-    public String getIsbn() {
-        return isbn ;
+    public int getDuration() {
+        return duration ;
     }
 
     public int getStockQuantity() {
@@ -43,11 +43,11 @@ public class Book extends LibraryItem {
 
     @Override
     public void displayItemDetails() {
-        System.out.println("-----Book Details-----");
-        System.out.println("Book ID : " + getItemId());
+        System.out.println("-----DVD Details-----");
+        System.out.println("DVD ID : " + getItemId());
         System.out.println("Title : " + getTitle());
-        System.out.println("Author : " + author);
-        System.out.println("ISBN : " + isbn);
+        System.out.println("Director : " + getDirector());
+        System.out.println("Duration : " + getDuration());
         System.out.println("Stock Quantity : " + stockQuantity);
         if (isAvailable()){
             System.out.println("Status : Available");
@@ -55,7 +55,7 @@ public class Book extends LibraryItem {
         else {
             System.out.println("Status : Out of Stock");
         }
-        System.out.println("-----------------------");
+        System.out.println("---------------------");
     }
 
 }
