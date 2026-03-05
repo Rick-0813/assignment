@@ -6,13 +6,13 @@ public class AdminLibrary {
     private int borrowLimit;
     private int currentBorrowedBooks;
     private int loanDuration;
+    private boolean isActive = true;
 
     public AdminLibrary(String name, String id, String type, String email) {
         this.adminName = name;
         this.userID = id;
         this.userType = type; 
         this.email = email;
-        this.currentBorrowedBooks = 0;
         
         if (type.equalsIgnoreCase("Faculty")) {
             this.borrowLimit = 20; 
@@ -23,9 +23,16 @@ public class AdminLibrary {
         }
     }
 
-
-    public String getAdminName() { return adminName; }
-    public String getUserID() { return userID; }
-    public String getUserType() { return userType; }
-    public int getLoanDuration() { return loanDuration; }
+    public boolean isActive() {
+        return isActive;
+    }
+    public void setActive(boolean active) {
+        this.isActive = active;
+    }
+    public String getAdminName() { 
+        return adminName; 
+    }
+    public String getUserID() { 
+        return userID; 
+    }
 }

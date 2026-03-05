@@ -75,12 +75,12 @@ public class BibiLibrary {
 
     private static void ManagmentUser() {
     while (true) {
-        System.out.println("==========================");
-        System.out.println("| User Management Options |");
-        System.out.println("==========================");
-        System.out.println("|      1. Add User       |");
-        System.out.println("|     2. Remove User     |");
-        System.out.println("|    3. View All Users   |");
+        System.out.println("============================");
+        System.out.println("| User Management Options  |");
+        System.out.println("============================");
+        System.out.println("|      1. Add User         |");
+        System.out.println("|     2. Remove User       |");
+        System.out.println("|    3. View All Users     |");
         System.out.println("| 4. Account Status Control|");
         System.out.println("|    0. Back to Admin Menu |");
         System.out.println("===========================");
@@ -115,14 +115,32 @@ public class BibiLibrary {
 
     
     private static void addUser() {
+        System.out.println("Name (IC/Passport): ");
+        String name = input.nextLine();
+        System.out.println("User ID: ");
+        String id = input.nextLine();
+        System.out.println("Email: ");
+        String email = input.nextLine();
+        System.out.println("Type (Admin/Patron): ");
+        String type = input.nextLine();
         
+        AdminLibrary profile = new AdminLibrary(name, id, type, email);
+        manager.addUser(profile);
     }
 
     private static void removeUser() {
-
+        System.out.println("Enter User ID to remove: ");
+        String id = input.nextLine();
+        if (manager.removeUser(id)) {
+            System.out.println("✅ User removed successfully.");
+        } else {
+            System.out.println("❌ User not found.");
+        }
     }   
     
     private static void accountStatusControl() {
-        
+        System.out.println("Enter User ID to toggle status: ");
+        String id = input.nextLine();
+        manager.toggleUserStatus(id);
     }
 } 
