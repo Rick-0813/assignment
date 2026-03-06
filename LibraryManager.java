@@ -3,6 +3,10 @@ import java.util.ArrayList;
 public class LibraryManager {
     private ArrayList<AdminLibrary> userList = new ArrayList<>();
     private ArrayList<LibraryItem> bookCatalog = new ArrayList<>();
+    private FineBalance fineBalance = new FineBalance();
+    private FineMenu fineMenu = new FineMenu(fineBalance);
+    public FineMenu getFineMenu() { return fineMenu; }
+
 
     public LibraryManager() {
         bookCatalog.add(new Book("B001", "Java Programming", "Chong", "ISBN001",5));

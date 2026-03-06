@@ -66,9 +66,14 @@ public class BibiLibrary {
                     System.out.print("Search: ");
                     manager.searchBooks(input.nextLine());
                     break;
-                case 2: System.out.println("Current status: Clear."); break;
-                case 3: System.out.println("Reservation sent."); break;
-                default: System.out.println("Invalid choice.");
+                case 2: 
+                    System.out.println("Current status: Clear."); 
+                    break;
+                case 3: 
+                    manager.getFineMenu().showFineMenuIfOwed(userType.trim(), userType.trim(), input);
+                    break;
+            default: 
+            System.out.println("  Invalid choice.");
             }
         }
     }
