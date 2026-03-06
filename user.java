@@ -56,7 +56,7 @@ public class user {
                 for (Account acc : accounts) {
                     if (acc.username.equals(u) && acc.password.equals(p) && acc.type.equals("Admin")) {
                         System.out.println("  Admin Login Success!");
-                        return "  Admin";
+                        return "Admin";
                     }
                 }
                 System.out.println("  Access Denied: Incorrect Admin credentials.");

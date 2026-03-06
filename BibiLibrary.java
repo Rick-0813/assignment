@@ -54,7 +54,9 @@ public class BibiLibrary {
     private static void handleMenu(String userType, int choice) {
         if (userType.equals("  Admin")) {
             switch (choice) {
-                case 1: ManagmentUser(); break;
+                case 1: 
+                ManagmentUser(); 
+                break;
                 case 2: System.out.println("  Managing circulation..."); break;
                 case 3: catalogMenu(); break;
                 case 4: System.out.println("  Performing audits..."); break;
@@ -63,17 +65,17 @@ public class BibiLibrary {
         } else {
             switch (choice) {
                 case 1:
-                    System.out.print("Search: ");
-                    manager.searchBooks(input.nextLine());
-                    break;
+                System.out.print("Search: ");
+                manager.searchBooks(input.nextLine());
+                break;
                 case 2: 
-                    System.out.println("Current status: Clear."); 
-                    break;
+                System.out.println("Current status: Clear."); 
+                break;
                 case 3: 
-                    manager.getFineMenu().showFineMenuIfOwed(userType.trim(), userType.trim(), input);
-                    break;
-            default: 
-            System.out.println("  Invalid choice.");
+                manager.getFineMenu().showFineMenuIfOwed(userType.trim(), userType.trim(), input);
+                break;
+                default: 
+                System.out.println("  Invalid choice.");
             }
         }
     }
