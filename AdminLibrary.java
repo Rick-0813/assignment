@@ -14,7 +14,7 @@ public class AdminLibrary {
         this.userType = type; 
         this.email = email;
         
-        if (type.equalsIgnoreCase("Faculty")) {
+        if (type.equalsIgnoreCase("  Faculty")) {
             this.borrowLimit = 20; 
             this.loanDuration = 30; 
         } else {

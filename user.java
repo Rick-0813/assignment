@@ -18,49 +18,51 @@ public class user {
 
     public static String loginProcess(Scanner input) {
         while (true) {
-            System.out.println("\n=================================");
-            System.out.println("|    Welcome to Bibi Library    |");
-            System.out.println("|-------------------------------|");
-            System.out.println("| 1. Student                    |");
-            System.out.println("| 2. Faculty                    |");
-            System.out.println("| 3. Public Member              |");
-            System.out.println("| 4. Admin (Login Required)     |");
-            System.out.println("| 0. Exit                       |");
-            System.out.println("=================================");
-            System.out.print("Please select your role: ");
+            System.out.println("\n  ==================================");
+            System.out.println("  |     Welcome to Bibi Library    |");
+            System.out.println("  |--------------------------------|");
+            System.out.println("  |  1. Student                    |");
+            System.out.println("  |  2. Faculty                    |");
+            System.out.println("  |  3. Public Member              |");
+            System.out.println("  |  4. Admin (Login Required)     |");
+            System.out.println("  |  0. Exit                       |");
+            System.out.println("  ==================================");
+            System.out.print("  Please select your role: ");
 
             if (!input.hasNextInt()) {
                 input.nextLine();
-                System.out.println("Invalid input!");
+                System.out.println("  Invalid input!");
                 continue;
             }
             int choice = input.nextInt();
             input.nextLine();
 
 
-            if (choice == 0) {
-                System.out.println("Thank you for visiting Bibi Library. Have a great day! ^o^");
+            if (choice == 0) { 
+                System.out.println("\n  ==============================================================");
+                System.out.println("  | Thank you for visiting Bibi Library. Have a great day! ^o^ |");
+                System.out.println("  ==============================================================\n");
                 return null;
             } else if (choice >= 1 && choice <= 3) {
-                String[] roles = {"Student", "Faculty", "Public Member"};
-                System.out.println("Welcome, " + roles[choice - 1] + "! Enjoy exploring our collection.");
+                String[] roles = {"  Student", "  Faculty", "  Public Member"};
+                System.out.println("  Welcome, " + roles[choice - 1] + "! Enjoy exploring our collection.");
                 return roles[choice - 1];
             } else if (choice == 4) {
-                System.out.print("Admin Username: ");
+                System.out.print("  Admin Username: ");
                 String u = input.nextLine();
-                System.out.print("Admin Password: ");
+                System.out.print("  Admin Password: ");
                 String p = input.nextLine();
 
                 for (Account acc : accounts) {
                     if (acc.username.equals(u) && acc.password.equals(p) && acc.type.equals("Admin")) {
-                        System.out.println("Admin Login Success!");
-                        return "Admin";
+                        System.out.println("  Admin Login Success!");
+                        return "  Admin";
                     }
                 }
-                System.out.println("Access Denied: Incorrect Admin credentials.");
+                System.out.println("  Access Denied: Incorrect Admin credentials.");
 
             } else {
-                System.out.println("Invalid choice, please try again.");
+                System.out.println("  Invalid choice, please try again.");
             }
         }
     }

@@ -4,7 +4,6 @@ public class Book extends LibraryItem {
     private String isbn ;
     private int stockQuantity ;
 
-    //Constructor
     public Book (String itemId , String title , String author , String isbn , int stockQuantity) {
         super(itemId , title);
         this.author = author ;
@@ -43,19 +42,19 @@ public class Book extends LibraryItem {
 
     @Override
     public void displayItemDetails() {
-        System.out.println("-----Book Details-----");
-        System.out.println("Book ID : " + getItemId());
-        System.out.println("Title : " + getTitle());
-        System.out.println("Author : " + author);
-        System.out.println("ISBN : " + isbn);
-        System.out.println("Stock Quantity : " + stockQuantity);
+        System.out.println("  -----Book Details-----");
+        System.out.println("  Book ID : " + getItemId());
+        System.out.println("  Title : " + getTitle());
+        System.out.println("  Author : " + author);
+        System.out.println("  ISBN : " + isbn);
+        System.out.println("  Stock Quantity : " + stockQuantity);
         if (isAvailable()){
-            System.out.println("Status : Available");
+            System.out.println("  Status : Available");
         }
         else {
-            System.out.println("Status : Out of Stock");
+            System.out.println("  Status : Out of Stock");
         }
-        System.out.println("-----------------------");
+        System.out.println("  -----------------------");
     }
 
 }

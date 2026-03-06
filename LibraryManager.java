@@ -60,10 +60,10 @@ public class LibraryManager {
     }
 
     public void displayAllcatalog(){
-        System.out.println("\n --- Complete Library Catalog --- ");
+        System.out.println("\n   --- Complete Library Catalog --- ");
 
         if (bookCatalog.isEmpty()){
-            System.out.println("The catalog is currently empty.");
+            System.out.println("  The catalog is currently empty.");
             return;
         }
 
