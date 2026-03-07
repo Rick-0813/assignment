@@ -1,9 +1,18 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Scanner;
+
+
 public class FineBalance {
 
     private static final double FINE_RATE_PER_DAY = 0.50;
     private static final double LOST_ITEM_PENALTY = 50.00;
     private static final int LOST_THRESHOLD_DAYS = 30;
     private static final int MAX_RECORDS = 1000;
+
+    private static final String FINES_FILE = "fines_data.txt";
 
     public static class FineRecord {
 
@@ -68,6 +77,46 @@ public class FineBalance {
     private FineRecord[] fineRecords = new FineRecord[MAX_RECORDS];
     private int recordCount = 0;
 
+    public FineBalance() {
+        loadFines();
+    }
+
+    public void loadFines(){
+        File file = new File(FINES_FILE);
+        if (!file.exists()) return;
+
+        try (Scanner scanner = new Scanner(file)) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine().trim();
+                if (line.isEmpty()) continue;
+                
+                String[] data = line.split(","); 
+            if (data.length >= 6) {
+                    FineRecord record = new FineRecord(data[0].trim(), data[1].trim(), data[2].trim(),
+                            Double.parseDouble(data[3].trim()), Double.parseDouble(data[4].trim()));
+                    record.setPaid(Boolean.parseBoolean(data[5].trim()));
+                    fineRecords[recordCount++] = record;
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("[System] Error loading fines data: " + e.getMessage());  
+        }
+    
+    }
+
+    private void saveFines() {
+        try (PrintWriter pw = new PrintWriter(new FileWriter(FINES_FILE, false))) {
+            for (int i = 0; i < recordCount; i++) {
+                FineRecord r = fineRecords[i];
+                pw.println(r.getUserID() + "," + r.getItemTitle() + "," + r.getFineType() + ","
+                        + r.getOverdueAmount() + "," + r.getLostPenalty() + "," + r.isPaid());
+            }
+            pw.flush();
+        } catch (IOException e) {
+            System.out.println("  [System] Error saving fines data.");
+        }
+    }
+
     public double processFine(String userID, String itemTitle, int daysLate) {
         if (daysLate <= 0) {
             System.out.println("  No fine. Item returned on time.");
@@ -90,8 +139,8 @@ public class FineBalance {
         } else {
             double fine = daysLate * FINE_RATE_PER_DAY;
 
-            fineRecords[recordCount++] = new FineRecord(
-                    userID, itemTitle, "OVERDUE", fine, 0);
+            fineRecords[recordCount++] = new FineRecord(userID, itemTitle, "OVERDUE", fine, 0);
+            saveFines();
 
             System.out.printf("  [Overdue Fine] '%s' — %d day(s) late. Fine: RM %.2f%n",
                     itemTitle, daysLate, fine);
@@ -104,10 +153,15 @@ public class FineBalance {
         if (outstanding == 0)
             return false;
 
+        boolean changed = false;
         for (int i = 0; i < recordCount; i++) {
             if (fineRecords[i].getUserID().equals(userID) && !fineRecords[i].isPaid()) {
                 fineRecords[i].markPaid();
+                changed = true;
             }
+        }
+        if (changed) {
+            saveFines();
         }
         return true;
     }

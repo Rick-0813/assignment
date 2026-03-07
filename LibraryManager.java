@@ -1,25 +1,91 @@
 import java.util.ArrayList;
+import java.io.File;
+import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class LibraryManager {
     private ArrayList<AdminLibrary> userList = new ArrayList<>();
     private ArrayList<LibraryItem> bookCatalog = new ArrayList<>();
     private FineBalance fineBalance = new FineBalance();
     private FineMenu fineMenu = new FineMenu(fineBalance);
-    public FineMenu getFineMenu() { return fineMenu; }
+    
+    private static final String LOG_FILE = "system_logs.txt";
+    private static final String USER_DATA_FILE = "users_data.txt";
 
+    public FineMenu getFineMenu() { return fineMenu; }
 
     public LibraryManager() {
         bookCatalog.add(new Book("B001", "Java Programming", "Chong", "ISBN001",5));
         bookCatalog.add(new Magazine("M001", "Tech Monthly", "TechPress", 42 , 10));
         bookCatalog.add(new DVD("D001","Inception","Christopher Nolan", 148, 3));
+        fineBalance.processFine("S001FOIT", "Java Programming", 10); 
+        
+        System.out.println("\n  [System Boot] Booting up Library Database...");
+        loadUsersData(); 
+    }
+
+   
+    private void loadUsersData() {
+        File file = new File(USER_DATA_FILE);
+        System.out.println("  [System] Looking for data at: " + file.getAbsolutePath());
+        
+        if (!file.exists()) {
+            System.out.println("  [System] Status: No previous data found. Starting fresh.");
+            return;
+        }
+        
+        int count = 0;
+        try (Scanner scanner = new Scanner(file)) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine().trim();
+                if (line.isEmpty()) continue;
+                
+                String[] data = line.split(",");
+                if (data.length >= 5) {
+
+                    AdminLibrary loadedUser = new AdminLibrary(data[0].trim(), data[1].trim(), data[2].trim(), data[3].trim());
+                    loadedUser.setActive(Boolean.parseBoolean(data[4].trim()));
+                    userList.add(loadedUser);
+                    count++;
+                }
+            }
+            System.out.println("  [System] Status: Success! Loaded " + count + " user(s) into memory.");
+        } catch (Exception e) {
+            System.out.println("  [System] ERROR loading data: " + e.getMessage());
+        }
+    }
+
+    private void saveUsersData() {
+        File file = new File(USER_DATA_FILE);
+        try (PrintWriter pw = new PrintWriter(new FileWriter(file, false))) {
+            for (AdminLibrary u : userList) {
+                pw.println(u.getAdminName() + "," + u.getUserID() + "," + u.getUserType() + "," + u.getEmail() + "," + u.isActive());
+            }
+            pw.flush(); 
+            System.out.println("  [System] Save trigger: Data successfully updated at " + file.getAbsolutePath());
+        } catch (IOException e) {
+            System.out.println("  [System] ERROR saving data: " + e.getMessage());
+        }
+    }
+
+    public void addLog(String userID, String action, String details) {
+        String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        String logEntry = "[" + timestamp + "] User: " + userID + " | Action: " + action + " | Details: " + details;
+        try (FileWriter fw = new FileWriter(LOG_FILE, true);
+             PrintWriter pw = new PrintWriter(fw)) {
+            pw.println(logEntry);
+        } catch (IOException e) { }
     }
 
     public void addCatalogItem(LibraryItem item){
         bookCatalog.add(item);
         System.out.println("Success! [ "+ item.getTitle() +" ] is added to the catalog.");
+        addLog("Admin", "ADD_CATALOG", "Added Item: " + item.getItemId());
     }
-
-
 
     public void searchBooks(String query){
         System.out.println("\n--- Category Search Results ---");
@@ -32,16 +98,23 @@ public class LibraryManager {
             }
         }
         if (!found) System.out.println(" No matching books found for query: " + query);
-        
     }
 
     public void addUser(AdminLibrary newUser){
         userList.add(newUser);
         System.out.println(" User [" + newUser.getAdminName() + "] added successfully.");
+        addLog("Admin", "ADD_USER", "Added User ID: " + newUser.getUserID());
+        saveUsersData();
     }
 
     public boolean removeUser(String id) {
-        return userList.removeIf(u -> u.getUserID().equals(id));
+        boolean removed = userList.removeIf(u -> u.getUserID().equals(id));
+        if (removed) {
+            System.out.println(" User removed successfully.");
+            addLog("Admin", "REMOVE_USER", "Removed User ID: " + id);
+            saveUsersData(); 
+        }
+        return removed;
     }
     
     public void toggleUserStatus(String id) {
@@ -49,6 +122,8 @@ public class LibraryManager {
             if (u.getUserID().equals(id)) {
                 u.setActive(!u.isActive());
                 System.out.println("User [" + u.getAdminName() + "] is now " + (u.isActive() ? "ENABLED" : "DISABLED") );
+                addLog("Admin", "TOGGLE_STATUS", "Changed status of User ID: " + id);
+                saveUsersData(); 
                 return;
             }
         }
@@ -57,20 +132,31 @@ public class LibraryManager {
 
     public void displayAllUsers() {
         System.out.println("\n--- Registered Patrons ---");
+        if (userList.isEmpty()) {
+            System.out.println("  [!] No users currently exist in the system.");
+        }
+        
+        System.out.printf("%-12s | %-10s | %-15s | %-20s | %s%n", "STATUS", "USER ID", "TYPE", "NAME", "OUTSTANDING FINES");
+        System.out.println("--------------------------------------------------------------------------------------");
+        
         for (AdminLibrary u : userList) {
             String status = u.isActive() ? "[ACTIVE]" : "[DISABLED]";
-            System.out.println(status + " ID: " + u.getUserID() + " | Name: " + u.getAdminName());
+            
+            double owed = fineBalance.getOutstandingBalance(u.getUserID());
+            
+           
+            System.out.printf("%-12s | %-10s | %-15s | %-20s | RM %.2f%n", 
+                              status, u.getUserID(), u.getUserType(), u.getAdminName(), owed);
         }
+        System.out.println("--------------------------------------------------------------------------------------");
     }
 
     public void displayAllcatalog(){
         System.out.println("\n   --- Complete Library Catalog --- ");
-
         if (bookCatalog.isEmpty()){
             System.out.println("  The catalog is currently empty.");
             return;
         }
-
         for (LibraryItem item : bookCatalog){
             item.displayItemDetails();
         }

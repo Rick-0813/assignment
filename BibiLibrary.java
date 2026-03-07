@@ -5,7 +5,7 @@ public class BibiLibrary {
     private static Scanner input = new Scanner(System.in);
     private static LibraryManager manager = new LibraryManager();
     private static final String USER_FILE = "users_data.txt";
-
+    String currentUserID = "";
     public static void main(String[] args) {
 
         while (true) {
@@ -25,7 +25,7 @@ public class BibiLibrary {
                 System.out.println("=============================================================================");
                 System.out.println("Current Role: " + userType);
                 
-                if (userType.equals("Admin")) {
+                if (userType.trim().equalsIgnoreCase("Admin")) {
                     System.out.println("  1. User Management\n  2. Circulation Module\n  3. Cataloging Admin\n  4. Fees and Audits");
                 } else {
                     System.out.println("  1. Search Catalog\n  2. My Loans\n  3. My Bills");
@@ -52,7 +52,7 @@ public class BibiLibrary {
     }
 
     private static void handleMenu(String userType, int choice) {
-        if (userType.equals("  Admin")) {
+        if (userType.trim().equalsIgnoreCase("Admin")) {
             switch (choice) {
                 case 1: 
                 ManagmentUser(); 
@@ -69,10 +69,14 @@ public class BibiLibrary {
                 manager.searchBooks(input.nextLine());
                 break;
                 case 2: 
-                System.out.println("Current status: Clear."); 
+                System.out.println("Enter your User ID to view loans: ");
+                String userID = input.nextLine(); 
+                System.out.println("Checking loans for User ID [" + userID + "]... Current status: Clear.");
                 break;
                 case 3: 
-                manager.getFineMenu().showFineMenuIfOwed(userType.trim(), userType.trim(), input);
+                System.out.print("Enter your User ID to check bills: ");
+                String billUserID = input.nextLine();
+                manager.getFineMenu().showFineMenuIfOwed(billUserID, userType.trim(), input);
                 break;
                 default: 
                 System.out.println("  Invalid choice.");
@@ -121,18 +125,49 @@ public class BibiLibrary {
 
     
     private static void addUser() {
-        System.out.println("  Name (IC/Passport): ");
-        String name = input.nextLine();
-        System.out.println("  User ID: ");
-        String id = input.nextLine();
-        System.out.println("  Email: ");
-        String email = input.nextLine();
-        System.out.println("  Type (Admin/Patron): ");
-        String type = input.nextLine();
+        String name;
+        do {
+            System.out.print("  Name (IC/Passport): ");
+            name = input.nextLine().trim();
+            if (name.isEmpty()) {
+                System.out.println("  [!] Error: Name cannot be empty. Please try again.");
+            }
+        } while (name.isEmpty());
+
+        String id;
+        do {
+            System.out.print("  User ID: ");
+            id = input.nextLine().trim();
+            if (id.isEmpty()) {
+                System.out.println("  [!] Error: User ID cannot be empty. Please try again.");
+            }
+        } while (id.isEmpty());
+
+        String email;
+        do {
+            System.out.print("  Email: ");
+            email = input.nextLine().trim();
+            if (email.isEmpty()) {
+                System.out.println("  [!] Error: Email cannot be empty. Please try again.");
+            }
+        } while (email.isEmpty());
+
+        String type;
+        do {
+
+            System.out.print("  Type (Admin/Faculty/Student/Public Member): ");
+            type = input.nextLine().trim();
+            if (type.isEmpty()) {
+                System.out.println("  [!] Error: Type cannot be empty. Please try again.");
+            }
+        } while (type.isEmpty());
         
         AdminLibrary profile = new AdminLibrary(name, id, type, email);
-        manager.addUser(profile);
+        
+        manager.addUser(profile); 
     }
+    
+
 
     private static void removeUser() {
         System.out.println("  Enter User ID to remove: ");
@@ -188,7 +223,7 @@ public class BibiLibrary {
             else{
                 System.out.println("  Function " + choice + " is under construction!");
             }
-            }
+        }
     }
 
         private static void addNewCatalogItem() {
@@ -210,7 +245,7 @@ public class BibiLibrary {
             int typeChoice = input.nextInt() ;
             input.nextLine() ;
 
-            if (typeChoice <1 || typeChoice >3){
+            if (typeChoice < 1 || typeChoice > 3){
                 System.out.println("  Error! Invalid Input.");
                 return;
             }
@@ -231,7 +266,7 @@ public class BibiLibrary {
             int stockQuantity = input.nextInt();
             input.nextLine();
 
-            if(typeChoice ==1) {
+            if(typeChoice == 1) {
                 System.out.print("  Enter Author : ");
                 String author =  input.nextLine();
                 System.out.print("  Enter ISBN : ");

@@ -23,16 +23,12 @@ public class AdminLibrary {
         }
     }
 
-    public boolean isActive() {
-        return isActive;
-    }
-    public void setActive(boolean active) {
-        this.isActive = active;
-    }
-    public String getAdminName() { 
-        return adminName; 
-    }
-    public String getUserID() { 
-        return userID; 
-    }
+    public boolean isActive() { return isActive; }
+    public void setActive(boolean active) { this.isActive = active; }
+    public String getAdminName() { return adminName; }
+    public String getUserID() { return userID; }
+    
+  
+    public String getUserType() { return userType; }
+    public String getEmail() { return email; }
 }

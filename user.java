@@ -7,7 +7,6 @@ public class user {
 
     static {
         loadAccounts();
-
         if (accounts.isEmpty()) accounts.add(new Account("admin", "1234", "Admin"));
     }
 
@@ -37,14 +36,13 @@ public class user {
             int choice = input.nextInt();
             input.nextLine();
 
-
             if (choice == 0) { 
                 System.out.println("\n  ==============================================================");
                 System.out.println("  | Thank you for visiting Bibi Library. Have a great day! ^o^ |");
                 System.out.println("  ==============================================================\n");
                 return null;
             } else if (choice >= 1 && choice <= 3) {
-                String[] roles = {"  Student", "  Faculty", "  Public Member"};
+                String[] roles = {"Student", "Faculty", "Public Member"}; 
                 System.out.println("  Welcome, " + roles[choice - 1] + "! Enjoy exploring our collection.");
                 return roles[choice - 1];
             } else if (choice == 4) {
@@ -60,7 +58,6 @@ public class user {
                     }
                 }
                 System.out.println("  Access Denied: Incorrect Admin credentials.");
-
             } else {
                 System.out.println("  Invalid choice, please try again.");
             }
