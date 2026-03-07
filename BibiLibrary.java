@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.io.*;
 
 public class BibiLibrary {
     private static Scanner input = new Scanner(System.in);
