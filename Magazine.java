@@ -43,19 +43,23 @@ public class Magazine extends LibraryItem {
 
     @Override
     public void displayItemDetails() {
-        System.out.println("-----Magazine Details-----");
-        System.out.println("Magazine ID : " + getItemId());
-        System.out.println("Title : " + getTitle());
-        System.out.println("Publisher : " + publisher);
-        System.out.println("Issue Number : " + issueNumber);
-        System.out.println("Stock Quantity : " + stockQuantity);
+        System.out.println("  -----Magazine Details-----");
+        System.out.println("  Magazine ID : " + getItemId());
+        System.out.println("  Title : " + getTitle());
+        System.out.println("  Publisher : " + publisher);
+        System.out.println("  Issue Number : " + issueNumber);
+        System.out.println("  Stock Quantity : " + stockQuantity);
         if (isAvailable()){
-            System.out.println("Status : Available");
+            System.out.println("  Status : Available");
         }
         else {
-            System.out.println("Status : Out of Stock");
+            System.out.println("  Status : Out of Stock");
         }
-        System.out.println("--------------------------");
+        System.out.println("  --------------------------");
     }
 
+    @Override
+    public String toFileString() {
+        return "Magazine, " + getItemId()+ " ," + getTitle() + " ," + publisher + " ," + getStockQuantity() ;
+    }
 }

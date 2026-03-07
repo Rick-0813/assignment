@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.io.File;
+import java.io.*;
 import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -19,16 +20,21 @@ public class LibraryManager {
     public FineMenu getFineMenu() { return fineMenu; }
 
     public LibraryManager() {
+        File catFile = new File("catalog_data.txt");
+        if(catFile.exists() && catFile.length() > 0){
+            loadCatalogFromFile();
+        }
+        else {
         bookCatalog.add(new Book("B001", "Java Programming", "Chong", "ISBN001",5));
         bookCatalog.add(new Magazine("M001", "Tech Monthly", "TechPress", 42 , 10));
         bookCatalog.add(new DVD("D001","Inception","Christopher Nolan", 148, 3));
+        }
         fineBalance.processFine("S001FOIT", "Java Programming", 10); 
         
         System.out.println("\n  [System Boot] Booting up Library Database...");
         loadUsersData(); 
     }
 
-   
     private void loadUsersData() {
         File file = new File(USER_DATA_FILE);
         System.out.println("  [System] Looking for data at: " + file.getAbsolutePath());
@@ -76,7 +82,7 @@ public class LibraryManager {
         String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         String logEntry = "[" + timestamp + "] User: " + userID + " | Action: " + action + " | Details: " + details;
         try (FileWriter fw = new FileWriter(LOG_FILE, true);
-             PrintWriter pw = new PrintWriter(fw)) {
+            PrintWriter pw = new PrintWriter(fw)) {
             pw.println(logEntry);
         } catch (IOException e) { }
     }
@@ -85,6 +91,7 @@ public class LibraryManager {
         bookCatalog.add(item);
         System.out.println("Success! [ "+ item.getTitle() +" ] is added to the catalog.");
         addLog("Admin", "ADD_CATALOG", "Added Item: " + item.getItemId());
+        saveCatalogToFile();
     }
 
     public void searchBooks(String query){
@@ -146,12 +153,12 @@ public class LibraryManager {
             
            
             System.out.printf("%-12s | %-10s | %-15s | %-20s | RM %.2f%n", 
-                              status, u.getUserID(), u.getUserType(), u.getAdminName(), owed);
+                            status, u.getUserID(), u.getUserType(), u.getAdminName(), owed);
         }
         System.out.println("--------------------------------------------------------------------------------------");
     }
 
-    public void displayAllcatalog(){
+    public void displayAllCatalog(){
         System.out.println("\n   --- Complete Library Catalog --- ");
         if (bookCatalog.isEmpty()){
             System.out.println("  The catalog is currently empty.");
@@ -160,5 +167,65 @@ public class LibraryManager {
         for (LibraryItem item : bookCatalog){
             item.displayItemDetails();
         }
+    }
+
+    public void saveCatalogToFile() {
+
+        try (PrintWriter writer = new PrintWriter (new FileWriter ("catalog_data.txt"))) {
+            
+            for(LibraryItem item : bookCatalog){
+                writer.println(item.toFileString());
+            }
+
+            System.out.println("  Data successfully saved to catalog_data.txt");
+        }
+
+        catch(Exception e){
+            System.out.println("  Error , data not save to catalog_data,txt") ;
+        }
+    }
+
+    private void loadCatalogFromFile(){
+        File file = new File ("catalog_data.txt");
+        if(!file.exists())
+            return;
+
+        try (Scanner scanner = new Scanner(file)){
+            while (scanner.hasNextLine()){
+                String line = scanner.nextLine();
+                if (line.isEmpty())
+                    continue;
+
+                String[] data = line.split(",");
+
+                if (data[0].equals("Book") && data.length >= 6){
+                    bookCatalog.add( new Book (data[1], data[2], data[3], data[4], Integer.parseInt(data[5])));
+                }
+                else if (data[0].equals("Magazine") && data.length >= 6) {
+                    bookCatalog.add(new Magazine(data[1], data[2], data[3], Integer.parseInt(data[4]), Integer.parseInt(data[5])));
+                }
+                else if (data[0].equals("DVD") && data.length >= 6) {
+                    bookCatalog.add(new DVD(data[1], data[2], data[3], Integer.parseInt(data[4]), Integer.parseInt(data[5])));
+                }
+            }
+        }
+        catch (Exception e) {
+            System.out.println("System error to loading catalog data");
+        }
+    }
+
+    public void removeCatalogItem(String itemId){
+
+        boolean isRemoved = bookCatalog.removeIf(item -> item.getItemId().equalsIgnoreCase(itemId));
+
+        if(isRemoved){
+            System.out.println("  Success ! Item  [" + itemId + "] has been permanently removed.");
+        saveCatalogToFile();
+        }
+
+        else {
+            System.out.println("  Failed ! Item  [" + itemId + "] not found in the catalog.");
+        }
+
     }
 }
