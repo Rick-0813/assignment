@@ -43,19 +43,23 @@ public class DVD extends LibraryItem {
 
     @Override
     public void displayItemDetails() {
-        System.out.println("-----DVD Details-----");
-        System.out.println("DVD ID : " + getItemId());
-        System.out.println("Title : " + getTitle());
-        System.out.println("Director : " + getDirector());
-        System.out.println("Duration : " + getDuration());
-        System.out.println("Stock Quantity : " + stockQuantity);
+        System.out.println("  -----DVD Details-----");
+        System.out.println("  DVD ID : " + getItemId());
+        System.out.println("  Title : " + getTitle());
+        System.out.println("  Director : " + getDirector());
+        System.out.println("  Duration : " + getDuration());
+        System.out.println("  Stock Quantity : " + stockQuantity);
         if (isAvailable()){
-            System.out.println("Status : Available");
+            System.out.println("  Status : Available");
         }
         else {
-            System.out.println("Status : Out of Stock");
+            System.out.println("  Status : Out of Stock");
         }
-        System.out.println("---------------------");
+        System.out.println("  ---------------------");
     }
 
+    @Override
+    public String toFileString() {
+        return "DVD, " + getItemId() + " ," + getTitle() + " ," + director + " ," + duration + " ," + getStockQuantity() ; 
+    }
 }

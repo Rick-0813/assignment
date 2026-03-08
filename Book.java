@@ -57,4 +57,9 @@ public class Book extends LibraryItem {
         System.out.println("  -----------------------");
     }
 
+    @Override
+    public String toFileString() {
+        return "Book, "  + getItemId() + " ," + getTitle() + " ," + author + " ," + isbn +" ," + getStockQuantity();
+    }
+
 }

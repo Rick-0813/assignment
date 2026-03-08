@@ -216,7 +216,14 @@ public class BibiLibrary {
             }
 
             else if (choice == 2) {
-                manager.displayAllcatalog();
+                manager.displayAllCatalog();
+            }
+
+            else if (choice == 4) {
+                System.out.print("\n  Enter the Item ID you want to remove (e.g. B001) :");
+                String removeId = input.nextLine();
+
+                manager.removeCatalogItem(removeId);
             }
 
             else{

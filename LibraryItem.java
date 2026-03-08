@@ -32,4 +32,6 @@ public abstract class LibraryItem{
     }
 
     public abstract void  displayItemDetails() ;
+
+    public abstract String toFileString();
 }
