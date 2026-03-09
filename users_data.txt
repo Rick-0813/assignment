@@ -2,4 +2,3 @@ GOH WEI JUN,ST001ACC,student,gohjun@gmail.com,true
 CHIA WEN KHAI,ST001DCS,student,wenkhai@gmail.com,true
 EUVINA,F001,faculty,EVN@gmail.com,true
 WEILE,M001,Member,weile@gmail.com,true
-s
