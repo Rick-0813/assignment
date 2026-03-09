@@ -3,7 +3,6 @@ import java.util.Scanner;
 public class BibiLibrary {
     private static Scanner input = new Scanner(System.in);
     private static LibraryManager manager = new LibraryManager();
-    private static final String USER_FILE = "users_data.txt";
     String currentUserID = "";
     public static void main(String[] args) {
 
@@ -84,45 +83,78 @@ public class BibiLibrary {
     }
 
     private static void ManagmentUser() {
-    while (true) {
-        System.out.println("  ============================");
-        System.out.println("  | User Management Options  |");
-        System.out.println("  ============================");
-        System.out.println("  |      1. Add User         |");
-        System.out.println("  |     2. Remove User       |");
-        System.out.println("  |    3. View All Users     |");
-        System.out.println("  | 4. Account Status Control|");
-        System.out.println("  |    0. Back to Admin Menu |");
-        System.out.println("  ============================");
-        System.out.print("  Select an option: ");
+        while (true) {
+            System.out.println("  ==============================");
+            System.out.println("  |   User Management Options  |");
+            System.out.println("  ==============================");
+            System.out.println("  |  1. Add User               |");
+            System.out.println("  |  2. Remove User            |");
+            System.out.println("  |  3. Edit User              |");
+            System.out.println("  |  4. View All Users         |"); 
+            System.out.println("  |  5. Account Status Control |"); 
+            System.out.println("  |  0. Back to Admin Menu     |");
+            System.out.println("  ==============================");
+            System.out.print("  Select an option: ");
 
-        if (!input.hasNextInt()) {
-            System.out.println("  Error: Please enter a number.");
+            int userChoice = input.nextInt();
             input.nextLine(); 
-            continue; 
+            if (userChoice == 0) {
+                System.out.println("  Returning to Admin Menu...");
+                break;
+            } else if (userChoice == 1) {
+                addUser();
+            } else if (userChoice == 2) {
+                removeUser();
+            } else if (userChoice == 3) {
+                editUser();
+            } else if (userChoice == 4) {
+                manager.displayAllUsers(); 
+            } else if (userChoice == 5) {
+                accountStatusControl(); 
+            } else { 
+                System.out.println("  Invalid choice. Please try again.");
+            }
         }
-
-        int userChoice = input.nextInt();
-        input.nextLine(); 
-        if (userChoice == 0) {
-            System.out.println("  Returning to Admin Menu...");
-            break;
-        } else if (userChoice == 1) {
-            addUser();
-        } else if (userChoice == 2) {
-            removeUser();
-        } else if (userChoice == 3) {
-            manager.displayAllUsers();
-        } else if (userChoice == 4) {
-            accountStatusControl();
-        } else { 
-            System.out.println("  Invalid choice. Please try again.");
-        }
-
     }
-}
 
-    
+    private static void editUser() {
+        System.out.print("  Enter User ID to edit: ");
+        String id = input.nextLine().trim();
+
+        // 1. 找人
+        AdminLibrary user = manager.getUserByID(id);
+        
+        if (user == null) {
+            System.out.println("  [!] User ID not found.");
+            return;
+        }
+
+        System.out.println("\n  --- Editing User: " + user.getAdminName() + " ---");
+        System.out.println("  (Tip: Press ENTER to keep current data)");
+
+        System.out.print("  New Name [" + user.getAdminName() + "]: ");
+        String newName = input.nextLine().trim();
+        if (!newName.isEmpty()) {
+            user.setAdminName(newName);
+        }
+
+        System.out.print("  New Email [" + user.getEmail() + "]: ");
+        String newEmail = input.nextLine().trim();
+        if (!newEmail.isEmpty()) {
+            user.setEmail(newEmail);
+        }
+
+        System.out.print("  New Type [" + user.getUserType() + "]: ");
+        String newType = input.nextLine().trim();
+        if (!newType.isEmpty()) {
+            user.setUserType(newType);
+        }
+
+        manager.updateUser();
+        manager.addLog("Admin", "EDIT_USER", "Edited details for User ID: " + id);
+        System.out.println("  [System] User details updated successfully!");
+    }
+
     private static void addUser() {
         String name;
         do {
