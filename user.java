@@ -25,15 +25,15 @@ public class user {
                                         "                                                                   `---'    ");
                 
             System.out.println("=============================================================================");
-            System.out.println("\n  ==================================");
-            System.out.println("  |     Welcome to Bibi Library    |");
-            System.out.println("  |--------------------------------|");
-            System.out.println("  |  1. Student                    |");
-            System.out.println("  |  2. Faculty                    |");
-            System.out.println("  |  3. Public Member              |");
-            System.out.println("  |  4. Admin (Login Required)     |");
-            System.out.println("  |  0. Exit                       |");
-            System.out.println("  ==================================");
+            System.out.println("\n                   ==================================");
+            System.out.println("                   |     Welcome to Bibi Library    |");
+            System.out.println("                   |--------------------------------|");
+            System.out.println("                   |    1. Student                  |");
+            System.out.println("                   |    2. Faculty                  |");
+            System.out.println("                   |    3. Public Member            |");
+            System.out.println("                   |    4. Admin (Login Required)   |");
+            System.out.println("                   |    0. Exit                     |");
+            System.out.println("                   ==================================");
             System.out.print("  Please select your role: ");
 
             if (!input.hasNextInt()) {

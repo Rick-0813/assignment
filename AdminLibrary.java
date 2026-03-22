@@ -7,6 +7,15 @@ public class AdminLibrary {
     private int currentBorrowedBooks = 0;
     private int loanDuration;
     private boolean isActive = true;
+    private double outstandingFines = 0.0;
+
+    public double getOutstandingFines() { 
+        return outstandingFines; 
+    }
+     
+    public void setOutstandingFines(double amount) {
+        this.outstandingFines = amount;
+    }
 
     public void setCurrentBorrowedBooks(int amount) {
         this.currentBorrowedBooks = amount;

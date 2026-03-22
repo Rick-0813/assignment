@@ -26,7 +26,6 @@ public class LibraryManager {
         bookCatalog.add(new Magazine("M001", "Tech Monthly", "TechPress", 42 , 10));
         bookCatalog.add(new DVD("D001","Inception","Christopher Nolan", 148, 3));
         }
-        fineBalance.processFine("S001FOIT", "Java Programming", 10); 
         
         System.out.println("\n  [System Boot] Booting up Library Database...");
         loadUsersData(); 
@@ -97,6 +96,9 @@ public class LibraryManager {
                         loadedUser.setCurrentBorrowedBooks(Integer.parseInt(data[5].trim()));
                     }
                     
+                    if (data.length >= 7) {
+                        loadedUser.setOutstandingFines(Double.parseDouble(data[6].trim()));
+                    }
                     userList.add(loadedUser);
                     count++;
                 }
@@ -111,7 +113,10 @@ public class LibraryManager {
         File file = new File(USER_DATA_FILE);
         try (PrintWriter pw = new PrintWriter(new FileWriter(file, false))) {
             for (AdminLibrary u : userList) {
-                pw.println(u.getAdminName() + "," + u.getUserID() + "," + u.getUserType() + "," + u.getEmail() + "," + u.isActive() + "," + u.getCurrentBorrowedBooks());
+                double currentOwed = fineBalance.getOutstandingBalance(u.getUserID());
+                u.setOutstandingFines(currentOwed);
+
+                pw.println(u.getAdminName() + "," + u.getUserID() + "," + u.getUserType() + "," + u.getEmail() + "," + u.isActive() + "," + u.getCurrentBorrowedBooks() + "," + currentOwed);
             }
             pw.flush(); 
             System.out.println("  [System] Save trigger: Data successfully updated at " + file.getAbsolutePath());
