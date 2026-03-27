@@ -1,14 +1,14 @@
-public class Magazine extends LibraryItem {
+public class Manga extends LibraryItem {
 
-    private String publisher ;
-    private int issueNumber ;
+    private String illustrator ;
+    private int volumeNumber ;
     private int stockQuantity ;
 
     //Constructor
-    public Magazine (String itemId , String title , String publisher , int issueNumber , int stockQuantity) {
-        super(itemId , title);
-        this.publisher = publisher ;
-        this.issueNumber = issueNumber ;
+    public Manga (String itemId , String title , String isbn , String illustrator , int volumeNumber , int stockQuantity) {
+        super(itemId , title , isbn);
+        this.illustrator = illustrator ;
+        this.volumeNumber = volumeNumber ;
         this.stockQuantity   = stockQuantity;
 
         if (this.stockQuantity > 0) {
@@ -21,14 +21,12 @@ public class Magazine extends LibraryItem {
 
 
     //Getter
-    public String getPublisher() {
-        return publisher;
+    public String getIllustrator() {
+        return illustrator;
     }
-
-    public int getIssueNumber() {
-        return issueNumber;
+    public int getVolumeNumber() {
+        return volumeNumber;
     }
-
     public int getStockQuantity() {
         return stockQuantity;
     }
@@ -43,11 +41,12 @@ public class Magazine extends LibraryItem {
 
     @Override
     public void displayItemDetails() {
-        System.out.println("  -----Magazine Details-----");
-        System.out.println("  Magazine ID : " + getItemId());
+        System.out.println("  -----Manga Details-----");
+        System.out.println("  Manga ID : " + getItemId());
         System.out.println("  Title : " + getTitle());
-        System.out.println("  Publisher : " + publisher);
-        System.out.println("  Issue Number : " + issueNumber);
+        System.out.println("  Isbn : " + getIsbn());
+        System.out.println("  Illustrator : " + illustrator);
+        System.out.println("  Volume  : Vol. " + volumeNumber);
         System.out.println("  Stock Quantity : " + stockQuantity);
         if (isAvailable()){
             System.out.println("  Status : Available");
@@ -60,6 +59,6 @@ public class Magazine extends LibraryItem {
 
     @Override
     public String toFileString() {
-        return "Magazine, " + getItemId()+ " ," + getTitle() + " ," + publisher + " ," + getStockQuantity() ;
+        return "Manga, " + getItemId()+ " ," + getTitle() + " ," + getIsbn() + " ," + illustrator + " ," + volumeNumber + " ," + stockQuantity ;
     }
 }

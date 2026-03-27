@@ -1,5 +1,7 @@
 import java.util.Scanner;
 
+import javax.xml.catalog.Catalog;
+
 public class BibiLibrary {
     private static Scanner input = new Scanner(System.in);
     private static LibraryManager manager = new LibraryManager();
@@ -55,8 +57,8 @@ public class BibiLibrary {
     private static void handleMenu(String userType, int choice) {
         if (userType.trim().equalsIgnoreCase("Admin")) {
             switch (choice) {
-                case 1: 
-                ManagmentUser(); 
+                case 1:
+                ManagmentUser();
                 break;
                 case 2: System.out.println("  Managing circulation..."); break;
                 case 3: catalogMenu(); break;
@@ -69,12 +71,12 @@ public class BibiLibrary {
                 System.out.print("  Search: ");
                 manager.searchBooks(input.nextLine());
                 break;
-                case 2: 
+                case 2:
                 System.out.println("  Enter your User ID to view loans: ");
-                String userID = input.nextLine(); 
+                String userID = input.nextLine();
                 System.out.println("  Checking loans for User ID [" + userID + "]... Current status: Clear.");
                 break;
-                case 3: 
+                case 3:
                 System.out.print("  Enter your User ID to check bills: ");
                 String billUserID = input.nextLine();
                 manager.getFineMenu().showFineMenuIfOwed(billUserID, userType.trim(), input);
@@ -93,8 +95,8 @@ public class BibiLibrary {
             System.out.println("                  |      1. Add User               |");
             System.out.println("                  |      2. Remove User            |");
             System.out.println("                  |      3. Edit User              |");
-            System.out.println("                  |      4. View All Users         |"); 
-            System.out.println("                  |      5. Account Status Control |"); 
+            System.out.println("                  |      4. View All Users         |");
+            System.out.println("                  |      5. Account Status Control |");
             System.out.println("                  |      0. Back to Admin Menu     |");
             System.out.println("                  ==================================");
             System.out.print("  Select an option: ");
@@ -200,8 +202,6 @@ public class BibiLibrary {
         manager.addUser(profile); 
     }
     
-
-
     private static void removeUser() {
         System.out.println("  Enter User ID to remove: ");
         String id = input.nextLine();
@@ -219,18 +219,20 @@ public class BibiLibrary {
         manager.toggleUserStatus(id);
     }
 
-
     private static void  catalogMenu() {
         while(true){
-            System.out.println("\n                      ============================");
-            System.out.println("                      |  Catalog Inventory Menu  |");
-            System.out.println("                      ============================");
-            System.out.println("                      |    1. Add New Item       |");
-            System.out.println("                      |    2. View All Catalog   |");
-            System.out.println("                      |    3. Update Stock       |");
-            System.out.println("                      |    4. Remove Item        |");
-            System.out.println("                      |    0. Back to Admin Menu |");
-            System.out.println("                      ============================");
+            System.out.println("\n  .==================================================.");
+            System.out.println("  |             C A T A L O G   M E N U              |");
+            System.out.println("  |==================================================|");
+            System.out.println("  |                                                  |");
+            System.out.println("  |    [ 1 ]  Add New Item                           |");
+            System.out.println("  |    [ 2 ]  View All Catalog                       |");
+            System.out.println("  |    [ 3 ]  Update Stock / Details                 |");
+            System.out.println("  |    [ 4 ]  Remove Item                            |");
+            System.out.println("  |                                                  |");
+            System.out.println("  |--------------------------------------------------|");
+            System.out.println("  |    [ 0 ]  Back to Admin Menu                     |");
+            System.out.println("  '=================================================='");
             System.out.print("  Select an option: ");
 
             if(!input.hasNextInt()){
@@ -267,15 +269,20 @@ public class BibiLibrary {
         }
     }
 
-        private static void addNewCatalogItem() {
-            System.out.println("\n                      ============================");
-            System.out.println("                      |  Catalog Inventory Menu  |");
-            System.out.println("                      ============================");
-            System.out.println("                      |      1. Add a Book       |");
-            System.out.println("                      |      2. Add a Magazine   |");
-            System.out.println("                      |      3. Add a DVD        |");
-            System.out.println("                      ============================");
-            System.out.print("                      Select item type (1, 2, or 3): ");
+    private static void addNewCatalogItem() {
+        System.out.println("\n  .==================================================.");
+        System.out.println("  |         S E L E C T   I T E M   T Y P E          |");
+        System.out.println("  |==================================================|");
+        System.out.println("  |                                                  |");
+        System.out.println("  |    [ 1 ]  Novel        (Sci-Fi, Romance...)      |");
+        System.out.println("  |    [ 2 ]  Manga        (Comics, Graphic Novels)  |");
+        System.out.println("  |    [ 3 ]  StoryBook    (Kids, Picture Books)     |");
+        System.out.println("  |    [ 4 ]  Self-Help    (Biography, Finance)      |");
+        System.out.println("  |                                                  |");
+        System.out.println("  |--------------------------------------------------|");
+        System.out.println("  |    [ 0 ]  Cancel & Go Back                       |");
+        System.out.println("  '=================================================='");
+        System.out.print("  Select item type (0-4): ");
 
             if(!input.hasNextInt()){
                 System.out.println("                   Error! Invalid Input. Please enter number only .");
@@ -286,17 +293,25 @@ public class BibiLibrary {
             int typeChoice = input.nextInt() ;
             input.nextLine() ;
 
-            if (typeChoice < 1 || typeChoice > 3){
+            if(typeChoice == 0) {
+                System.out.println("Action canceled. Returning to Catalog Menu...");
+                return;
+            }
+
+            if (typeChoice < 1 || typeChoice > 4){
                 System.out.println("                   Error! Invalid Input.");
                 return;
             }
 
 
-            System.out.print("  Enter Item ID (e.g., B001 , M001 , D002) : ");
+            System.out.print("  Enter Item ID (e.g., N001 , M001 , S002) : ");
             String itemId = input.nextLine();
             
             System.out.print("  Enter Title : ");
             String title = input.nextLine();
+
+            System.out.print("  Enter ISBN :");
+            String isbn = input.nextLine();
 
             System.out.print("  Enter Stock QUantity : ");
             if (!input.hasNextInt()){
@@ -307,49 +322,56 @@ public class BibiLibrary {
             int stockQuantity = input.nextInt();
             input.nextLine();
 
-            if(typeChoice == 1) {
-                System.out.print("  Enter Author : ");
-                String author =  input.nextLine();
-                System.out.print("  Enter ISBN : ");
-                String isbn = input.nextLine();
+            switch (typeChoice){
+                case 1 : {
+                    System.out.print("  Enter Author : ");
+                    String author =  input.nextLine();
+                    System.out.print("  Enter Genre (e.g. Thriller, Romance) : ");
+                    String genre = input.nextLine();
 
-                Book newBook = new Book (itemId , title , author , isbn , stockQuantity);
-                manager.addCatalogItem(newBook);
+                    Novel newNovel = new Novel(itemId, title, isbn, author, genre, stockQuantity);
+                    manager.addCatalogItem(newNovel);
+                    break;
             }
 
-            else if (typeChoice == 2){
-                System.out.print("  Enter Publisher : ");
-                String publisher = input.nextLine();
-                System.out.print("  Enter Issue Number : ");
+                case 2 : {
+                System.out.print("  Enter Illustrator : ");
+                String illustrator = input.nextLine();
+                System.out.print("  Enter Volume Number : ");
 
                 if(!input.hasNextInt()){
                     System.out.println("      Error! Issue number must be a number.");
                     input.nextLine();
                     return;
                 }
-                int issueNumber = input.nextInt();
+                int volumeNumber = input.nextInt();
                 input.nextLine();
 
-                Magazine newMag = new Magazine (itemId, title , publisher, issueNumber , stockQuantity);
-                manager.addCatalogItem(newMag);
+                Manga newManga = new Manga(itemId, title, isbn, illustrator, volumeNumber, stockQuantity);
+                manager.addCatalogItem(newManga);
+                break;
             }
 
-            else if ( typeChoice == 3){
-                System.out.print("  Enter Director : ");
-                String director = input.nextLine();
-                System.out.print("  Enter Duration (in minutes) : ");
+                case 3 : {
+                    System.out.print("  Enter Author : ");
+                    String author = input.nextLine();
+                    System.out.print("  Enter Target Age (e.g., 3-5 years) : ");
+                    String targetAge = input.nextLine();
 
-                if (!input.hasNextInt()){
-                    System.out.println("                   Error! Duration must be a number");
-                    input.nextLine();
-                    return;
+                    StoryBook newStoryBook = new StoryBook(itemId, title, isbn, author, targetAge, stockQuantity);
+                    manager.addCatalogItem(newStoryBook);
+                    break;
+            }
+                case 4 : {
+                System.out.print("  Enter Author : ");
+                String author = input.nextLine();
+                System.out.print("  Enter Topic (e.g., Biography, Personal Finance) : ");
+                String topic = input.nextLine();
+
+                SelfHelp newSelfHelp = new SelfHelp(itemId, title, isbn, author, topic, stockQuantity);
+                manager.addCatalogItem(newSelfHelp);
+                break;
                 }
-                int duration = input.nextInt();
-                input.nextLine();
-
-                DVD newDvd = new DVD (itemId , title , director , duration , stockQuantity);
-                manager.addCatalogItem(newDvd);
-
-            }
         }
+    }
 }

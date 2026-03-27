@@ -9,3 +9,6 @@
 [2026-03-07 14:05:12] User: Admin | Action: ADD_USER | Details: Added User ID: M001
 [2026-03-07 21:37:13] User: Admin | Action: ADD_CATALOG | Details: Added Item: Boo2
 [2026-03-22 12:37:27] User: Admin | Action: EDIT_USER | Details: Edited details for User ID: F001
+[2026-03-27 22:41:26] User: Admin | Action: ADD_USER | Details: Added User ID: 1
+[2026-03-27 22:43:41] User: Admin | Action: ADD_CATALOG | Details: Added Item: N001
+[2026-03-27 22:47:37] User: Admin | Action: ADD_CATALOG | Details: Added Item: M001

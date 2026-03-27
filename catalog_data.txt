@@ -1,0 +1,5 @@
+StoryBook, N001 ,The Great Gatsby , ,978074F. Scott ,Fiction ,5
+Manga, M001 ,Naruto ,978156 ,Kishimoto ,1 ,10
+StoryBook, S001 ,Peppa Pig , ,978024Neville ,3-5 years ,3
+StoryBook, N002 ,The Martian , ,9780553418026Andy Weir ,Sci-Fi ,8
+Manga, M002 ,One Peice ,9781421515253 ,Eiichiro Oda ,1 ,15

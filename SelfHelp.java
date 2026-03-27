@@ -1,14 +1,13 @@
-public class DVD extends LibraryItem {
+public class SelfHelp extends LibraryItem {
 
-    private String director ;
-    private int duration ;
+    private String author ;
+    private String topic ;
     private int stockQuantity ;
 
-    //Constructor
-    public DVD (String itemId , String title , String director , int duration , int stockQuantity) {
-        super(itemId , title);
-        this.director = director ;
-        this.duration = duration ;
+    public SelfHelp (String itemId , String title , String isbn , String author , String topic , int stockQuantity) {
+        super(itemId , title ,isbn);
+        this.author = author ;
+        this.topic = topic ;
         this.stockQuantity   = stockQuantity;
 
         if (this.stockQuantity > 0) {
@@ -21,14 +20,12 @@ public class DVD extends LibraryItem {
 
 
     //Getter
-    public String getDirector() {
-        return director;
+    public String getAuthor() {
+        return author;
     }
-
-    public int getDuration() {
-        return duration ;
+    public String getTopic() {
+        return topic ;
     }
-
     public int getStockQuantity() {
         return stockQuantity;
     }
@@ -43,11 +40,12 @@ public class DVD extends LibraryItem {
 
     @Override
     public void displayItemDetails() {
-        System.out.println("  -----DVD Details-----");
-        System.out.println("  DVD ID : " + getItemId());
+        System.out.println("  -----SelfHelp Details-----");
+        System.out.println("  StoryBook ID : " + getItemId());
         System.out.println("  Title : " + getTitle());
-        System.out.println("  Director : " + getDirector());
-        System.out.println("  Duration : " + getDuration());
+        System.out.println("  ISBN : " + getIsbn());
+        System.out.println("  Author : " + author);
+        System.out.println("  Topic : " + topic);
         System.out.println("  Stock Quantity : " + stockQuantity);
         if (isAvailable()){
             System.out.println("  Status : Available");
@@ -55,11 +53,12 @@ public class DVD extends LibraryItem {
         else {
             System.out.println("  Status : Out of Stock");
         }
-        System.out.println("  ---------------------");
+        System.out.println("  -----------------------");
     }
 
     @Override
     public String toFileString() {
-        return "DVD, " + getItemId() + " ," + getTitle() + " ," + director + " ," + duration + " ," + getStockQuantity() ; 
+        return "SelHelp, "  + getItemId() + " ," + getTitle() + " ," + " ," + getIsbn() + author + " ," + topic +" ," + stockQuantity;
     }
+
 }

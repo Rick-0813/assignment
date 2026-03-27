@@ -22,13 +22,14 @@ public class LibraryManager {
             loadCatalogFromFile();
         }
         else {
-        bookCatalog.add(new Book("B001", "Java Programming", "Chong", "ISBN001",5));
-        bookCatalog.add(new Magazine("M001", "Tech Monthly", "TechPress", 42 , 10));
-        bookCatalog.add(new DVD("D001","Inception","Christopher Nolan", 148, 3));
+bookCatalog.add(new Novel("N001", "The Great Gatsby", "978074", "F. Scott", "Fiction", 5));
+            bookCatalog.add(new Manga("M001", "Naruto", "978156", "Kishimoto", 1, 10));
+            bookCatalog.add(new StoryBook("S001", "Peppa Pig", "978024", "Neville", "3-5 years", 3));
+            bookCatalog.add(new SelfHelp("H001", "Atomic Habits", "978073", "James Clear", "Self Improvement", 7));
         }
         
         System.out.println("\n  [System Boot] Booting up Library Database...");
-        loadUsersData(); 
+        loadUsersData();
     }
 
     public void borrowItem(String userID, String itemID) {
@@ -65,11 +66,11 @@ public class LibraryManager {
                 return u;
             }
         }
-        return null; 
+        return null;
     }
 
     public void updateUser() {
-        saveUsersData(); 
+        saveUsersData();
     }
 
     private void loadUsersData() {
@@ -136,13 +137,13 @@ public class LibraryManager {
 
     public void addCatalogItem(LibraryItem item){
         bookCatalog.add(item);
-        System.out.println("Success! [ "+ item.getTitle() +" ] is added to the catalog.");
+        System.out.println("  Success! [ "+ item.getTitle() +" ] is added to the catalog.");
         addLog("Admin", "ADD_CATALOG", "Added Item: " + item.getItemId());
         saveCatalogToFile();
     }
 
     public void searchBooks(String query){
-        System.out.println("\n--- Category Search Results ---");
+        System.out.println("\n  --- Category Search Results ---");
         boolean found = false;
         for (LibraryItem item : bookCatalog) {
             if (item.getTitle().toLowerCase().contains(query.toLowerCase()) || 
@@ -177,18 +178,18 @@ public class LibraryManager {
                 u.setActive(!u.isActive());
                 System.out.println("User [" + u.getAdminName() + "] is now " + (u.isActive() ? "ENABLED" : "DISABLED") );
                 addLog("Admin", "TOGGLE_STATUS", "Changed status of User ID: " + id);
-                saveUsersData(); 
+                saveUsersData();
                 return;
             }
         }
         System.out.println(" Error: User ID [" + id + "] is not found.");
     }
 
-    public void displayAllUsers() {
+    public void displayAllUsers() { 
         System.out.println("\n                                                       --- Registered Patrons ---");
         if (userList.isEmpty()) {
             System.out.println("  [!] No users currently exist in the system.");
-            return; 
+            return;
         }
         
         String format = " %-10s | %-10s | %-12s | %-18s | %-25s | %-11s | %-10s | %s%n";
@@ -251,19 +252,29 @@ public class LibraryManager {
                 if (line.isEmpty())
                     continue;
 
-                String[] data = line.split(",");
+                String[] data = line.split("\\s*,\\s*");    //using . to slpit and remove the the space before and after the ,
 
-                if (data[0].equals("Book") && data.length >= 6){
-                    bookCatalog.add( new Book (data[1], data[2], data[3], data[4], Integer.parseInt(data[5])));
+                if (data.length >= 7) {
+                    String type = data[0];
+                    String itemId = data[1];
+                    String title = data[2];
+                    String isbn = data[3];
+
+                if (type.equalsIgnoreCase("Novel")){
+                    bookCatalog.add( new StoryBook (itemId, title ,isbn , data[4], data[5], Integer.parseInt(data[6])));
                 }
-                else if (data[0].equals("Magazine") && data.length >= 6) {
-                    bookCatalog.add(new Magazine(data[1], data[2], data[3], Integer.parseInt(data[4]), Integer.parseInt(data[5])));
+                else if (type.equals("Manga")) {
+                    bookCatalog.add(new Manga(itemId, title ,isbn , data[4], Integer.parseInt(data[5]), Integer.parseInt(data[6])));
                 }
-                else if (data[0].equals("DVD") && data.length >= 6) {
-                    bookCatalog.add(new DVD(data[1], data[2], data[3], Integer.parseInt(data[4]), Integer.parseInt(data[5])));
+                else if (type.equals("StoryBook")) {
+                    bookCatalog.add(new StoryBook(itemId, title ,isbn, data[4], data[5], Integer.parseInt(data[6])));
+                }
+                else if (type.equalsIgnoreCase("SelfHelp")){
+                    bookCatalog.add(new SelfHelp(itemId, title ,isbn , data[4], data[5], Integer.parseInt(data[6])));
                 }
             }
-        }
+            }
+            }
         catch (Exception e) {
             System.out.println("System error to loading catalog data");
         }
