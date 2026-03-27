@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class FineBalance {
 
     private static final double FINE_RATE_PER_DAY = 0.50;
-    private static final double LO`ST_ITEM_PENALTY = 50.00;
+    private static final double LOST_ITEM_PENALTY = 50.00;
     private static final int LOST_THRESHOLD_DAYS = 30;
     private static final int MAX_RECORDS = 1000;
 
