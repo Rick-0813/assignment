@@ -294,7 +294,7 @@ public class BibiLibrary {
             input.nextLine() ;
 
             if(typeChoice == 0) {
-                System.out.println("Action canceled. Returning to Catalog Menu...");
+                System.out.println("  Action canceled. Returning to Catalog Menu...");
                 return;
             }
 
