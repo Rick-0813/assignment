@@ -17,16 +17,16 @@ public class FineMenu {
         }
 
         while (true) {
-            System.out.println("\n  ==============================");
-            System.out.println("  |      My Fine & Bills       |");
-            System.out.println("  ==============================");
-            System.out.printf("  | Total Outstanding: RM %.2f%n",
+            System.out.println("\n                       ===============================");
+            System.out.println("                       |      My Fine & Bills        |");
+            System.out.println("                       ===============================");
+            System.out.printf("                       |Total Outstanding: RM %.2f%n",
                     fineBalance.getOutstandingBalance(userID));
-            System.out.println("  ==============================");
-            System.out.println("  |  1. View Fine Details      |");
-            System.out.println("  |  2. Pay All Fines          |");
-            System.out.println("  |  0. Back                   |");
-            System.out.println("  ==============================");
+            System.out.println("                       ===============================");
+            System.out.println("                       |    1. View Fine Details     |");
+            System.out.println("                       |    2. Pay All Fines         |");
+            System.out.println("                       |    0. Back                  |");
+            System.out.println("                       ===============================");
             System.out.print("  Select an option: ");
 
             if (!input.hasNextInt()) {
@@ -51,28 +51,28 @@ public class FineMenu {
     }
 
     private void showFineDetails(String userID) {
-        System.out.println("\n  --- Fine Details for User: " + userID + " ---");
+        System.out.println("\n    --- Fine Details for User: " + userID + " ---");
         boolean found = false;
 
         for (int i = 0; i < fineBalance.getRecordCount(); i++) {
             FineBalance.FineRecord r = fineBalance.getFineRecords()[i];
             if (r.getUserID().equals(userID)) {
-                System.out.printf("  Item    : %s%n", r.getItemTitle());
-                System.out.printf("  Type    : %s%n", r.getFineType());
+                System.out.printf("    Item    : %s%n", r.getItemTitle());
+                System.out.printf("    Type    : %s%n", r.getFineType());
                 if (r.getFineType().equals("LOST")) {
-                    System.out.printf("  Overdue : RM %.2f%n", r.getOverdueAmount());
-                    System.out.printf("  Penalty : RM %.2f%n", r.getLostPenalty());
+                    System.out.printf("    Overdue : RM %.2f%n", r.getOverdueAmount());
+                    System.out.printf("    Penalty : RM %.2f%n", r.getLostPenalty());
                 }
-                System.out.printf("  Total   : RM %.2f%n", r.getTotal());
-                System.out.println("  Status  : " + (r.isPaid() ? "PAID" : "UNPAID"));
-                System.out.println("  ------------------------------");
+                System.out.printf("    Total   : RM %.2f%n", r.getTotal());
+                System.out.println("    Status  : " + (r.isPaid() ? "PAID" : "UNPAID"));
+                System.out.println("    ------------------------------");
                 found = true;
             }
         }
 
         if (!found)
             System.out.println("  No records found.");
-        System.out.printf("  Outstanding Balance: RM %.2f%n",
+        System.out.printf("    Outstanding Balance: RM %.2f%n",
                 fineBalance.getOutstandingBalance(userID));
     }
 

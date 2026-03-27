@@ -1,12 +1,9 @@
 import java.util.ArrayList;
-import java.io.File;
-import java.io.*;
 import java.util.Scanner;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
 
 public class LibraryManager {
     private ArrayList<AdminLibrary> userList = new ArrayList<>();
@@ -29,10 +26,50 @@ public class LibraryManager {
         bookCatalog.add(new Magazine("M001", "Tech Monthly", "TechPress", 42 , 10));
         bookCatalog.add(new DVD("D001","Inception","Christopher Nolan", 148, 3));
         }
-        fineBalance.processFine("S001FOIT", "Java Programming", 10); 
         
         System.out.println("\n  [System Boot] Booting up Library Database...");
         loadUsersData(); 
+    }
+
+    public void borrowItem(String userID, String itemID) {
+    AdminLibrary currentUser = null;
+
+    for (AdminLibrary u : userList) {
+        if (u.getUserID().equals(userID)) {
+            currentUser = u;
+            break;
+        }
+    }
+
+    if (currentUser == null) {
+        System.out.println("  [!] Error: User not found.");
+        return;
+    }
+
+    if (!currentUser.canBorrow()) {
+        System.out.println("  [!] Failed to borrow item.");
+        System.out.println("  Your current user type is " + currentUser.getUserType() + ", and you can borrow up to " + currentUser.getBorrowLimit() + " books.");
+        System.out.println("  You have currently borrowed " + currentUser.getCurrentBorrowedBooks() + " books. Please return some books first.");
+        return;
+    }
+    
+    currentUser.incrementBorrowedBooks(); 
+    saveUsersData(); 
+    
+    System.out.println("  Successfully borrowed item! Also You can still borrow ^v^ " + (currentUser.getBorrowLimit() - currentUser.getCurrentBorrowedBooks()) + " more books.");
+}
+
+    public AdminLibrary getUserByID(String id) {
+        for (AdminLibrary u : userList) {
+            if (u.getUserID().equalsIgnoreCase(id)) {
+                return u;
+            }
+        }
+        return null; 
+    }
+
+    public void updateUser() {
+        saveUsersData(); 
     }
 
     private void loadUsersData() {
@@ -52,9 +89,16 @@ public class LibraryManager {
                 
                 String[] data = line.split(",");
                 if (data.length >= 5) {
-
                     AdminLibrary loadedUser = new AdminLibrary(data[0].trim(), data[1].trim(), data[2].trim(), data[3].trim());
                     loadedUser.setActive(Boolean.parseBoolean(data[4].trim()));
+                    
+                    if (data.length >= 6) {
+                        loadedUser.setCurrentBorrowedBooks(Integer.parseInt(data[5].trim()));
+                    }
+                    
+                    if (data.length >= 7) {
+                        loadedUser.setOutstandingFines(Double.parseDouble(data[6].trim()));
+                    }
                     userList.add(loadedUser);
                     count++;
                 }
@@ -69,7 +113,10 @@ public class LibraryManager {
         File file = new File(USER_DATA_FILE);
         try (PrintWriter pw = new PrintWriter(new FileWriter(file, false))) {
             for (AdminLibrary u : userList) {
-                pw.println(u.getAdminName() + "," + u.getUserID() + "," + u.getUserType() + "," + u.getEmail() + "," + u.isActive());
+                double currentOwed = fineBalance.getOutstandingBalance(u.getUserID());
+                u.setOutstandingFines(currentOwed);
+
+                pw.println(u.getAdminName() + "," + u.getUserID() + "," + u.getUserType() + "," + u.getEmail() + "," + u.isActive() + "," + u.getCurrentBorrowedBooks() + "," + currentOwed);
             }
             pw.flush(); 
             System.out.println("  [System] Save trigger: Data successfully updated at " + file.getAbsolutePath());
@@ -138,24 +185,32 @@ public class LibraryManager {
     }
 
     public void displayAllUsers() {
-        System.out.println("\n--- Registered Patrons ---");
+        System.out.println("\n                                                       --- Registered Patrons ---");
         if (userList.isEmpty()) {
             System.out.println("  [!] No users currently exist in the system.");
+            return; 
         }
         
-        System.out.printf("%-12s | %-10s | %-15s | %-20s | %s%n", "STATUS", "USER ID", "TYPE", "NAME", "OUTSTANDING FINES");
-        System.out.println("--------------------------------------------------------------------------------------");
+        String format = " %-10s | %-10s | %-12s | %-18s | %-25s | %-11s | %-10s | %s%n";
+        
+        System.out.println("----------------------------------------------------------------------------------------------------------------------------------------");
+        
+        System.out.printf(format, "STATUS", "USER ID", "TYPE", "NAME", "EMAIL", "LOANS (QTY)", "MAX DAYS", "OUTSTANDING FINES");
+        System.out.println("----------------------------------------------------------------------------------------------------------------------------------------");
         
         for (AdminLibrary u : userList) {
             String status = u.isActive() ? "[ACTIVE]" : "[DISABLED]";
-            
             double owed = fineBalance.getOutstandingBalance(u.getUserID());
             
-           
-            System.out.printf("%-12s | %-10s | %-15s | %-20s | RM %.2f%n", 
-                            status, u.getUserID(), u.getUserType(), u.getAdminName(), owed);
+            String loansInfo = u.getCurrentBorrowedBooks() + " / " + u.getBorrowLimit();
+            
+            String daysInfo = u.getLoanDuration() + " Days";
+            
+            String finesInfo = String.format("RM %.2f", owed); 
+            
+            System.out.printf(format, status, u.getUserID(), u.getUserType(), u.getAdminName(), u.getEmail(), loansInfo, daysInfo, finesInfo);
         }
-        System.out.println("--------------------------------------------------------------------------------------");
+        System.out.println("----------------------------------------------------------------------------------------------------------------------------------------");
     }
 
     public void displayAllCatalog(){
