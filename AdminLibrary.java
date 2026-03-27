@@ -9,10 +9,10 @@ public class AdminLibrary {
     private boolean isActive = true;
     private double outstandingFines = 0.0;
 
-    public double getOutstandingFines() { 
-        return outstandingFines; 
+    public double getOutstandingFines() {
+        return outstandingFines;
     }
-     
+
     public void setOutstandingFines(double amount) {
         this.outstandingFines = amount;
     }
@@ -25,43 +25,43 @@ public class AdminLibrary {
         this.adminName = name;
     }
 
-    public void setEmail(String email) { 
-        this.email = email; 
+    public void setEmail(String email) {
+        this.email = email;
     }
     
-    public void setUserType(String type) { 
-        this.userType = type; 
+    public void setUserType(String type) {
+        this.userType = type;
         if (type.equalsIgnoreCase("Faculty")) {
-            this.borrowLimit = 20; 
-            this.loanDuration = 30; 
+            this.borrowLimit = 20;
+            this.loanDuration = 30;
         } else if (type.equalsIgnoreCase("Student")) {
-            this.borrowLimit = 10; 
-            this.loanDuration = 14;  
-        } else { 
-            this.borrowLimit = 5; 
-            this.loanDuration = 7;  
+            this.borrowLimit = 10;
+            this.loanDuration = 14;
+        } else {
+            this.borrowLimit = 5;
+            this.loanDuration = 7;
         }
     }
     
-    public int getLoanDuration() { 
-        return loanDuration; 
+    public int getLoanDuration() {
+        return loanDuration;
     }
 
     public AdminLibrary(String name, String id, String type, String email) {
         this.adminName = name;
         this.userID = id;
-        this.userType = type; 
+        this.userType = type;
         this.email = email;
         
         if (type.equalsIgnoreCase("Faculty")) {
-            this.borrowLimit = 20; 
-            this.loanDuration = 30; 
+            this.borrowLimit = 20;
+            this.loanDuration = 30;
         } else if (type.equalsIgnoreCase("Student")) {
-            this.borrowLimit = 15; 
-            this.loanDuration = 14;  
-        } else { 
-            this.borrowLimit = 7; 
-            this.loanDuration = 8;  
+            this.borrowLimit = 15;
+            this.loanDuration = 14;
+        } else {
+            this.borrowLimit = 7;
+            this.loanDuration = 8;
         }
     }
 
@@ -81,35 +81,35 @@ public class AdminLibrary {
         }
     }
 
-    public int getBorrowLimit() { 
-        return borrowLimit; 
+    public int getBorrowLimit() {
+        return borrowLimit;
     }
-    public int getCurrentBorrowedBooks() { 
-        return currentBorrowedBooks; 
+    public int getCurrentBorrowedBooks() {
+        return currentBorrowedBooks;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        this.isActive = active;
+    }
+
+    public String getAdminName() {
+        return adminName;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public String getUserType() {
+        return userType;
     }
     
-    public boolean isActive() { 
-        return isActive; 
-    }
-
-    public void setActive(boolean active) { 
-        this.isActive = active; 
-    }
-
-    public String getAdminName() { 
-        return adminName; 
-    }
-
-    public String getUserID() { 
-        return userID; 
-    }
-
-    public String getUserType() { 
-        return userType; 
-    }
-    
-    public String getEmail() { 
-        return email; 
+    public String getEmail() {
+        return email;
     }
 }
 
