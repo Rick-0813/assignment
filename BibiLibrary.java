@@ -221,18 +221,18 @@ public class BibiLibrary {
 
     private static void  catalogMenu() {
         while(true){
-            System.out.println("\n  .==================================================.");
-            System.out.println("  |             C A T A L O G   M E N U              |");
-            System.out.println("  |==================================================|");
-            System.out.println("  |                                                  |");
-            System.out.println("  |    [ 1 ]  Add New Item                           |");
-            System.out.println("  |    [ 2 ]  View All Catalog                       |");
-            System.out.println("  |    [ 3 ]  Update Stock / Details                 |");
-            System.out.println("  |    [ 4 ]  Remove Item                            |");
-            System.out.println("  |                                                  |");
-            System.out.println("  |--------------------------------------------------|");
-            System.out.println("  |    [ 0 ]  Back to Admin Menu                     |");
-            System.out.println("  '=================================================='");
+            System.out.println("\n             .==================================================.            ");
+            System.out.println("             |             C A T A L O G   M E N U              |            ");
+            System.out.println("             |==================================================|            ");
+            System.out.println("             |                                                  |            ");
+            System.out.println("             |    [ 1 ]  Add New Item                           |            ");
+            System.out.println("             |    [ 2 ]  View All Catalog                       |            ");
+            System.out.println("             |    [ 3 ]  Update Stock / Details                 |            ");
+            System.out.println("             |    [ 4 ]  Remove Item                            |            ");
+            System.out.println("             |                                                  |            ");
+            System.out.println("             |--------------------------------------------------|            ");
+            System.out.println("             |    [ 0 ]  Back to Admin Menu                     |            ");
+            System.out.println("             '=================================================='            ");
             System.out.print("  Select an option: ");
 
             if(!input.hasNextInt()){
