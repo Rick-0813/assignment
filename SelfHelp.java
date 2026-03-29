@@ -58,7 +58,6 @@ public class SelfHelp extends LibraryItem {
 
     @Override
     public String toFileString() {
-        return "SelHelp, "  + getItemId() + " ," + getTitle() + " ," + " ," + getIsbn() + author + " ," + topic +" ," + stockQuantity;
+        return "SelfHelp," + getItemId() + "," + getTitle() + "," + getIsbn() + "," + author + "," + topic + "," + stockQuantity;
     }
-
 }

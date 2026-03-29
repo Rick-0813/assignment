@@ -29,22 +29,20 @@ public class AdminLibrary {
         this.email = email;
     }
     
+    // 1. 修改 setUserType 方法里面的限制
     public void setUserType(String type) {
         this.userType = type;
         if (type.equalsIgnoreCase("Faculty")) {
-            this.borrowLimit = 20;
+            this.borrowLimit = 20; 
             this.loanDuration = 30;
         } else if (type.equalsIgnoreCase("Student")) {
-            this.borrowLimit = 10;
+            this.borrowLimit = 15; 
             this.loanDuration = 14;
         } else {
-            this.borrowLimit = 5;
+            // Public Member 或者是默认选项
+            this.borrowLimit = 7;
             this.loanDuration = 7;
         }
-    }
-    
-    public int getLoanDuration() {
-        return loanDuration;
     }
 
     public AdminLibrary(String name, String id, String type, String email) {
@@ -61,8 +59,12 @@ public class AdminLibrary {
             this.loanDuration = 14;
         } else {
             this.borrowLimit = 7;
-            this.loanDuration = 8;
+            this.loanDuration = 7;
         }
+    }
+    
+    public int getLoanDuration() {
+        return loanDuration;
     }
 
     public boolean canBorrow() {

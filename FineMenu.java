@@ -16,17 +16,17 @@ public class FineMenu {
             return;
         }
 
-        while (true) {
-            System.out.println("\n                       ===============================");
-            System.out.println("                       |      My Fine & Bills        |");
-            System.out.println("                       ===============================");
-            System.out.printf("                       |Total Outstanding: RM %.2f%n",
-                    fineBalance.getOutstandingBalance(userID));
-            System.out.println("                       ===============================");
-            System.out.println("                       |    1. View Fine Details     |");
-            System.out.println("                       |    2. Pay All Fines         |");
-            System.out.println("                       |    0. Back                  |");
-            System.out.println("                       ===============================");
+        while (true) {  
+            System.out.println("\n               .==================================================.");
+            System.out.println("               |           M y   F i n e   &   B i l l s          |");
+            System.out.println("               |==================================================|");
+            System.out.printf("               |           Total Outstanding: RM %-17.2f|%n", 
+            fineBalance.getOutstandingBalance(userID));
+            System.out.println("               |==================================================|");
+            System.out.println("               |    [ 1 ] View Fine Details                       |");
+            System.out.println("               |    [ 2 ] Pay All Fines                           |");
+            System.out.println("               |    [ 0 ] Back                                    |");
+            System.out.println("               .==================================================.");
             System.out.print("  Select an option: ");
 
             if (!input.hasNextInt()) {

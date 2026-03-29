@@ -1,7 +1,10 @@
 import java.util.*;
+
+import javax.sound.sampled.SourceDataLine;
+
 import java.io.*;
 
-public class user {
+public class User {
     private static ArrayList<Account> accounts = new ArrayList<>();
     private static final String FILE_NAME = "accounts.txt";
 
@@ -26,15 +29,18 @@ public class user {
                                         "                                                                   `---'    ");
                 
             System.out.println("=============================================================================");
-            System.out.println("\n                   ==================================");
-            System.out.println("                   |     Welcome to Bibi Library    |");
-            System.out.println("                   |--------------------------------|");
-            System.out.println("                   |    1. Student                  |");
-            System.out.println("                   |    2. Faculty                  |");
-            System.out.println("                   |    3. Public Member            |");
-            System.out.println("                   |    4. Admin (Login Required)   |");
-            System.out.println("                   |    0. Exit                     |");
-            System.out.println("                   ==================================");
+            System.out.println("\n             .==================================================.");
+            System.out.println("             |   W e l c o m e   t o   B i b i   L i b r a r y  |");
+            System.out.println("             |==================================================|");
+            System.out.println("             |                                                  |");
+            System.out.println("             |    [ 1 ] Student                                 |");
+            System.out.println("             |    [ 2 ] Faculty                                 |");
+            System.out.println("             |    [ 3 ] Public Member                           |");
+            System.out.println("             |    [ 4 ] Admin (Login Required)                  |");
+            System.out.println("             |                                                  |");
+            System.out.println("             |--------------------------------------------------|");
+            System.out.println("             |    [ 0 ] Exit                                    |");
+            System.out.println("             .==================================================.");
             System.out.print("  Please select your role: ");
 
             if (!input.hasNextInt()) {
@@ -46,9 +52,11 @@ public class user {
             input.nextLine();
 
             if (choice == 0) { 
-                System.out.println("\n  ==============================================================");
-                System.out.println("  | Thank you for visiting Bibi Library. Have a great day! ^o^ |");
-                System.out.println("  ==============================================================\n");
+                System.out.println("\n     .=============================================================.");
+                System.out.println("    /                                                              /");
+                System.out.println("   / Thank you for visiting Bibi Library. Have a great day! |^o^| /");
+                System.out.println("  /                                                              /");
+                System.out.println(" .==============================================================.\n");
                 return null;
             } else if (choice >= 1 && choice <= 3) {
                 String[] roles = {"Student", "Faculty", "Public Member"}; 

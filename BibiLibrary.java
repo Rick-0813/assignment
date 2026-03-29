@@ -7,7 +7,7 @@ public class BibiLibrary {
     public static void main(String[] args) {
 
         while (true) {
-            String userType = user.loginProcess(input);
+            String userType = User.loginProcess(input);
             if (userType == null) {
                 break;
             }
@@ -20,18 +20,24 @@ public class BibiLibrary {
                                     "`------' `--' `---' `--'   `-----'`--' `---' `--'    `--`--'`--'   .-'  /   \r\n" + //
                                     "                                                                   `---'    ");
                 
-                System.out.println("=============================================================================");
-                System.out.println("                             Current Role: " + userType);
+                System.out.println("=============================================================================\n");
+                System.out.println("               .==================================================.");
+                System.out.println("              /                                                  /|");
+                System.out.printf("             /            Current Role: %-24s/ |%n", userType);
+                System.out.println("            /                                                  /  |");
+                System.out.println("           .==================================================.   |");
                 
                 if (userType.trim().equalsIgnoreCase("Admin")) {
-                    System.out.println("                      ==================================");
-                    System.out.println("                      |    1. User Management          |\n                      |    2. Circulation Module       |\n                      |    3. Cataloging Admin         |\n                      |    4. Fees and Audits          |");
+                    System.out.println("           |                                                  |   |");  
+                    System.out.println("           |    [ 1 ] User Management                         |   |\n           |    [ 2 ] Circulation Module                      |   |\n           |    [ 3 ] Cataloging Admin                        |   |\n           |    [ 4 ] Fees and Audits                         |   .");
                 } else {
-                    System.out.println("                      ==================================");
-                    System.out.println("                      |    1. Search Catalog           |\n                      |    2. My Loans                 |\n                      |    3. My Bills                 |");
+                    System.out.println("           |                                                  |   |");
+                    System.out.println("           |    [ 1 ] Search Catalog                          |   |\n           |    [ 2 ] My Loans                                |   |\n           |    [ 3 ] My Bills                                |   .");
                 }
-                System.out.println("                      |    0. Logout Back to Main Menu |");
-                System.out.println("                      ==================================");
+                System.out.println("           |                                                  |  /");
+                System.out.println("           |--------------------------------------------------| /");
+                System.out.println("           |    [ 0 ] Logout Back to Main Menu                |/");
+                System.out.println("           .==================================================.");
                 System.out.print("  Choice: ");
 
                 if (!input.hasNextInt()) {
@@ -66,10 +72,10 @@ public class BibiLibrary {
         } else {
             switch (choice) {
                 case 1:
-                System.out.println("\n  .--------------------------------------------------.");
-                System.out.println("  |             S E A R C H   C A T A L O G          |");
-                System.out.println("  '--------------------------------------------------'");
-                System.out.println("  [Tip] You can search by the book ID or keyword of the book title ");
+                System.out.println("\n            .--------------------------------------------------.");
+                System.out.println("            |             S E A R C H   C A T A L O G          |");
+                System.out.println("            '--------------------------------------------------'");
+                System.out.println("            [Tip] You can search by the book ID or keyword of the book title ");
                 System.out.print("  Enter the keyword :");
                 manager.searchBooks(input.nextLine());
                 break;
@@ -91,16 +97,17 @@ public class BibiLibrary {
 
     private static void ManagmentUser() {
         while (true) {
-            System.out.println("                  ==================================");
-            System.out.println("                  |   User Management Options      |");
-            System.out.println("                  ==================================");
-            System.out.println("                  |      1. Add User               |");
-            System.out.println("                  |      2. Remove User            |");
-            System.out.println("                  |      3. Edit User              |");
-            System.out.println("                  |      4. View All Users         |");
-            System.out.println("                  |      5. Account Status Control |");
-            System.out.println("                  |      0. Back to Admin Menu     |");
-            System.out.println("                  ==================================");
+            System.out.println("\n             .==================================================.");
+            System.out.println("             |   U s e r   M a n a g e m e n t   O p t i o n s  |");
+            System.out.println("             ====================================================");
+            System.out.println("             |      [ 1 ] Add User                              |");
+            System.out.println("             |      [ 2 ] Remove User                           |");
+            System.out.println("             |      [ 3 ] Edit User                             |");
+            System.out.println("             |      [ 4 ] View All Users                        |");
+            System.out.println("             |      [ 5 ] Account Status Control                |");
+            System.out.println("             ----------------------------------------------------");
+            System.out.println("             |      [ 0 ] Back to Admin Menu                    |");
+            System.out.println("             .==================================================.");
             System.out.print("  Select an option: ");
 
             int userChoice = input.nextInt();
@@ -223,18 +230,18 @@ public class BibiLibrary {
 
     private static void  catalogMenu() {
         while(true){
-            System.out.println("\n  .==================================================.");
-            System.out.println("  |             C A T A L O G   M E N U              |");
-            System.out.println("  |==================================================|");
-            System.out.println("  |                                                  |");
-            System.out.println("  |    [ 1 ]  Add New Item                           |");
-            System.out.println("  |    [ 2 ]  View All Catalog                       |");
-            System.out.println("  |    [ 3 ]  Update Stock                           |");
-            System.out.println("  |    [ 4 ]  Remove Item                            |");
-            System.out.println("  |                                                  |");
-            System.out.println("  |--------------------------------------------------|");
-            System.out.println("  |    [ 0 ]  Back to Admin Menu                     |");
-            System.out.println("  '=================================================='");
+            System.out.println("\n             .==================================================.");
+            System.out.println("             |             C A T A L O G   M E N U              |");
+            System.out.println("             |==================================================|");
+            System.out.println("             |                                                  |");
+            System.out.println("             |    [ 1 ]  Add New Item                           |");
+            System.out.println("             |    [ 2 ]  View All Catalog                       |");
+            System.out.println("             |    [ 3 ]  Update Stock                           |");
+            System.out.println("             |    [ 4 ]  Remove Item                            |");
+            System.out.println("             |                                                  |");
+            System.out.println("             |--------------------------------------------------|");
+            System.out.println("             |    [ 0 ]  Back to Admin Menu                     |");
+            System.out.println("             '=================================================='");
             System.out.print("  Select an option: ");
 
             if(!input.hasNextInt()){
@@ -257,7 +264,7 @@ public class BibiLibrary {
             else if (choice == 2) {
                 manager.displayAllCatalog();
             }
-            ////chongliang 啊少了这个记得加我方这个给你了
+            
             else if (choice == 3){
                 updateCatologItem();
             }

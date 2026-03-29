@@ -22,7 +22,7 @@ public class LibraryManager {
             loadCatalogFromFile();
         }
         else {
-            bookCatalog.add(new Novel("N001", "The Great Gatsby", "978074", "F. Scott", "Fiction", 5));
+bookCatalog.add(new Novel("N001", "The Great Gatsby", "978074", "F. Scott", "Fiction", 5));
             bookCatalog.add(new Manga("M001", "Naruto", "978156", "Kishimoto", 1, 10));
             bookCatalog.add(new StoryBook("S001", "Peppa Pig", "978024", "Neville", "3-5 years", 3));
             bookCatalog.add(new SelfHelp("H001", "Atomic Habits", "978073", "James Clear", "Self Improvement", 7));
@@ -54,8 +54,8 @@ public class LibraryManager {
         return;
     }
     
-    currentUser.incrementBorrowedBooks();
-    saveUsersData();
+    currentUser.incrementBorrowedBooks(); 
+    saveUsersData(); 
     
     System.out.println("  Successfully borrowed item! Also You can still borrow ^v^ " + (currentUser.getBorrowLimit() - currentUser.getCurrentBorrowedBooks()) + " more books.");
 }
@@ -123,7 +123,7 @@ public class LibraryManager {
 
                 pw.println(u.getAdminName() + "," + u.getUserID() + "," + u.getUserType() + "," + u.getEmail() + "," + u.isActive() + "," + u.getCurrentBorrowedBooks() + "," + currentOwed);
             }
-            pw.flush();
+            pw.flush(); 
             System.out.println("  [System] Save trigger: Data successfully updated at " + file.getAbsolutePath());
         } catch (IOException e) {
             System.out.println("  [System] ERROR saving data: " + e.getMessage());
@@ -131,12 +131,50 @@ public class LibraryManager {
     }
 
     public void addLog(String userID, String action, String details) {
-        String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        String logEntry = "[" + timestamp + "] User: " + userID + " | Action: " + action + " | Details: " + details;
+        Transaction newLog = new Transaction(userID, action, details);
+        
         try (FileWriter fw = new FileWriter(LOG_FILE, true);
-            PrintWriter pw = new PrintWriter(fw)) {
-            pw.println(logEntry);
-        } catch (IOException e) { }
+             PrintWriter pw = new PrintWriter(fw)) {    
+            pw.println(newLog.toString());
+        } catch (IOException e) { 
+            System.out.println("  [System Error] Failed to write log.");
+        }
+    }
+
+    public void addCatalogItem(LibraryItem item){
+        bookCatalog.add(item);
+        System.out.println("  Success! ["+ item.getTitle() +"] is added to the catalog.");
+        addLog("Admin", "ADD_CATALOG", "Added Item: " + item.getItemId());
+        saveCatalogToFile();
+    } 
+    public boolean isItemExists(String itemId){
+        for (LibraryItem item : bookCatalog) {
+            if (item.getItemId().equalsIgnoreCase(itemId)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public LibraryItem getItemById(String Id) {
+        for (LibraryItem item : bookCatalog) {
+            if (item.getItemId().equalsIgnoreCase(Id)){
+                return item;
+            }
+        }
+        return null;
+    }
+    public void searchBooks(String query){
+        System.out.println("\n  --- Category Search Results ---");
+        boolean found = false;
+        for (LibraryItem item : bookCatalog) {
+            if (item.getTitle().toLowerCase().contains(query.toLowerCase()) || 
+                item.getItemId().equals(query)) {
+                System.out.println(item);
+                found = true;
+            }
+        }
+        if (!found) System.out.println(" No matching books found for query: " + query);
     }
 
     public void addUser(AdminLibrary newUser){
@@ -151,7 +189,7 @@ public class LibraryManager {
         if (removed) {
             System.out.println(" User removed successfully.");
             addLog("Admin", "REMOVE_USER", "Removed User ID: " + id);
-            saveUsersData();
+            saveUsersData(); 
         }
         return removed;
     }
@@ -169,7 +207,7 @@ public class LibraryManager {
         System.out.println(" Error: User ID [" + id + "] is not found.");
     }
 
-    public void displayAllUsers() {
+    public void displayAllUsers() { 
         System.out.println("\n                                                       --- Registered Patrons ---");
         if (userList.isEmpty()) {
             System.out.println("  [!] No users currently exist in the system.");
@@ -199,121 +237,14 @@ public class LibraryManager {
     }
 
     public void displayAllCatalog(){
-        System.out.println("\n  ==================================================================================================");
-        System.out.println("  |                                           C A T A L O G                                         |");
-        System.out.println("  ==================================================================================================");
+        System.out.println("\n   --- Complete Library Catalog --- ");
         if (bookCatalog.isEmpty()){
-            System.out.println("  | The catalog is currently empty.                                                                |");
-            System.out.println("  ==================================================================================================");
+            System.out.println("  The catalog is currently empty.");
             return;
         }
-
-        ArrayList<Novel> novels = new ArrayList<>();
-        ArrayList<Manga> mangas = new ArrayList<>();
-        ArrayList<StoryBook> storybooks = new ArrayList<>();
-        ArrayList<SelfHelp> selfhelps = new ArrayList<>();
-
-
         for (LibraryItem item : bookCatalog){
-            if (item instanceof Novel)
-                novels.add((Novel) item);
-            else if (item instanceof Manga)
-                mangas.add((Manga) item);
-            else if (item instanceof StoryBook)
-                storybooks.add((StoryBook) item);
-            else if (item instanceof SelfHelp)
-                selfhelps.add((SelfHelp) item);
+            item.displayItemDetails();
         }
-
-        //display novel
-        if (!novels.isEmpty()){
-            System.out.println("\n  1. NOVEL CATALOG ");
-            System.out.println("  --------------------------------------------------------------------------------------------------");
-            System.out.printf("  | %-5s | %-23s | %-13s | %-17s | %-15s | %-5s | %n" , "ID" , "TITLE" ,"ISBN", "AUTHOR" , "GENRE" , "STOCK");
-            System.out.println("  --------------------------------------------------------------------------------------------------");
-            for ( Novel n : novels) {
-                System.out.printf("  | %-5s | %-23s | %-13s | %-17s | %-15s | %-5s | %n" ,
-                    n.getItemId() , limitString(n.getTitle(),23) , n.getIsbn() , limitString(n.getAuthor(),17) , limitString(n.getGenre(),15) , n.getStockQuantity());
-                System.out.println("  --------------------------------------------------------------------------------------------------");
-            }
-        }
-
-        //display manga
-        if (!mangas.isEmpty()){
-            System.out.println("\n  2. MANGA CATALOG ");
-            System.out.println("  --------------------------------------------------------------------------------------------------");
-            System.out.printf("  | %-5s | %-23s | %-13s | %-17s | %-15s | %-5s | %n" , "ID" , "TITLE" ,"ISBN", "ILLUSTRATOR" , "VOLUME" , "STOCK");
-            System.out.println("  --------------------------------------------------------------------------------------------------");
-            for ( Manga m : mangas) {
-                String volstr = "Vols. " + m.getVolumeNumber();
-                System.out.printf("  | %-5s | %-23s | %-13s | %-17s | %-15s | %-5s | %n" ,
-                    m.getItemId() , limitString(m.getTitle(),23) , m.getIsbn() , limitString(m.getIllustrator(),17) , volstr , m.getStockQuantity());
-                System.out.println("  --------------------------------------------------------------------------------------------------");
-            }
-        }
-
-        //display storybook
-        if (!storybooks.isEmpty()){
-            System.out.println("\n  3. Stroy Book CATALOG ");
-            System.out.println("  --------------------------------------------------------------------------------------------------");
-            System.out.printf("  | %-5s | %-23s | %-13s | %-17s | %-15s | %-5s | %n" , "ID" , "TITLE" ,"ISBN", "AUTHOR" , "TARGET AGE" , "STOCK");
-            System.out.println("  --------------------------------------------------------------------------------------------------");
-            for ( StoryBook sb : storybooks) {
-                System.out.printf("  | %-5s | %-23s | %-13s | %-17s | %-15s | %-5s | %n" ,
-                    sb.getItemId() , limitString(sb.getTitle(),23) , sb.getIsbn() , limitString(sb.getAuthor(),17) , limitString(sb.getTargetAge(),15) , sb.getStockQuantity());
-                System.out.println("  --------------------------------------------------------------------------------------------------");
-            }
-        }
-
-        //display selfhelp
-        if (!selfhelps.isEmpty()){
-            System.out.println("\n  4. Self Help CATALOG ");
-            System.out.println("  --------------------------------------------------------------------------------------------------");
-            System.out.printf("  | %-5s | %-23s | %-13s | %-17s | %-15s | %-5s | %n" , "ID" , "TITLE" ,"ISBN", "AUTHOR" , "TOPIC" , "STOCK");
-            System.out.println("  --------------------------------------------------------------------------------------------------");
-            for ( SelfHelp sh : selfhelps) {
-                System.out.printf("  | %-5s | %-23s | %-13s | %-17s | %-15s | %-5s | %n" ,
-                    sh.getItemId() , limitString(sh.getTitle(),23) , sh.getIsbn() , limitString(sh.getAuthor(),17) , limitString(sh.getTopic(),15) , sh.getStockQuantity());
-                System.out.println("  --------------------------------------------------------------------------------------------------");
-            }
-        }
-    }
-
-    private String limitString (String text , int maxLength) {
-        if (text == null){
-            return "";
-        }
-        if (text.length() > maxLength){
-            return text.substring(0 , maxLength - 3) +  "...";
-        }
-        return text;
-        }
-
-    public boolean isItemExists(String itemId){
-        for (LibraryItem item : bookCatalog) {
-            if (item.getItemId().equalsIgnoreCase(itemId)){
-                return true ;
-            }
-        }
-        return false ;
-    }
-
-    public void addCatalogItem(LibraryItem item){
-
-        bookCatalog.add(item);
-        System.out.println("  Success! ["+ item.getTitle() +"] is added to the catalog.");
-        addLog("Admin", "ADD_CATALOG", "Added Item: " + item.getItemId());
-        saveCatalogToFile();
-    }
-
-    public LibraryItem getItemById (String Id) {
-        for ( LibraryItem item : bookCatalog) {
-            if (item.getItemId().equalsIgnoreCase(Id)){
-                return item ;
-            }
-        }
-
-        return null ;
     }
 
     public void saveCatalogToFile() {
@@ -333,6 +264,7 @@ public class LibraryManager {
     }
 
     private void loadCatalogFromFile(){
+               
         File file = new File ("catalog_data.txt");
         if(!file.exists()) return;
 
@@ -385,92 +317,5 @@ public class LibraryManager {
             System.out.println("  Failed ! Item  [" + itemId + "] not found in the catalog.");
         }
 
-    }
-
-    public void searchBooks(String query){
-        String lowerQuery = query.toLowerCase();
-        boolean found = false ;
-
-        ArrayList<Novel> novels = new ArrayList<>();
-        ArrayList<Manga> mangas = new ArrayList<>();
-        ArrayList<StoryBook> storybooks = new ArrayList<>();
-        ArrayList<SelfHelp> selfhelps = new ArrayList<>();
-
-        for ( LibraryItem item : bookCatalog){
-            if(item.getTitle().toLowerCase().contains(lowerQuery) ||
-                item.getItemId().toLowerCase().contains(lowerQuery)){
-                    found = true ;
-
-                    if (item instanceof Novel)
-                        novels.add((Novel)item);
-                    else if (item instanceof Manga)
-                        mangas.add((Manga)item);
-                    else if (item instanceof StoryBook)
-                        storybooks.add((StoryBook)item);
-                    else if (item instanceof SelfHelp)
-                        selfhelps.add((SelfHelp)item);
-                    }
-                }
-        if (!found) {
-            System.out.println("  \n[!] No Matching Books found for query : '" + query + "'.");
-            return;
-        }
-
-        System.out.println("\n  =================================================================================================");
-        System.out.println("  |                                  S E A R C H   R E S U L T S                                  |");
-        System.out.println("  =================================================================================================");
-        
-        //display novel matches wiith the query
-        if(!novels.isEmpty()){
-            System.out.println("\n  Novel Matches");
-            System.out.println("  -------------------------------------------------------------------------------------------------");
-            System.out.printf("  | %-5s | %-23s | %-13s | %-17s | %-15s | %-5s | %n" , "ID" , "TITLE" , "ISBN" , "AUTHOR" , "GENRE" , "STOCK");
-            System.out.println("  -------------------------------------------------------------------------------------------------");
-            for (Novel n : novels){
-                System.out.printf("  | %-5s | %-23s | %-13s | %-17s | %-15s | %-5s | %n" ,
-                    n.getItemId() , limitString(n.getTitle(), 23), n.getIsbn() , limitString(n.getAuthor(),17) , limitString(n.getGenre(),15) , n.getStockQuantity());
-            }
-            System.out.println("  -------------------------------------------------------------------------------------------------");
-        }
-
-        //display manga matches wiith the query
-        if(!mangas.isEmpty()){
-            System.out.println("\n  Manga Matches");
-            System.out.println("  -------------------------------------------------------------------------------------------------");
-            System.out.printf("  | %-5s | %-23s | %-13s | %-17s | %-15s | %-5s | %n" , "ID" , "TITLE" , "ISBN" , "ILLUSTRATOR" , "VOLUME" , "STOCK");
-            System.out.println("  -------------------------------------------------------------------------------------------------");
-            for (Manga m : mangas){
-                String volStr = "Vol. " + m.getVolumeNumber() ;
-                System.out.printf("  | %-5s | %-23s | %-13s | %-17s | %-15s | %-5s | %n" ,
-                    m.getItemId() , limitString(m.getTitle(), 23), m.getIsbn() , limitString(m.getIllustrator(),17) , volStr , m.getStockQuantity());
-            }
-            System.out.println("  -------------------------------------------------------------------------------------------------");
-        }
-
-        //display story book matches wiith the query
-        if(!storybooks.isEmpty()){
-            System.out.println("\n  Story Book Matches");
-            System.out.println("  -------------------------------------------------------------------------------------------------");
-            System.out.printf("  | %-5s | %-23s | %-13s | %-17s | %-15s | %-5s | %n" , "ID" , "TITLE" , "ISBN" , "AUTHOR" , "TARGET AGE" , "STOCK");
-            System.out.println("  -------------------------------------------------------------------------------------------------");
-            for (StoryBook sb : storybooks){
-                System.out.printf("  | %-5s | %-23s | %-13s | %-17s | %-15s | %-5s | %n" ,
-                    sb.getItemId() , limitString(sb.getTitle(), 23), sb.getIsbn() , limitString(sb.getAuthor(),17) , limitString(sb.getTargetAge(),15) , sb.getStockQuantity());
-            }
-            System.out.println("  -------------------------------------------------------------------------------------------------");
-        }
-
-        //display selfhelp matches wiith the query
-        if(!selfhelps.isEmpty()){
-            System.out.println("\n  Self Help Matches");
-            System.out.println("  -------------------------------------------------------------------------------------------------");
-            System.out.printf("  | %-5s | %-23s | %-13s | %-17s | %-15s | %-5s | %n" , "ID" , "TITLE" , "ISBN" , "AUTHOR" , "TOPIC" , "STOCK");
-            System.out.println("  -------------------------------------------------------------------------------------------------");
-            for (SelfHelp sf : selfhelps){
-                System.out.printf("  | %-5s | %-23s | %-13s | %-17s | %-15s | %-5s | %n" ,
-                    sf.getItemId() , limitString(sf.getTitle(), 23), sf.getIsbn() , limitString(sf.getAuthor(),17) , limitString(sf.getTopic(),15) , sf.getStockQuantity());
-            }
-            System.out.println("  -------------------------------------------------------------------------------------------------");
-        }
     }
 }
