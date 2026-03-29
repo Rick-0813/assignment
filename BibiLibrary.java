@@ -270,18 +270,18 @@ public class BibiLibrary {
     }
 
     private static void addNewCatalogItem() {
-        System.out.println("\n  .==================================================.");
-        System.out.println("  |         S E L E C T   I T E M   T Y P E          |");
-        System.out.println("  |==================================================|");
-        System.out.println("  |                                                  |");
-        System.out.println("  |    [ 1 ]  Novel        (Sci-Fi, Romance...)      |");
-        System.out.println("  |    [ 2 ]  Manga        (Comics, Graphic Novels)  |");
-        System.out.println("  |    [ 3 ]  StoryBook    (Kids, Picture Books)     |");
-        System.out.println("  |    [ 4 ]  Self-Help    (Biography, Finance)      |");
-        System.out.println("  |                                                  |");
-        System.out.println("  |--------------------------------------------------|");
-        System.out.println("  |    [ 0 ]  Cancel & Go Back                       |");
-        System.out.println("  '=================================================='");
+        System.out.println("\n             .==================================================.");
+        System.out.println("             |         S E L E C T   I T E M   T Y P E          |");
+        System.out.println("             |==================================================|");
+        System.out.println("             |                                                  |");
+        System.out.println("             |    [ 1 ]  Novel        (Sci-Fi, Romance...)      |");
+        System.out.println("             |    [ 2 ]  Manga        (Comics, Graphic Novels)  |");
+        System.out.println("             |    [ 3 ]  StoryBook    (Kids, Picture Books)     |");
+        System.out.println("             |    [ 4 ]  Self-Help    (Biography, Finance)      |");
+        System.out.println("             |                                                  |");
+        System.out.println("             |--------------------------------------------------|");
+        System.out.println("             |    [ 0 ]  Cancel & Go Back                       |");
+        System.out.println("             '=================================================='");
         System.out.print("  Select item type (0-4): ");
 
             if(!input.hasNextInt()){
