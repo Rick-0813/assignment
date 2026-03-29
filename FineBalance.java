@@ -91,17 +91,21 @@ public class FineBalance {
                 if (line.isEmpty()) continue;
                 
                 String[] data = line.split(","); 
-            if (data.length >= 6) {
-                    FineRecord record = new FineRecord(data[0].trim(), data[1].trim(), data[2].trim(),
-                            Double.parseDouble(data[3].trim()), Double.parseDouble(data[4].trim()));
-                    record.setPaid(Boolean.parseBoolean(data[5].trim()));
-                    fineRecords[recordCount++] = record;
+                if (data.length >= 6) {
+
+                    try {
+                        FineRecord record = new FineRecord(data[0].trim(), data[1].trim(), data[2].trim(),
+                                Double.parseDouble(data[3].trim()), Double.parseDouble(data[4].trim()));
+                        record.setPaid(Boolean.parseBoolean(data[5].trim()));
+                        fineRecords[recordCount++] = record;
+                    } catch (NumberFormatException e) {
+                        System.out.println("  [!!System Warning] Data format error, skipping line: " + line);
+                    }
                 }
             }
         } catch (Exception e) {
-            System.out.println("[System] Error loading fines data: " + e.getMessage());  
+            System.out.println("  [System Error] Error loading fines data: " + e.getMessage());  
         }
-    
     }
 
     private void saveFines() {

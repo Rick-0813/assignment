@@ -90,23 +90,27 @@ bookCatalog.add(new Novel("N001", "The Great Gatsby", "978074", "F. Scott", "Fic
                 
                 String[] data = line.split(",");
                 if (data.length >= 5) {
-                    AdminLibrary loadedUser = new AdminLibrary(data[0].trim(), data[1].trim(), data[2].trim(), data[3].trim());
-                    loadedUser.setActive(Boolean.parseBoolean(data[4].trim()));
-                    
-                    if (data.length >= 6) {
-                        loadedUser.setCurrentBorrowedBooks(Integer.parseInt(data[5].trim()));
+                    try {
+                        AdminLibrary loadedUser = new AdminLibrary(data[0].trim(), data[1].trim(), data[2].trim(), data[3].trim());
+                        loadedUser.setActive(Boolean.parseBoolean(data[4].trim()));
+                        
+                        if (data.length >= 6) {
+                            loadedUser.setCurrentBorrowedBooks(Integer.parseInt(data[5].trim()));
+                        }
+                        
+                        if (data.length >= 7) {
+                            loadedUser.setOutstandingFines(Double.parseDouble(data[6].trim()));
+                        }
+                        userList.add(loadedUser);
+                        count++;
+                    } catch (NumberFormatException e) {
+                        System.out.println("  [!!System Warning] Data format error, skipping line: " + line);
                     }
-                    
-                    if (data.length >= 7) {
-                        loadedUser.setOutstandingFines(Double.parseDouble(data[6].trim()));
-                    }
-                    userList.add(loadedUser);
-                    count++;
                 }
             }
             System.out.println("  [System] Status: Success! Loaded " + count + " user(s) into memory.");
         } catch (Exception e) {
-            System.out.println("  [System] ERROR loading data: " + e.getMessage());
+            System.out.println("  [System Error] ERROR loading data: " + e.getMessage());
         }
     }
 
@@ -243,40 +247,41 @@ bookCatalog.add(new Novel("N001", "The Great Gatsby", "978074", "F. Scott", "Fic
 
     private void loadCatalogFromFile(){
         File file = new File ("catalog_data.txt");
-        if(!file.exists())
-            return;
+        if(!file.exists()) return;
 
         try (Scanner scanner = new Scanner(file)){
             while (scanner.hasNextLine()){
                 String line = scanner.nextLine();
-                if (line.isEmpty())
-                    continue;
+                if (line.trim().isEmpty()) continue;
 
-                String[] data = line.split("\\s*,\\s*");    //using . to slpit and remove the the space before and after the ,
+                String[] data = line.split("\\s*,\\s*");
 
                 if (data.length >= 7) {
-                    String type = data[0];
-                    String itemId = data[1];
-                    String title = data[2];
-                    String isbn = data[3];
+                    try {
+                        String type = data[0];
+                        String itemId = data[1];
+                        String title = data[2];
+                        String isbn = data[3];
 
-                if (type.equalsIgnoreCase("Novel")){
-                    bookCatalog.add( new StoryBook (itemId, title ,isbn , data[4], data[5], Integer.parseInt(data[6])));
-                }
-                else if (type.equals("Manga")) {
-                    bookCatalog.add(new Manga(itemId, title ,isbn , data[4], Integer.parseInt(data[5]), Integer.parseInt(data[6])));
-                }
-                else if (type.equals("StoryBook")) {
-                    bookCatalog.add(new StoryBook(itemId, title ,isbn, data[4], data[5], Integer.parseInt(data[6])));
-                }
-                else if (type.equalsIgnoreCase("SelfHelp")){
-                    bookCatalog.add(new SelfHelp(itemId, title ,isbn , data[4], data[5], Integer.parseInt(data[6])));
+                        if (type.equalsIgnoreCase("Novel")){
+                            bookCatalog.add(new Novel(itemId, title, isbn, data[4], data[5], Integer.parseInt(data[6])));
+                        }
+                        else if (type.equalsIgnoreCase("Manga")) {
+                            bookCatalog.add(new Manga(itemId, title, isbn, data[4], Integer.parseInt(data[5]), Integer.parseInt(data[6])));
+                        }
+                        else if (type.equalsIgnoreCase("StoryBook")) {
+                            bookCatalog.add(new StoryBook(itemId, title, isbn, data[4], data[5], Integer.parseInt(data[6])));
+                        }
+                        else if (type.equalsIgnoreCase("SelfHelp")){
+                            bookCatalog.add(new SelfHelp(itemId, title, isbn, data[4], data[5], Integer.parseInt(data[6])));
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("  [!!System Warning] Data format error, skipping line: " + line);
+                    }
                 }
             }
-            }
-            }
-        catch (Exception e) {
-            System.out.println("System error to loading catalog data");
+        } catch (Exception e) {
+            System.out.println("  [System Error] System error loading catalog data: " + e.getMessage());
         }
     }
 
