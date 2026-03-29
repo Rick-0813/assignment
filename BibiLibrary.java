@@ -258,13 +258,6 @@ public class BibiLibrary {
                 manager.displayAllCatalog();
             }
             ////chongliang 啊少了这个记得加我方这个给你了
-            else if (choice == 3) {
-                System.out.print("\n  Enter the Item ID you want to update (e.g. B001) :");
-                String updateId = input.nextLine();
-
-                manager.updateCatalogItem(updateId, input);
-            }
-
             else if (choice == 3){
                 updateCatologItem();
             }
