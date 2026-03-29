@@ -1,7 +1,5 @@
 import java.util.Scanner;
 
-import javax.xml.catalog.Catalog;
-
 public class BibiLibrary {
     private static Scanner input = new Scanner(System.in);
     private static LibraryManager manager = new LibraryManager();
@@ -16,11 +14,11 @@ public class BibiLibrary {
             boolean loggedIn = true;
             while (loggedIn) {
                 System.out.println(",-----.  ,--.,--.   ,--.   ,--.   ,--.,--.                                  \r\n" + //
-                                        "|  |) /_ `--'|  |-. `--'   |  |   `--'|  |-. ,--.--. ,--,--.,--.--.,--. ,--.\r\n" + //
-                                        "|  .-.  \\,--.| .-. ',--.   |  |   ,--.| .-. '|  .--'' ,-.  ||  .--' \\  '  / \r\n" + //
-                                        "|  '--' /|  || `-' ||  |   |  '--.|  || `-' ||  |   \\ '-'  ||  |     \\   '  \r\n" + //
-                                        "`------' `--' `---' `--'   `-----'`--' `---' `--'    `--`--'`--'   .-'  /   \r\n" + //
-                                        "                                                                   `---'    ");
+                                    "|  |) /_ `--'|  |-. `--'   |  |   `--'|  |-. ,--.--. ,--,--.,--.--.,--. ,--.\r\n" + //
+                                    "|  .-.  \\,--.| .-. ',--.   |  |   ,--.| .-. '|  .--'' ,-.  ||  .--' \\  '  / \r\n" + //
+                                    "|  '--' /|  || `-' ||  |   |  '--.|  || `-' ||  |   \\ '-'  ||  |     \\   '  \r\n" + //
+                                    "`------' `--' `---' `--'   `-----'`--' `---' `--'    `--`--'`--'   .-'  /   \r\n" + //
+                                    "                                                                   `---'    ");
                 
                 System.out.println("=============================================================================");
                 System.out.println("                             Current Role: " + userType);
@@ -68,7 +66,11 @@ public class BibiLibrary {
         } else {
             switch (choice) {
                 case 1:
-                System.out.print("  Search: ");
+                System.out.println("\n  .--------------------------------------------------.");
+                System.out.println("  |             S E A R C H   C A T A L O G          |");
+                System.out.println("  '--------------------------------------------------'");
+                System.out.println("  [Tip] You can search by the book ID or keyword of the book title ");
+                System.out.print("  Enter the keyword :");
                 manager.searchBooks(input.nextLine());
                 break;
                 case 2:
@@ -201,7 +203,7 @@ public class BibiLibrary {
         
         manager.addUser(profile); 
     }
-    
+
     private static void removeUser() {
         System.out.println("  Enter User ID to remove: ");
         String id = input.nextLine();
@@ -211,7 +213,7 @@ public class BibiLibrary {
             System.out.println("                   [!] User not found.");
         }
     }   
-    
+
     private static void accountStatusControl() {
         System.out.println("  Enter User ID to toggle status ");
         System.out.println("V");
@@ -227,7 +229,7 @@ public class BibiLibrary {
             System.out.println("  |                                                  |");
             System.out.println("  |    [ 1 ]  Add New Item                           |");
             System.out.println("  |    [ 2 ]  View All Catalog                       |");
-            System.out.println("  |    [ 3 ]  Update Stock / Details                 |");
+            System.out.println("  |    [ 3 ]  Update Stock                           |");
             System.out.println("  |    [ 4 ]  Remove Item                            |");
             System.out.println("  |                                                  |");
             System.out.println("  |--------------------------------------------------|");
@@ -236,7 +238,7 @@ public class BibiLibrary {
             System.out.print("  Select an option: ");
 
             if(!input.hasNextInt()){
-                System.out.println("                   Error: Please enter a number.");
+                System.out.println("  Error: Please enter a number.");
                     input.nextLine();
                     continue;
             }
@@ -245,7 +247,7 @@ public class BibiLibrary {
             input.nextLine();
 
             if(choice == 0){
-                System.out.println("                   Returning to Admin Menu...");
+                System.out.println("  Returning to Admin Menu...");
                 break;
             }
             else if (choice == 1){
@@ -256,15 +258,22 @@ public class BibiLibrary {
                 manager.displayAllCatalog();
             }
 
+            else if (choice == 3){
+                updateCatologItem();
+            }
+
             else if (choice == 4) {
-                System.out.print("\n  Enter the Item ID you want to remove (e.g. B001) :");
+                System.out.println("\n  .--------------------------------------------------.");
+                System.out.println("  |              R E M O V E   I T E M               |");
+                System.out.println("  '--------------------------------------------------'");
+                System.out.print("  Enter the Item ID you want to remove (e.g. B001) :");
                 String removeId = input.nextLine();
 
                 manager.removeCatalogItem(removeId);
             }
 
             else{
-                System.out.println("                   Error: Function " + choice + " is under construction!");
+                System.out.println("  Error: Function " + choice + " is under construction!");
             }
         }
     }
@@ -285,7 +294,7 @@ public class BibiLibrary {
         System.out.print("  Select item type (0-4): ");
 
             if(!input.hasNextInt()){
-                System.out.println("                   Error! Invalid Input. Please enter number only .");
+                System.out.println("  Error! Invalid Input. Please enter number only .");
                 input.nextLine();
                 return;
             }
@@ -299,23 +308,31 @@ public class BibiLibrary {
             }
 
             if (typeChoice < 1 || typeChoice > 4){
-                System.out.println("                   Error! Invalid Input.");
+                System.out.println("  Error! Invalid Input.");
+                System.out.println("  Please enter the number between 1 to 4.");
                 return;
             }
 
-
-            System.out.print("  Enter Item ID (e.g., N001 , M001 , S002) : ");
+            System.out.println("\n  .--------------------------------------------------.");
+            System.out.println("  |           E N T E R   B O O K   D A T A          |");
+            System.out.println("  '--------------------------------------------------'");
+            System.out.print("  Enter Item ID            : ");
             String itemId = input.nextLine();
+            if (manager.isItemExists(itemId)){
+                System.out.println("  [!] Error . The ID is already exits ! Please use a different ID");
+                return ;
+
+            }
             
-            System.out.print("  Enter Title : ");
+            System.out.print("  Enter Title              : ");
             String title = input.nextLine();
 
-            System.out.print("  Enter ISBN :");
+            System.out.print("  Enter ISBN               : ");
             String isbn = input.nextLine();
 
-            System.out.print("  Enter Stock QUantity : ");
+            System.out.print("  Enter Stock Quantity     : ");
             if (!input.hasNextInt()){
-                System.out.println("                   Error ! Stock must be a number.");
+                System.out.println("  Error ! Stock must be a number.");
                 input.nextLine();
                 return;
             }
@@ -324,9 +341,9 @@ public class BibiLibrary {
 
             switch (typeChoice){
                 case 1 : {
-                    System.out.print("  Enter Author : ");
+                    System.out.print("  Enter Author             : ");
                     String author =  input.nextLine();
-                    System.out.print("  Enter Genre (e.g. Thriller, Romance) : ");
+                    System.out.print("  Enter Genre              : ");
                     String genre = input.nextLine();
 
                     Novel newNovel = new Novel(itemId, title, isbn, author, genre, stockQuantity);
@@ -335,27 +352,27 @@ public class BibiLibrary {
             }
 
                 case 2 : {
-                System.out.print("  Enter Illustrator : ");
-                String illustrator = input.nextLine();
-                System.out.print("  Enter Volume Number : ");
+                    System.out.print("  Enter Illustrator        : ");
+                    String illustrator = input.nextLine();
+                    System.out.print("  Enter Volume Number      : ");
 
-                if(!input.hasNextInt()){
-                    System.out.println("      Error! Issue number must be a number.");
+                    if(!input.hasNextInt()){
+                        System.out.println("  Error! Issue number must be a number.");
+                        input.nextLine();
+                        return;
+                    }
+                    int volumeNumber = input.nextInt();
                     input.nextLine();
-                    return;
-                }
-                int volumeNumber = input.nextInt();
-                input.nextLine();
 
-                Manga newManga = new Manga(itemId, title, isbn, illustrator, volumeNumber, stockQuantity);
-                manager.addCatalogItem(newManga);
-                break;
+                    Manga newManga = new Manga(itemId, title, isbn, illustrator, volumeNumber, stockQuantity);
+                    manager.addCatalogItem(newManga);
+                    break;
             }
 
                 case 3 : {
-                    System.out.print("  Enter Author : ");
+                    System.out.print("  Enter Author             : ");
                     String author = input.nextLine();
-                    System.out.print("  Enter Target Age (e.g., 3-5 years) : ");
+                    System.out.print("  Enter Target Age         : ");
                     String targetAge = input.nextLine();
 
                     StoryBook newStoryBook = new StoryBook(itemId, title, isbn, author, targetAge, stockQuantity);
@@ -363,15 +380,77 @@ public class BibiLibrary {
                     break;
             }
                 case 4 : {
-                System.out.print("  Enter Author : ");
-                String author = input.nextLine();
-                System.out.print("  Enter Topic (e.g., Biography, Personal Finance) : ");
-                String topic = input.nextLine();
+                    System.out.print("  Enter Author             : ");
+                    String author = input.nextLine();
+                    System.out.print("  Enter Topic              : ");
+                    String topic = input.nextLine();
 
-                SelfHelp newSelfHelp = new SelfHelp(itemId, title, isbn, author, topic, stockQuantity);
-                manager.addCatalogItem(newSelfHelp);
-                break;
+                    SelfHelp newSelfHelp = new SelfHelp(itemId, title, isbn, author, topic, stockQuantity);
+                    manager.addCatalogItem(newSelfHelp);
+                    break;
                 }
         }
+    }
+
+    private static void updateCatologItem() {
+        System.out.println("\n  .--------------------------------------------------.");
+        System.out.println("  |             U P D A T E   S T O C K              |");
+        System.out.println("  '--------------------------------------------------'");
+        System.out.print("  Enter the Item ID to update :");
+        String id = input.nextLine().trim();
+
+        LibraryItem itemToUpdate = manager.getItemById(id);
+
+        if (itemToUpdate == null) {
+            System.out.println("  [!] Error! The item is not found in the catalog");
+            return;
+        }
+
+        int currentStock = 0;
+        if (itemToUpdate instanceof Novel){
+            currentStock = ((Novel) itemToUpdate).getStockQuantity();
+        }
+        else if (itemToUpdate instanceof Manga){
+            currentStock = ((Manga) itemToUpdate).getStockQuantity();
+        }
+        else if (itemToUpdate instanceof StoryBook){
+            currentStock = ((StoryBook) itemToUpdate).getStockQuantity();
+        }
+        else if (itemToUpdate instanceof SelfHelp){
+            currentStock = ((SelfHelp) itemToUpdate).getStockQuantity();
+        }
+
+        System.out.println("  The current stock of this book is " + currentStock);
+        System.out.print("  Enter the New Stock Amount : ");
+        if ( !input.hasNextInt()){
+            System.out.println("  [!] Error. PLease Enter a valid number");
+            input.nextLine();
+            return ;
+        }
+
+        int newStock = input.nextInt();
+        input.nextLine();
+
+        if (newStock < 0 ){
+            System.out.println("  [!] Error. Stock cannot be negative");
+            return;
+        }
+
+        if (itemToUpdate instanceof Novel){
+            ((Novel)itemToUpdate).setStockQuantity(newStock);
+        }
+        else if (itemToUpdate instanceof Manga){
+            ((Manga)itemToUpdate).setStockQuantity(newStock);
+        }
+        else if (itemToUpdate instanceof StoryBook){
+            ((StoryBook)itemToUpdate).setStockQuantity(newStock);
+        }
+        else if (itemToUpdate instanceof SelfHelp){
+            ((SelfHelp)itemToUpdate).setStockQuantity(newStock);
+        }
+
+        System.out.println("  System Success !  Stock for " + itemToUpdate.getTitle() + " updated to " + newStock);
+        manager.saveCatalogToFile();
+        manager.addLog("Admin","UPDATE_STOCK","Updated Item ID [" + id + "] to stock: " + newStock);
     }
 }

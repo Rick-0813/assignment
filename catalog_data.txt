@@ -1,5 +1,85 @@
-StoryBook, N001 ,The Great Gatsby , ,978074F. Scott ,Fiction ,5
-Manga, M001 ,Naruto ,978156 ,Kishimoto ,1 ,10
-StoryBook, S001 ,Peppa Pig , ,978024Neville ,3-5 years ,3
-StoryBook, N002 ,The Martian , ,9780553418026Andy Weir ,Sci-Fi ,8
-Manga, M002 ,One Peice ,9781421515253 ,Eiichiro Oda ,1 ,15
+Novel, N001, The Great Gatsby, 9780743273565, F. Scott Fitzgerald, Fiction, 5
+Novel, N002, The Martian, 9780553418026, Andy Weir, Sci-Fi, 8
+Novel, N003, Murder on the Orient Express, 9780062073501, Agatha Christie, Mystery, 3
+Novel, N004, 1984, 9780451524935, George Orwell, Dystopian, 12
+Novel, N005, Pride and Prejudice, 9780141439518, Jane Austen, Romance, 6
+Novel, N006, To Kill a Mockingbird, 9780060935467, Harper Lee, Fiction, 10
+Novel, N007, Dune, 9780441172719, Frank Herbert, Sci-Fi, 7
+Novel, N008, The Hobbit, 9780345339683, J.R.R. Tolkien, Fantasy, 15
+Novel, N009, Harry Potter 1, 9780590353427, J.K. Rowling, Fantasy, 20
+Novel, N010, The Catcher in the Rye, 9780316769174, J.D. Salinger, Fiction, 8
+Novel, N011, Fahrenheit 451, 9781451673319, Ray Bradbury, Dystopian, 5
+Novel, N012, The Alchemist, 9780062315007, Paulo Coelho, Adventure, 11
+Novel, N013, The Lord of the Rings, 9780544003415, J.R.R. Tolkien, Fantasy, 9
+Novel, N014, The Da Vinci Code, 9780307474278, Dan Brown, Thriller, 14
+Novel, N015, Gone Girl, 9780307588371, Gillian Flynn, Thriller, 6
+Novel, N016, A Game of Thrones, 9780553593716, George R.R. Martin, Fantasy, 8
+Novel, N017, The Kite Runner, 9781594631931, Khaled Hosseini, Fiction, 7
+Novel, N018, The Hunger Games, 9780439023481, Suzanne Collins, Sci-Fi, 18
+Novel, N019, The Girl on the Train, 9781594634024, Paula Hawkins, Thriller, 5
+Novel, N020, The Fault in Our Stars, 9780142424179, John Green, Romance, 12
+Novel, N021, Brave New World, 9780060850524, Aldous Huxley, Sci-Fi, 4
+Novel, N022, The Shining, 9780307743657, Stephen King, Horror, 6
+Novel, N023, Jurassic Park, 9780345538987, Michael Crichton, Sci-Fi, 9
+Novel, N024, The Catch, 9781250233481, T.M. Logan, Thriller, 3
+Novel, N025, Foundation, 9780553293357, Isaac Asimov, Sci-Fi, 7
+Manga, M001, Naruto: Uzumaki Naruto, 9781569319000, Masashi Kishimoto, 1, 10
+Manga, M002, Naruto: Worst Client, 9781569319001, Masashi Kishimoto, 2, 8
+Manga, M003, Naruto: Dreams, 9781569319002, Masashi Kishimoto, 3, 9
+Manga, M004, Naruto: Heros Bridge, 9781569319003, Masashi Kishimoto, 4, 7
+Manga, M005, Naruto: The Challengers, 9781569319004, Masashi Kishimoto, 5, 5
+Manga, M006, One Piece: Romance Dawn, 9781421515253, Eiichiro Oda, 1, 15
+Manga, M007, One Piece: Buggy Clown, 9781421515254, Eiichiro Oda, 2, 12
+Manga, M008, One Piece: Dont Fooled, 9781421515255, Eiichiro Oda, 3, 10
+Manga, M009, One Piece: Black Cat, 9781421515256, Eiichiro Oda, 4, 8
+Manga, M010, One Piece: Bell Tolls, 9781421515257, Eiichiro Oda, 5, 7
+Manga, M011, AOT: To You 2000 Years, 9781612620244, Hajime Isayama, 1, 12
+Manga, M012, AOT: The Boys Dream, 9781612620245, Hajime Isayama, 2, 10
+Manga, M013, AOT: Roar, 9781612620246, Hajime Isayama, 3, 8
+Manga, M014, AOT: Line of Defense, 9781612620247, Hajime Isayama, 4, 9
+Manga, M015, AOT: The Defeated, 9781612620248, Hajime Isayama, 5, 6
+Manga, M016, Bleach: Strawberry & SR, 9781591164418, Tite Kubo, 1, 11
+Manga, M017, Bleach: Goodbye Parakeet, 9781591164419, Tite Kubo, 2, 9
+Manga, M018, Bleach: Memories in Rain, 9781591164420, Tite Kubo, 3, 7
+Manga, M019, Bleach: Quincy Archer, 9781591164421, Tite Kubo, 4, 8
+Manga, M020, Bleach: Right Arm Giant, 9781591164422, Tite Kubo, 5, 5
+Manga, M021, DS: Cruelty, 9781974700523, Koyoharu Gotouge, 1, 20
+Manga, M022, DS: It Was You, 9781974700524, Koyoharu Gotouge, 2, 18
+Manga, M023, DS: Believe in Yourself, 9781974700525, Koyoharu Gotouge, 3, 15
+Manga, M024, DS: Robust Blade, 9781974700526, Koyoharu Gotouge, 4, 12
+Manga, M025, DS: To Hell, 9781974700527, Koyoharu Gotouge, 5, 10
+Manga, M026, Pokemon: Red & Blue, 9781421530546, Hidenori Kusaka, 1, 8
+Manga, M027, Pokemon: Yellow Chapter, 9781421530547, Hidenori Kusaka, 2, 7
+Manga, M028, JJK: Ryomen Sukuna, 9781974710027, Gege Akutami, 1, 14
+Manga, M029, Spy x Family: Op Strix, 9781974715466, Tatsuya Endo, 1, 16
+Manga, M030, Death Note: Boredom, 9781421501680, Tsugumi Ohba, 1, 9
+StoryBook, S001, Peppa Pig, 9780241003008, Neville Astley, 3-5 years, 6
+StoryBook, S002, The Hungry Caterpillar, 9780241003009, Eric Carle, 3-5 years, 8
+StoryBook, S003, Charlottes Web, 9780061124952, E.B. White, 7-10 years, 5
+StoryBook, S004, Tale of Peter Rabbit, 9780723247708, Beatrix Potter, 3-5 years, 7
+StoryBook, S005, Green Eggs and Ham, 9780394800165, Dr. Seuss, 3-5 years, 10
+StoryBook, S006, The Cat in the Hat, 9780394800011, Dr. Seuss, 3-5 years, 12
+StoryBook, S007, Wild Things Are, 9780060254926, Maurice Sendak, 3-5 years, 6
+StoryBook, S008, Goodnight Moon, 9780060775858, M. Wise Brown, 0-3 years, 9
+StoryBook, S009, The Lorax, 9780394823379, Dr. Seuss, 5-8 years, 4
+StoryBook, S010, Winnie the Pooh, 9780525444435, A.A. Milne, 3-5 years, 8
+StoryBook, S011, Alice in Wonderland, 9781503250215, Lewis Carroll, 7-10 years, 5
+StoryBook, S012, Peter Pan, 9780141329819, J.M. Barrie, 7-10 years, 6
+StoryBook, S013, The Little Prince, 9780156012195, A. Saint-Exupery, 7-10 years, 11
+StoryBook, S014, Matilda, 9780142410370, Roald Dahl, 7-10 years, 7
+StoryBook, S015, Charlie and Chocolate, 9780142410318, Roald Dahl, 7-10 years, 9
+StoryBook, S016, The Gruffalo, 9780142403877, Julia Donaldson, 3-5 years, 10
+StoryBook, S017, Corduroy, 9780140501735, Don Freeman, 3-5 years, 4
+StoryBook, S018, Madeline, 9780140564396, Ludwig Bemelmans, 3-5 years, 5
+StoryBook, S019, The Snowy Day, 9780140501827, Ezra Jack Keats, 0-3 years, 3
+StoryBook, S020, How Much I Love You, 9780763642616, Sam McBratney, 0-3 years, 8
+SelfHelp, H001, Atomic Habits, 9780735211292, James Clear, Personal Dev, 7
+SelfHelp, H002, Python GUI with Tkinter, 9781119557593, Alan Moore, Programming, 5
+SelfHelp, H003, Essential Discrete Math, 9780198507178, David Hunter, Mathematics, 4
+SelfHelp, H004, Statistics for Beginners, 9780470515011, Deborah Rumsey, Education, 6
+SelfHelp, H005, Systems Analysis Design, 9781119496489, Alan Dennis, Tech, 3
+SelfHelp, H006, Linux Command Line, 9781491927571, William Shotts, Tech, 8
+SelfHelp, H007, Java A Beginners Guide, 9781260440218, Herbert Schildt, Programming, 5
+SelfHelp, H008, Speed Cubers Guide, 9781524784966, Ian Scheffler, Hobby, 10
+SelfHelp, H009, Mechanical Keyboards 101, 9781988888888, K. Enthusiast, Tech, 4
+SelfHelp, H010, Rich Dad Poor Dad, 9781612680194, Robert Kiyosaki, Finance, 10

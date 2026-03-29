@@ -16,6 +16,7 @@ public class user {
     }
 
     public static String loginProcess(Scanner input) {
+
         while (true) {
             System.out.println("\n\n,-----.  ,--.,--.   ,--.   ,--.   ,--.,--.                                  \r\n" + //
                                         "|  |) /_ `--'|  |-. `--'   |  |   `--'|  |-. ,--.--. ,--,--.,--.--.,--. ,--.\r\n" + //
@@ -71,6 +72,7 @@ public class user {
             }
         }
     }
+
     private static void loadAccounts() {
         File file = new File(FILE_NAME);
         if (!file.exists()) return;

@@ -12,3 +12,10 @@
 [2026-03-27 22:41:26] User: Admin | Action: ADD_USER | Details: Added User ID: 1
 [2026-03-27 22:43:41] User: Admin | Action: ADD_CATALOG | Details: Added Item: N001
 [2026-03-27 22:47:37] User: Admin | Action: ADD_CATALOG | Details: Added Item: M001
+[2026-03-29 17:16:47] User: Admin | Action: ADD_CATALOG | Details: Added Item: N004
+[2026-03-29 17:18:03] User: Admin | Action: UPDATE_STOCK | Details: Updated Item ID [N001] to stock: 8
+[2026-03-29 17:36:29] User: Admin | Action: ADD_CATALOG | Details: Added Item: 0
+[2026-03-29 18:49:49] User: Admin | Action: ADD_CATALOG | Details: Added Item: 1
+[2026-03-29 18:50:02] User: Admin | Action: ADD_CATALOG | Details: Added Item: 2
+[2026-03-29 18:50:08] User: Admin | Action: ADD_CATALOG | Details: Added Item: 3
+[2026-03-29 18:50:24] User: Admin | Action: ADD_CATALOG | Details: Added Item: 
