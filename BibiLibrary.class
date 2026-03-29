@@ -1,0 +1,341 @@
+// Source code is decompiled from a .class file using FernFlower decompiler (from Intellij IDEA).
+import java.util.Scanner;
+
+public class BibiLibrary {
+   private static Scanner input;
+   private static LibraryManager manager;
+   String currentUserID = "";
+
+   public BibiLibrary() {
+   }
+
+   public static void main(String[] var0) {
+      while(true) {
+         String var1 = user.loginProcess(input);
+         if (var1 == null) {
+            return;
+         }
+
+         boolean var2 = true;
+
+         while(var2) {
+            System.out.println(",-----.  ,--.,--.   ,--.   ,--.   ,--.,--.                                  \r\n|  |) /_ `--'|  |-. `--'   |  |   `--'|  |-. ,--.--. ,--,--.,--.--.,--. ,--.\r\n|  .-.  \\,--.| .-. ',--.   |  |   ,--.| .-. '|  .--'' ,-.  ||  .--' \\  '  / \r\n|  '--' /|  || `-' ||  |   |  '--.|  || `-' ||  |   \\ '-'  ||  |     \\   '  \r\n`------' `--' `---' `--'   `-----'`--' `---' `--'    `--`--'`--'   .-'  /   \r\n                                                                   `---'    ");
+            System.out.println("=============================================================================");
+            System.out.println("                             Current Role: " + var1);
+            if (var1.trim().equalsIgnoreCase("Admin")) {
+               System.out.println("                      ==================================");
+               System.out.println("                      |    1. User Management          |\n                      |    2. Circulation Module       |\n                      |    3. Cataloging Admin         |\n                      |    4. Fees and Audits          |");
+            } else {
+               System.out.println("                      ==================================");
+               System.out.println("                      |    1. Search Catalog           |\n                      |    2. My Loans                 |\n                      |    3. My Bills                 |");
+            }
+
+            System.out.println("                      |    0. Logout Back to Main Menu |");
+            System.out.println("                      ==================================");
+            System.out.print("  Choice: ");
+            if (!input.hasNextInt()) {
+               input.nextLine();
+            } else {
+               int var3 = input.nextInt();
+               input.nextLine();
+               if (var3 == 0) {
+                  System.out.println("  Logging out...");
+                  var2 = false;
+               } else {
+                  handleMenu(var1, var3);
+               }
+            }
+         }
+      }
+   }
+
+   private static void handleMenu(String var0, int var1) {
+      if (var0.trim().equalsIgnoreCase("Admin")) {
+         switch (var1) {
+            case 1 -> ManagmentUser();
+            case 2 -> System.out.println("  Managing circulation...");
+            case 3 -> catalogMenu();
+            case 4 -> System.out.println("  Performing audits...");
+            default -> System.out.println("  Invalid choice.");
+         }
+      } else {
+         switch (var1) {
+            case 1:
+               System.out.print("  Search: ");
+               manager.searchBooks(input.nextLine());
+               break;
+            case 2:
+               System.out.println("  Enter your User ID to view loans: ");
+               String var2 = input.nextLine();
+               System.out.println("  Checking loans for User ID [" + var2 + "]... Current status: Clear.");
+               break;
+            case 3:
+               System.out.print("  Enter your User ID to check bills: ");
+               String var3 = input.nextLine();
+               manager.getFineMenu().showFineMenuIfOwed(var3, var0.trim(), input);
+               break;
+            default:
+               System.out.println("  Invalid choice.");
+         }
+      }
+
+   }
+
+   private static void ManagmentUser() {
+      while(true) {
+         System.out.println("                  ==================================");
+         System.out.println("                  |   User Management Options      |");
+         System.out.println("                  ==================================");
+         System.out.println("                  |      1. Add User               |");
+         System.out.println("                  |      2. Remove User            |");
+         System.out.println("                  |      3. Edit User              |");
+         System.out.println("                  |      4. View All Users         |");
+         System.out.println("                  |      5. Account Status Control |");
+         System.out.println("                  |      0. Back to Admin Menu     |");
+         System.out.println("                  ==================================");
+         System.out.print("  Select an option: ");
+         int var0 = input.nextInt();
+         input.nextLine();
+         if (var0 == 0) {
+            System.out.println("  Returning to Admin Menu...");
+            return;
+         }
+
+         if (var0 == 1) {
+            addUser();
+         } else if (var0 == 2) {
+            removeUser();
+         } else if (var0 == 3) {
+            editUser();
+         } else if (var0 == 4) {
+            manager.displayAllUsers();
+         } else if (var0 == 5) {
+            accountStatusControl();
+         } else {
+            System.out.println("  Invalid choice. Please try again.");
+         }
+      }
+   }
+
+   private static void editUser() {
+      System.out.print("  Enter User ID to edit: ");
+      String var0 = input.nextLine().trim();
+      AdminLibrary var1 = manager.getUserByID(var0);
+      if (var1 == null) {
+         System.out.println("  [!] User ID not found.");
+      } else {
+         System.out.println("\n                --- Editing User: " + var1.getAdminName() + " ---");
+         System.out.println("  (Tip: Press ENTER to keep current data)");
+         System.out.print("  New Name [" + var1.getAdminName() + "]: ");
+         String var2 = input.nextLine().trim();
+         if (!var2.isEmpty()) {
+            var1.setAdminName(var2);
+         }
+
+         System.out.print("  New Email [" + var1.getEmail() + "]: ");
+         String var3 = input.nextLine().trim();
+         if (!var3.isEmpty()) {
+            var1.setEmail(var3);
+         }
+
+         System.out.print("  New Type [" + var1.getUserType() + "]: ");
+         String var4 = input.nextLine().trim();
+         if (!var4.isEmpty()) {
+            var1.setUserType(var4);
+         }
+
+         manager.updateUser();
+         manager.addLog("Admin", "EDIT_USER", "Edited details for User ID: " + var0);
+         System.out.println("  [System] User details updated successfully!");
+      }
+   }
+
+   private static void addUser() {
+      String var0;
+      do {
+         System.out.print("  Name (IC/Passport): ");
+         var0 = input.nextLine().trim();
+         if (var0.isEmpty()) {
+            System.out.println("                   [!] Error: Name cannot be empty. Please try again.");
+         }
+      } while(var0.isEmpty());
+
+      String var1;
+      do {
+         System.out.print("  User ID: ");
+         var1 = input.nextLine().trim();
+         if (var1.isEmpty()) {
+            System.out.println("                   [!] Error: User ID cannot be empty. Please try again.");
+         }
+      } while(var1.isEmpty());
+
+      String var2;
+      do {
+         System.out.print("  Email: ");
+         var2 = input.nextLine().trim();
+         if (var2.isEmpty()) {
+            System.out.println("                   [!] Error: Email cannot be empty. Please try again.");
+         }
+      } while(var2.isEmpty());
+
+      String var3;
+      do {
+         System.out.print("  Type (Admin/Faculty/Student/Public Member): ");
+         var3 = input.nextLine().trim();
+         if (var3.isEmpty()) {
+            System.out.println("                   [!] Error: Type cannot be empty. Please try again.");
+         }
+      } while(var3.isEmpty());
+
+      AdminLibrary var4 = new AdminLibrary(var0, var1, var3, var2);
+      manager.addUser(var4);
+   }
+
+   private static void removeUser() {
+      System.out.println("  Enter User ID to remove: ");
+      String var0 = input.nextLine();
+      if (manager.removeUser(var0)) {
+         System.out.println("                   [!] User removed successfully.");
+      } else {
+         System.out.println("                   [!] User not found.");
+      }
+
+   }
+
+   private static void accountStatusControl() {
+      System.out.println("  Enter User ID to toggle status ");
+      System.out.println("V");
+      String var0 = input.nextLine();
+      manager.toggleUserStatus(var0);
+   }
+
+   private static void catalogMenu() {
+      while(true) {
+         System.out.println("\n             .==================================================.            ");
+         System.out.println("             |             C A T A L O G   M E N U              |            ");
+         System.out.println("             |==================================================|            ");
+         System.out.println("             |                                                  |            ");
+         System.out.println("             |    [ 1 ]  Add New Item                           |            ");
+         System.out.println("             |    [ 2 ]  View All Catalog                       |            ");
+         System.out.println("             |    [ 3 ]  Update Stock / Details                 |            ");
+         System.out.println("             |    [ 4 ]  Remove Item                            |            ");
+         System.out.println("             |                                                  |            ");
+         System.out.println("             |--------------------------------------------------|            ");
+         System.out.println("             |    [ 0 ]  Back to Admin Menu                     |            ");
+         System.out.println("             '=================================================='            ");
+         System.out.print("  Select an option: ");
+         if (!input.hasNextInt()) {
+            System.out.println("                   Error: Please enter a number.");
+            input.nextLine();
+         } else {
+            int var0 = input.nextInt();
+            input.nextLine();
+            if (var0 == 0) {
+               System.out.println("                   Returning to Admin Menu...");
+               return;
+            }
+
+            if (var0 == 1) {
+               addNewCatalogItem();
+            } else if (var0 == 2) {
+               manager.displayAllCatalog();
+            } else if (var0 == 4) {
+               System.out.print("\n  Enter the Item ID you want to remove (e.g. B001) :");
+               String var1 = input.nextLine();
+               manager.removeCatalogItem(var1);
+            } else {
+               System.out.println("                   Error: Function " + var0 + " is under construction!");
+            }
+         }
+      }
+   }
+
+   private static void addNewCatalogItem() {
+      System.out.println("\n  .==================================================.");
+      System.out.println("  |         S E L E C T   I T E M   T Y P E          |");
+      System.out.println("  |==================================================|");
+      System.out.println("  |                                                  |");
+      System.out.println("  |    [ 1 ]  Novel        (Sci-Fi, Romance...)      |");
+      System.out.println("  |    [ 2 ]  Manga        (Comics, Graphic Novels)  |");
+      System.out.println("  |    [ 3 ]  StoryBook    (Kids, Picture Books)     |");
+      System.out.println("  |    [ 4 ]  Self-Help    (Biography, Finance)      |");
+      System.out.println("  |                                                  |");
+      System.out.println("  |--------------------------------------------------|");
+      System.out.println("  |    [ 0 ]  Cancel & Go Back                       |");
+      System.out.println("  '=================================================='");
+      System.out.print("  Select item type (0-4): ");
+      if (!input.hasNextInt()) {
+         System.out.println("                   Error! Invalid Input. Please enter number only .");
+         input.nextLine();
+      } else {
+         int var0 = input.nextInt();
+         input.nextLine();
+         if (var0 == 0) {
+            System.out.println("  Action canceled. Returning to Catalog Menu...");
+         } else if (var0 >= 1 && var0 <= 4) {
+            System.out.print("  Enter Item ID (e.g., N001 , M001 , S002) : ");
+            String var1 = input.nextLine();
+            System.out.print("  Enter Title : ");
+            String var2 = input.nextLine();
+            System.out.print("  Enter ISBN :");
+            String var3 = input.nextLine();
+            System.out.print("  Enter Stock QUantity : ");
+            if (!input.hasNextInt()) {
+               System.out.println("                   Error ! Stock must be a number.");
+               input.nextLine();
+            } else {
+               int var4 = input.nextInt();
+               input.nextLine();
+               switch (var0) {
+                  case 1:
+                     System.out.print("  Enter Author : ");
+                     String var10 = input.nextLine();
+                     System.out.print("  Enter Genre (e.g. Thriller, Romance) : ");
+                     String var13 = input.nextLine();
+                     Novel var16 = new Novel(var1, var2, var3, var10, var13, var4);
+                     manager.addCatalogItem(var16);
+                     break;
+                  case 2:
+                     System.out.print("  Enter Illustrator : ");
+                     String var9 = input.nextLine();
+                     System.out.print("  Enter Volume Number : ");
+                     if (!input.hasNextInt()) {
+                        System.out.println("      Error! Issue number must be a number.");
+                        input.nextLine();
+                        return;
+                     }
+
+                     int var12 = input.nextInt();
+                     input.nextLine();
+                     Manga var15 = new Manga(var1, var2, var3, var9, var12, var4);
+                     manager.addCatalogItem(var15);
+                     break;
+                  case 3:
+                     System.out.print("  Enter Author : ");
+                     String var8 = input.nextLine();
+                     System.out.print("  Enter Target Age (e.g., 3-5 years) : ");
+                     String var11 = input.nextLine();
+                     StoryBook var14 = new StoryBook(var1, var2, var3, var8, var11, var4);
+                     manager.addCatalogItem(var14);
+                     break;
+                  case 4:
+                     System.out.print("  Enter Author : ");
+                     String var5 = input.nextLine();
+                     System.out.print("  Enter Topic (e.g., Biography, Personal Finance) : ");
+                     String var6 = input.nextLine();
+                     SelfHelp var7 = new SelfHelp(var1, var2, var3, var5, var6, var4);
+                     manager.addCatalogItem(var7);
+               }
+
+            }
+         } else {
+            System.out.println("                   Error! Invalid Input.");
+         }
+      }
+   }
+
+   static {
+      input = new Scanner(System.in);
+      manager = new LibraryManager();
+   }
+}
