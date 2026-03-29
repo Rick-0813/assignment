@@ -81,6 +81,8 @@ public class user {
                 String[] d = r.nextLine().split(",");
                 if (d.length == 3) accounts.add(new Account(d[0], d[1], d[2]));
             }
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            System.out.println("  [Error] Failed to load accounts file: " + e.getMessage());
+        }
     }
 }

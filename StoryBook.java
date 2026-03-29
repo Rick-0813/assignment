@@ -60,7 +60,7 @@ public class StoryBook extends LibraryItem {
 
     @Override
     public String toFileString() {
-        return "StoryBook, "  + getItemId() + " ," + getTitle() + " ," + " ," + getIsbn() + author + " ," + targetAge +" ," + stockQuantity;
+        return "StoryBook," + getItemId() + "," + getTitle() + "," + getIsbn() + "," + author + "," + targetAge + "," + stockQuantity;
     }
 
 }
