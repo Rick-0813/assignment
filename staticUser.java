@@ -1,7 +1,5 @@
 import java.util.*;
-
 import javax.sound.sampled.SourceDataLine;
-
 import java.io.*;
 
 public class staticUser {
@@ -39,7 +37,9 @@ public class staticUser {
             System.out.println("             |    [ 4 ] Admin (Login Required)                  |");
             System.out.println("             |                                                  |");
             System.out.println("             |--------------------------------------------------|");
+            System.out.println("             |                                                  |");
             System.out.println("             |    [ 0 ] Exit                                    |");
+            System.out.println("             |                                                  |");
             System.out.println("             .==================================================.");
             System.out.print("  Please select your role: ");
 
