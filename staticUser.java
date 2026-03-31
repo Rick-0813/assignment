@@ -4,7 +4,7 @@ import javax.sound.sampled.SourceDataLine;
 
 import java.io.*;
 
-public class static User {
+public class User {
     private static ArrayList<Account> accounts = new ArrayList<>();
     private static final String FILE_NAME = "accounts.txt";
 
