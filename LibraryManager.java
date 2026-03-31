@@ -6,6 +6,12 @@ import java.time.format.DateTimeFormatter;
 
 
 public class LibraryManager {
+
+    private ArrayList<Loan> loanList = new ArrayList<>();
+    private ArrayList<Reservation> reservationList = new ArrayList<>();
+    private int loanCounter = 1;
+    private int reserveCounter = 1;
+
     private ArrayList<AdminLibrary> userList = new ArrayList<>();
     private ArrayList<LibraryItem> bookCatalog = new ArrayList<>();
     private FineBalance fineBalance = new FineBalance();
@@ -33,7 +39,7 @@ bookCatalog.add(new Novel("N001", "The Great Gatsby", "978074", "F. Scott", "Fic
     }
 
     public void borrowItem(String userID, String itemID) {
-    AdminLibrary currentUser = null;
+    AdminLibrary currentUser = getUserByID(userID);
 
     for (AdminLibrary u : userList) {
         if (u.getUserID().equals(userID)) {
@@ -318,4 +324,17 @@ bookCatalog.add(new Novel("N001", "The Great Gatsby", "978074", "F. Scott", "Fic
         }
 
     }
+
+    private void adjustStock(LibraryItem item, int amount) {
+        if (item instanceof Novel) {
+            ((Novel)item).setStockQuantity(((Novel)item).getStockQuantity() + amount);
+        } else if (item instanceof Manga) {
+            ((Manga)item).setStockQuantity(((Manga)item).getStockQuantity() + amount);
+        } else if (item instanceof StoryBook) {
+            ((StoryBook)item).setStockQuantity(((StoryBook)item).getStockQuantity() + amount);
+        } else if (item instanceof SelfHelp) {
+            ((SelfHelp)item).setStockQuantity(((SelfHelp)item).getStockQuantity() + amount);
+        }
+    }
+
 }
