@@ -263,11 +263,15 @@ public class BibiLibrary {
 
             else if (choice == 2) {
                 manager.displayAllCatalog();
+<<<<<<< Updated upstream
             }
             
             else if (choice == 3){
                 updateCatologItem();
             }
+=======
+            }            
+>>>>>>> Stashed changes
 
             else if (choice == 4) {
                 System.out.println("\n  .--------------------------------------------------.");
