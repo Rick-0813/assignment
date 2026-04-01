@@ -7,7 +7,7 @@ public class BibiLibrary {
     public static void main(String[] args) {
 
         while (true) {
-            String userType = staticUser.loginProcess(input);
+            String userType = StaticUser.loginProcess(input);
             if (userType == null) {
                 break;
             }
