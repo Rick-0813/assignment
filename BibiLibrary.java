@@ -14,21 +14,21 @@ public class BibiLibrary {
             boolean loggedIn = true;
             while (loggedIn) {
                 System.out.println(",-----.  ,--.,--.   ,--.   ,--.   ,--.,--.                                  \r\n" + //
-                                    "|  |) /_ `--'|  |-. `--'   |  |   `--'|  |-. ,--.--. ,--,--.,--.--.,--. ,--.\r\n" + //
-                                    "|  .-.  \\,--.| .-. ',--.   |  |   ,--.| .-. '|  .--'' ,-.  ||  .--' \\  '  / \r\n" + //
-                                    "|  '--' /|  || `-' ||  |   |  '--.|  || `-' ||  |   \\ '-'  ||  |     \\   '  \r\n" + //
-                                    "`------' `--' `---' `--'   `-----'`--' `---' `--'    `--`--'`--'   .-'  /   \r\n" + //
-                                    "                                                                   `---'    ");
-                
+                    "|  |) /_ `--'|  |-. `--'   |  |   `--'|  |-. ,--.--. ,--,--.,--.--.,--. ,--.\r\n" + //
+                    "|  .-.  \\,--.| .-. ',--.   |  |   ,--.| .-. '|  .--'' ,-.  ||  .--' \\  '  / \r\n" + //
+                    "|  '--' /|  || `-' ||  |   |  '--.|  || `-' ||  |   \\ '-'  ||  |     \\   '  \r\n" + //
+                    "`------' `--' `---' `--'   `-----'`--' `---' `--'    `--`--'`--'   .-'  /   \r\n" + //
+                    "                                                                   `---'    ");
+
                 System.out.println("=============================================================================\n");
                 System.out.println("               .==================================================.");
                 System.out.println("              /                                                  /|");
                 System.out.printf("             /            Current Role: %-24s/ |%n", userType);
                 System.out.println("            /                                                  /  |");
                 System.out.println("           .==================================================.   |");
-                
+
                 if (userType.trim().equalsIgnoreCase("Admin")) {
-                    System.out.println("           |                                                  |   |");  
+                    System.out.println("           |                                                  |   |");
                     System.out.println("           |    [ 1 ] User Management                         |   |\n           |    [ 2 ] Circulation Module                      |   |\n           |    [ 3 ] Cataloging Admin                        |   |\n           |    [ 4 ] Fees and Audits                         |   .");
                 } else {
                     System.out.println("           |                                                  |   |");
@@ -62,35 +62,42 @@ public class BibiLibrary {
         if (userType.trim().equalsIgnoreCase("Admin")) {
             switch (choice) {
                 case 1:
-                ManagmentUser();
-                break;
-                case 2: System.out.println("  Managing circulation..."); break;
-                case 3: catalogMenu(); break;
-                case 4: System.out.println("  Performing audits..."); break;
-                default: System.out.println("  Invalid choice.");
+                    ManagmentUser();
+                    break;
+                case 2:
+                    System.out.println("  Managing circulation...");
+                    break;
+                case 3:
+                    catalogMenu();
+                    break;
+                case 4:
+                    feesAndAudits();
+                    break;
+                default:
+                    System.out.println("  Invalid choice.");
             }
         } else {
             switch (choice) {
                 case 1:
-                System.out.println("\n            .--------------------------------------------------.");
-                System.out.println("            |             S E A R C H   C A T A L O G          |");
-                System.out.println("            '--------------------------------------------------'");
-                System.out.println("            [Tip] You can search by the book ID or keyword of the book title ");
-                System.out.print("  Enter the keyword :");
-                manager.searchBooks(input.nextLine());
-                break;
+                    System.out.println("\n            .--------------------------------------------------.");
+                    System.out.println("            |             S E A R C H   C A T A L O G          |");
+                    System.out.println("            '--------------------------------------------------'");
+                    System.out.println("            [Tip] You can search by the book ID or keyword of the book title ");
+                    System.out.print("  Enter the keyword :");
+                    manager.searchBooks(input.nextLine());
+                    break;
                 case 2:
-                System.out.println("  Enter your User ID to view loans: ");
-                String userID = input.nextLine();
-                System.out.println("  Checking loans for User ID [" + userID + "]... Current status: Clear.");
-                break;
+                    System.out.println("  Enter your User ID to view loans: ");
+                    String userID = input.nextLine();
+                    System.out.println("  Checking loans for User ID [" + userID + "]... Current status: Clear.");
+                    break;
                 case 3:
-                System.out.print("  Enter your User ID to check bills: ");
-                String billUserID = input.nextLine();
-                manager.getFineMenu().showFineMenuIfOwed(billUserID, userType.trim(), input);
-                break;
-                default: 
-                System.out.println("  Invalid choice.");
+                    System.out.print("  Enter your User ID to check bills: ");
+                    String billUserID = input.nextLine();
+                    manager.getFineMenu().showFineMenuIfOwed(billUserID, userType.trim(), input);
+                    break;
+                default:
+                    System.out.println("  Invalid choice.");
             }
         }
     }
@@ -111,7 +118,7 @@ public class BibiLibrary {
             System.out.print("  Select an option: ");
 
             int userChoice = input.nextInt();
-            input.nextLine(); 
+            input.nextLine();
             if (userChoice == 0) {
                 System.out.println("  Returning to Admin Menu...");
                 break;
@@ -122,10 +129,10 @@ public class BibiLibrary {
             } else if (userChoice == 3) {
                 editUser();
             } else if (userChoice == 4) {
-                manager.displayAllUsers(); 
+                manager.displayAllUsers();
             } else if (userChoice == 5) {
-                accountStatusControl(); 
-            } else { 
+                accountStatusControl();
+            } else {
                 System.out.println("  Invalid choice. Please try again.");
             }
         }
@@ -136,7 +143,7 @@ public class BibiLibrary {
         String id = input.nextLine().trim();
 
         AdminLibrary user = manager.getUserByID(id);
-        
+
         if (user == null) {
             System.out.println("  [!] User ID not found.");
             return;
@@ -205,10 +212,10 @@ public class BibiLibrary {
                 System.out.println("                   [!] Error: Type cannot be empty. Please try again.");
             }
         } while (type.isEmpty());
-        
+
         AdminLibrary profile = new AdminLibrary(name, id, type, email);
-        
-        manager.addUser(profile); 
+
+        manager.addUser(profile);
     }
 
     private static void removeUser() {
@@ -219,7 +226,7 @@ public class BibiLibrary {
         } else {
             System.out.println("                   [!] User not found.");
         }
-    }   
+    }
 
     private static void accountStatusControl() {
         System.out.println("  Enter User ID to toggle status ");
@@ -228,8 +235,8 @@ public class BibiLibrary {
         manager.toggleUserStatus(id);
     }
 
-    private static void  catalogMenu() {
-        while(true){
+    private static void catalogMenu() {
+        while (true) {
             System.out.println("\n             .==================================================.");
             System.out.println("             |             C A T A L O G   M E N U              |");
             System.out.println("             |==================================================|");
@@ -244,33 +251,25 @@ public class BibiLibrary {
             System.out.println("             '=================================================='");
             System.out.print("  Select an option: ");
 
-            if(!input.hasNextInt()){
+            if (!input.hasNextInt()) {
                 System.out.println("  Error: Please enter a number.");
-                    input.nextLine();
-                    continue;
+                input.nextLine();
+                continue;
             }
 
             int choice = input.nextInt();
             input.nextLine();
 
-            if(choice == 0){
+            if (choice == 0) {
                 System.out.println("  Returning to Admin Menu...");
                 break;
-            }
-            else if (choice == 1){
+            } else if (choice == 1) {
                 addNewCatalogItem();
-            }
-
-            else if (choice == 2) {
+            } else if (choice == 2) {
                 manager.displayAllCatalog();
-            }
-            
-            else if (choice == 3){
+            } else if (choice == 3) {
                 updateCatologItem();
-            }
-                  
-
-            else if (choice == 4) {
+            } else if (choice == 4) {
                 System.out.println("\n  .--------------------------------------------------.");
                 System.out.println("  |              R E M O V E   I T E M               |");
                 System.out.println("  '--------------------------------------------------'");
@@ -278,9 +277,7 @@ public class BibiLibrary {
                 String removeId = input.nextLine();
 
                 manager.removeCatalogItem(removeId);
-            }
-
-            else{
+            } else {
                 System.out.println("  Error: Function " + choice + " is under construction!");
             }
         }
@@ -301,70 +298,72 @@ public class BibiLibrary {
         System.out.println("             '=================================================='");
         System.out.print("  Select item type (0-4): ");
 
-            if(!input.hasNextInt()){
-                System.out.println("  Error! Invalid Input. Please enter number only .");
-                input.nextLine();
-                return;
-            }
-
-            int typeChoice = input.nextInt() ;
-            input.nextLine() ;
-
-            if(typeChoice == 0) {
-                System.out.println("  Action canceled. Returning to Catalog Menu...");
-                return;
-            }
-
-            if (typeChoice < 1 || typeChoice > 4){
-                System.out.println("  Error! Invalid Input.");
-                System.out.println("  Please enter the number between 1 to 4.");
-                return;
-            }
-
-            System.out.println("\n  .--------------------------------------------------.");
-            System.out.println("  |           E N T E R   B O O K   D A T A          |");
-            System.out.println("  '--------------------------------------------------'");
-            System.out.print("  Enter Item ID            : ");
-            String itemId = input.nextLine();
-            if (manager.isItemExists(itemId)){
-                System.out.println("  [!] Error . The ID is already exits ! Please use a different ID");
-                return ;
-
-            }
-            
-            System.out.print("  Enter Title              : ");
-            String title = input.nextLine();
-
-            System.out.print("  Enter ISBN               : ");
-            String isbn = input.nextLine();
-
-            System.out.print("  Enter Stock Quantity     : ");
-            if (!input.hasNextInt()){
-                System.out.println("  Error ! Stock must be a number.");
-                input.nextLine();
-                return;
-            }
-            int stockQuantity = input.nextInt();
+        if (!input.hasNextInt()) {
+            System.out.println("  Error! Invalid Input. Please enter number only .");
             input.nextLine();
+            return;
+        }
 
-            switch (typeChoice){
-                case 1 : {
+        int typeChoice = input.nextInt();
+        input.nextLine();
+
+        if (typeChoice == 0) {
+            System.out.println("  Action canceled. Returning to Catalog Menu...");
+            return;
+        }
+
+        if (typeChoice < 1 || typeChoice > 4) {
+            System.out.println("  Error! Invalid Input.");
+            System.out.println("  Please enter the number between 1 to 4.");
+            return;
+        }
+
+        System.out.println("\n  .--------------------------------------------------.");
+        System.out.println("  |           E N T E R   B O O K   D A T A          |");
+        System.out.println("  '--------------------------------------------------'");
+        System.out.print("  Enter Item ID            : ");
+        String itemId = input.nextLine();
+        if (manager.isItemExists(itemId)) {
+            System.out.println("  [!] Error . The ID is already exits ! Please use a different ID");
+            return;
+
+        }
+
+        System.out.print("  Enter Title              : ");
+        String title = input.nextLine();
+
+        System.out.print("  Enter ISBN               : ");
+        String isbn = input.nextLine();
+
+        System.out.print("  Enter Stock Quantity     : ");
+        if (!input.hasNextInt()) {
+            System.out.println("  Error ! Stock must be a number.");
+            input.nextLine();
+            return;
+        }
+        int stockQuantity = input.nextInt();
+        input.nextLine();
+
+        switch (typeChoice) {
+            case 1:
+                {
                     System.out.print("  Enter Author             : ");
-                    String author =  input.nextLine();
+                    String author = input.nextLine();
                     System.out.print("  Enter Genre              : ");
                     String genre = input.nextLine();
 
                     Novel newNovel = new Novel(itemId, title, isbn, author, genre, stockQuantity);
                     manager.addCatalogItem(newNovel);
                     break;
-            }
+                }
 
-                case 2 : {
+            case 2:
+                {
                     System.out.print("  Enter Illustrator        : ");
                     String illustrator = input.nextLine();
                     System.out.print("  Enter Volume Number      : ");
 
-                    if(!input.hasNextInt()){
+                    if (!input.hasNextInt()) {
                         System.out.println("  Error! Issue number must be a number.");
                         input.nextLine();
                         return;
@@ -375,9 +374,10 @@ public class BibiLibrary {
                     Manga newManga = new Manga(itemId, title, isbn, illustrator, volumeNumber, stockQuantity);
                     manager.addCatalogItem(newManga);
                     break;
-            }
+                }
 
-                case 3 : {
+            case 3:
+                {
                     System.out.print("  Enter Author             : ");
                     String author = input.nextLine();
                     System.out.print("  Enter Target Age         : ");
@@ -386,8 +386,9 @@ public class BibiLibrary {
                     StoryBook newStoryBook = new StoryBook(itemId, title, isbn, author, targetAge, stockQuantity);
                     manager.addCatalogItem(newStoryBook);
                     break;
-            }
-                case 4 : {
+                }
+            case 4:
+                {
                     System.out.print("  Enter Author             : ");
                     String author = input.nextLine();
                     System.out.print("  Enter Topic              : ");
@@ -415,50 +416,226 @@ public class BibiLibrary {
         }
 
         int currentStock = 0;
-        if (itemToUpdate instanceof Novel){
+        if (itemToUpdate instanceof Novel) {
             currentStock = ((Novel) itemToUpdate).getStockQuantity();
-        }
-        else if (itemToUpdate instanceof Manga){
+        } else if (itemToUpdate instanceof Manga) {
             currentStock = ((Manga) itemToUpdate).getStockQuantity();
-        }
-        else if (itemToUpdate instanceof StoryBook){
+        } else if (itemToUpdate instanceof StoryBook) {
             currentStock = ((StoryBook) itemToUpdate).getStockQuantity();
-        }
-        else if (itemToUpdate instanceof SelfHelp){
+        } else if (itemToUpdate instanceof SelfHelp) {
             currentStock = ((SelfHelp) itemToUpdate).getStockQuantity();
         }
 
         System.out.println("  The current stock of this book is " + currentStock);
         System.out.print("  Enter the New Stock Amount : ");
-        if ( !input.hasNextInt()){
+        if (!input.hasNextInt()) {
             System.out.println("  [!] Error. PLease Enter a valid number");
             input.nextLine();
-            return ;
+            return;
         }
 
         int newStock = input.nextInt();
         input.nextLine();
 
-        if (newStock < 0 ){
+        if (newStock < 0) {
             System.out.println("  [!] Error. Stock cannot be negative");
             return;
         }
 
-        if (itemToUpdate instanceof Novel){
-            ((Novel)itemToUpdate).setStockQuantity(newStock);
-        }
-        else if (itemToUpdate instanceof Manga){
-            ((Manga)itemToUpdate).setStockQuantity(newStock);
-        }
-        else if (itemToUpdate instanceof StoryBook){
-            ((StoryBook)itemToUpdate).setStockQuantity(newStock);
-        }
-        else if (itemToUpdate instanceof SelfHelp){
-            ((SelfHelp)itemToUpdate).setStockQuantity(newStock);
+        if (itemToUpdate instanceof Novel) {
+            ((Novel) itemToUpdate).setStockQuantity(newStock);
+        } else if (itemToUpdate instanceof Manga) {
+            ((Manga) itemToUpdate).setStockQuantity(newStock);
+        } else if (itemToUpdate instanceof StoryBook) {
+            ((StoryBook) itemToUpdate).setStockQuantity(newStock);
+        } else if (itemToUpdate instanceof SelfHelp) {
+            ((SelfHelp) itemToUpdate).setStockQuantity(newStock);
         }
 
         System.out.println("  System Success !  Stock for " + itemToUpdate.getTitle() + " updated to " + newStock);
         manager.saveCatalogToFile();
-        manager.addLog("Admin","UPDATE_STOCK","Updated Item ID [" + id + "] to stock: " + newStock);
+        manager.addLog("Admin", "UPDATE_STOCK", "Updated Item ID [" + id + "] to stock: " + newStock);
     }
+
+    private static void feesAndAudits() {
+        Status auditLog = new Status();
+
+        while (true) {
+            System.out.println("\n             .==================================================.");
+            System.out.println("             |         F E E S   &   A U D I T S   M E N U      |");
+            System.out.println("             |==================================================|");
+            System.out.println("             |    [ 1 ]  Manually Add Fine                      |");
+            System.out.println("             |    [ 2 ]  View All Fines                         |");
+            System.out.println("             |    [ 3 ]  View Fines by User ID                  |");
+            System.out.println("             |    [ 4 ]  Delete a Fine Entry                    |");
+            System.out.println("             |    [ 5 ]  Generate Fine Report                   |");
+            System.out.println("             |--------------------------------------------------|");
+            System.out.println("             |    [ 6 ]  View Full Audit Log                    |");
+            System.out.println("             |    [ 7 ]  Search Audit by User ID                |");
+            System.out.println("             |    [ 8 ]  Search Audit by Action Type            |");
+            System.out.println("             |--------------------------------------------------|");
+            System.out.println("             |    [ 0 ]  Back to Admin Menu                     |");
+            System.out.println("             '=================================================='\n");
+            System.out.print("  Select an option: ");
+
+            if (!input.hasNextInt()) {
+                System.out.println("  Error: Please enter a number.");
+                input.nextLine();
+                continue;
+            }
+            int choice = input.nextInt();
+            input.nextLine();
+
+            if (choice == 0) {
+                System.out.println("  Returning to Admin Menu...");
+                break;
+
+            } else if (choice == 1) {
+                manuallyAddFine();
+
+            } else if (choice == 2) {
+                manager.getFineBalance().displayAllFines();
+
+            } else if (choice == 3) {
+                System.out.print("  Enter User ID: ");
+                String uid = input.nextLine().trim();
+                AdminLibrary u = manager.getUserByID(uid);
+                if (u == null) {
+                    System.out.println("  [!] User ID not found.");
+                } else {
+                    manager.getFineMenu().showFineDetails(uid, u.getAdminName());
+                }
+
+            } else if (choice == 4) {
+                System.out.print("  Enter User ID to delete fine from: ");
+                String uid = input.nextLine().trim();
+                AdminLibrary u = manager.getUserByID(uid);
+                if (u == null) {
+                    System.out.println("  [!] User ID not found.");
+                } else {
+                    manager.getFineMenu().deleteFineEntry(uid, u.getAdminName(), input);
+                    manager.addLog("Admin", "CORRECTION",
+                        "Deleted a fine entry for User [" + uid + "] (" +
+                        u.getAdminName() + ") — see previous entry");
+                }
+
+            } else if (choice == 5) {
+                generateFineReport();
+
+            } else if (choice == 6) {
+                auditLog.displayFullAuditLog();
+
+            } else if (choice == 7) {
+                System.out.print("  Enter User ID to search: ");
+                String uid = input.nextLine().trim();
+                auditLog.searchAuditByUserID(uid);
+
+            } else if (choice == 8) {
+                System.out.println("  Available action types:");
+                System.out.println("    ADD_USER     | REMOVE_USER   | EDIT_USER    | TOGGLE_STATUS");
+                System.out.println("    ADD_CATALOG  | REMOVE_CATALOG| UPDATE_STOCK");
+                System.out.println("    MANUAL_FINE  | CORRECTION");
+                System.out.print("  Enter action type: ");
+                String action = input.nextLine().trim();
+                auditLog.searchAuditByAction(action);
+
+            } else {
+                System.out.println("  Invalid choice.");
+            }
+        }
+    }
+
+    private static void manuallyAddFine() {
+        System.out.println("\n  .--------------------------------------------------.");
+        System.out.println("  |          M A N U A L L Y   A D D   F I N E      |");
+        System.out.println("  '--------------------------------------------------'");
+
+        System.out.print("  Enter User ID    : ");
+        String userID = input.nextLine().trim();
+        if (userID.isEmpty()) {
+            System.out.println("  [!] User ID cannot be empty.");
+            return;
+        }
+
+        AdminLibrary u = manager.getUserByID(userID);
+        if (u == null) {
+            System.out.println("  [!] User ID not found in system.");
+            return;
+        }
+        System.out.println("  User found: " + u.getAdminName() + " (" + u.getUserType() + ")");
+
+        System.out.print("  Enter Item Title : ");
+        String itemTitle = input.nextLine().trim();
+        if (itemTitle.isEmpty()) {
+            System.out.println("  [!] Item title cannot be empty.");
+            return;
+        }
+
+        System.out.print("  Enter Days Late  : ");
+        if (!input.hasNextInt()) {
+            System.out.println("  [!] Days late must be a number.");
+            input.nextLine();
+            return;
+        }
+        int daysLate = input.nextInt();
+        input.nextLine();
+        if (daysLate <= 0) {
+            System.out.println("  [!] Days late must be more than 0.");
+            return;
+        }
+
+        double charged = manager.getFineBalance().processFine(userID, itemTitle, daysLate);
+        manager.addLog("Admin", "MANUAL_FINE",
+            "User [" + userID + "] (" + u.getAdminName() + ")" +
+            " | Item: " + itemTitle +
+            " | Days: " + daysLate +
+            " | RM: " + String.format("%.2f", charged));
+        System.out.printf("  [OK] Fine of RM %.2f recorded for [%s — %s].%n",
+            charged, userID, u.getAdminName());
+    }
+
+    private static void generateFineReport() {
+        FineBalance fb = manager.getFineBalance();
+        int totalRecords = fb.getRecordCount();
+        int countOverdue = 0;
+        int countLost = 0;
+        int countPaid = 0;
+        int countUnpaid = 0;
+        double totalCharged = 0;
+        double totalCollected = 0;
+        double totalOutstanding = 0;
+
+        for (int i = 0; i < totalRecords; i++) {
+            FineBalance.FineRecord r = fb.getFineRecords()[i];
+            totalCharged += r.getTotal();
+
+            if (r.getFineType().equals("LOST")) countLost++;
+            else countOverdue++;
+
+            if (r.isPaid()) {
+                countPaid++;
+                totalCollected += r.getTotal();
+            } else {
+                countUnpaid++;
+                totalOutstanding += r.getTotal();
+            }
+        }
+
+        System.out.println("\n             .==================================================.");
+        System.out.println("             |          F I N E   S U M M A R Y   R E P O R T   |");
+        System.out.println("             |==================================================|");
+        System.out.printf("             |   Total Fine Records  : %-25d|%n", totalRecords);
+        System.out.println("             |--------------------------------------------------|");
+        System.out.printf("             |   Overdue Fines       : %-25d|%n", countOverdue);
+        System.out.printf("             |   Lost Item Fines     : %-25d|%n", countLost);
+        System.out.println("             |--------------------------------------------------|");
+        System.out.printf("             |   Paid                : %-25d|%n", countPaid);
+        System.out.printf("             |   Unpaid              : %-25d|%n", countUnpaid);
+        System.out.println("             |--------------------------------------------------|");
+        System.out.printf("             |   Total Charged       : RM %-22.2f|%n", totalCharged);
+        System.out.printf("             |   Total Collected     : RM %-22.2f|%n", totalCollected);
+        System.out.printf("             |   Total Outstanding   : RM %-22.2f|%n", totalOutstanding);
+        System.out.println("             .==================================================.");
+    }
+
 }

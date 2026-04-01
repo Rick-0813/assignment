@@ -20,7 +20,13 @@ public class LibraryManager {
     private static final String LOG_FILE = "system_logs.txt";
     private static final String USER_DATA_FILE = "users_data.txt";
 
-    public FineMenu getFineMenu() { return fineMenu; }
+    public FineMenu getFineMenu() { 
+        return fineMenu; 
+    }
+    
+    public FineBalance getFineBalance() { 
+        return fineBalance; 
+    }
 
     public LibraryManager() {
         File catFile = new File("catalog_data.txt");
