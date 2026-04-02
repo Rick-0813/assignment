@@ -466,7 +466,7 @@ public class BibiLibrary {
         while (true) {
             System.out.println("\n        _________________________________________________");
             System.out.println("        |                                                 |");
-            System.out.println("        |        Fees & Audits                            |");
+            System.out.println("        |        FEES & AUDITS                            |");
             System.out.println("        |        Library Admin Panel                      |");
             System.out.println("        |_________________________________________________|");
             System.out.println("        |                                                 |");
@@ -475,14 +475,15 @@ public class BibiLibrary {
             System.out.println("        |    [ 1 ]  Manually Add Fine                     |");
             System.out.println("        |    [ 2 ]  View All Fines                        |");
             System.out.println("        |    [ 3 ]  View Fines by User ID                 |");
-            System.out.println("        |    [ 4 ]  Delete a Fine Entry                   |");
-            System.out.println("        |    [ 5 ]  Fines Summary Report                  |");
+            System.out.println("        |    [ 4 ]  View Pending Fines (Sorted)           |");
+            System.out.println("        |    [ 5 ]  Delete a Fine Entry                   |");
+            System.out.println("        |    [ 6 ]  Fines Summary Report                  |");
             System.out.println("        |                                                 |");
             System.out.println("        |  -- Audit Log --------------------------------  |");
             System.out.println("        |                                                 |");
-            System.out.println("        |    [ 6 ]  View Full Audit Log                   |");
-            System.out.println("        |    [ 7 ]  Search Audit by User ID               |");
-            System.out.println("        |    [ 8 ]  Search Audit by Action Type           |");
+            System.out.println("        |    [ 7 ]  View Full Audit Log                   |");
+            System.out.println("        |    [ 8 ]  Search Audit by User ID               |");
+            System.out.println("        |    [ 9 ]  Search Audit by Action Type           |");
             System.out.println("        |                                                 |");
             System.out.println("        |- - - - - - - - - - - - - - - - - - - - - - - - |");
             System.out.println("        |    [ 0 ]  Back to Admin Menu                    |");
@@ -511,25 +512,23 @@ public class BibiLibrary {
                 String name = (u != null) ? u.getAdminName() : "Unknown";
                 manager.getFineMenu().showFineDetails(uid, name);
             } else if (choice == 4) {
+                fineReport.displayPendingFinesSorted();
+            } else if (choice == 5) {
                 System.out.print("  Enter User ID to delete fine from: ");
                 String uid = input.nextLine().trim();
                 AdminLibrary u = manager.getUserByID(uid);
                 String name = (u != null) ? u.getAdminName() : "Unknown";
                 manager.getFineMenu().deleteFineEntry(uid, name, input);
-                manager.addLog("Admin", "CORRECTION", "Deleted fine entry for User [" + uid + "]");
-            } else if (choice == 5) {
-                fineReport.generateSummaryReport();
+                manager.addLog("Admin", "CORRECTION", "Deleted fine for User [" + uid + "]");
             } else if (choice == 6) {
-                auditLog.displayFullAuditLog();
+                fineReport.generateSummaryReport();
             } else if (choice == 7) {
+                auditLog.displayFullAuditLog();
+            } else if (choice == 8) {
                 System.out.print("  Enter User ID to search: ");
                 auditLog.searchAuditByUserID(input.nextLine().trim());
-            } else if (choice == 8) {
-                System.out.println("  Action types: ADD_USER | REMOVE_USER | EDIT_USER | TOGGLE_STATUS");
-                System.out.println("                ADD_CATALOG | REMOVE_CATALOG | UPDATE_STOCK");
-                System.out.println("                MANUAL_FINE | CORRECTION");
-                System.out.print("  Enter action type: ");
-                auditLog.searchAuditByAction(input.nextLine().trim());
+            } else if (choice == 9) {
+                auditLog.searchAuditByAction(input);
             } else {
                 System.out.println("  Invalid choice.");
             }
@@ -539,40 +538,40 @@ public class BibiLibrary {
     private static void manuallyAddFine() {
         System.out.println("\n        _________________________________________________");
         System.out.println("        |                                                 |");
-        System.out.println("        |        Manually Add Fine                        |");
+        System.out.println("        |        MANUALLY ADD FINE                        |");
         System.out.println("        |        Admin Fine Entry                         |");
         System.out.println("        |_________________________________________________|");
 
         System.out.print("\n  Enter User ID    : ");
         String userID = input.nextLine().trim();
         if (userID.isEmpty()) {
-            System.out.println("  [!] User ID cannot be empty.");
+            System.out.println("  User ID cannot be empty.");
             return;
         }
 
         AdminLibrary u = manager.getUserByID(userID);
         if (u == null) {
-            System.out.println("  [!] User ID not found.");
+            System.out.println("  !! User ID not found.");
             return;
         }
 
         System.out.print("  Enter Item Title : ");
         String itemTitle = input.nextLine().trim();
         if (itemTitle.isEmpty()) {
-            System.out.println("  [!] Item title cannot be empty.");
+            System.out.println("  Item title cannot be empty.");
             return;
         }
 
         System.out.print("  Enter Days Late  : ");
         if (!input.hasNextInt()) {
             input.nextLine();
-            System.out.println("  [!] Enter a number.");
+            System.out.println("  Enter a number.");
             return;
         }
         int daysLate = input.nextInt();
         input.nextLine();
         if (daysLate <= 0) {
-            System.out.println("  [!] Must be more than 0.");
+            System.out.println("  Must be more than 0.");
             return;
         }
 
@@ -582,7 +581,7 @@ public class BibiLibrary {
             " | Item: " + itemTitle +
             " | Days: " + daysLate +
             " | RM: " + String.format("%.2f", charged));
-        System.out.printf("  [OK] RM %.2f recorded for [%s - %s].%n", charged, userID, u.getAdminName());
-    }    
+        System.out.printf("  RM %.2f recorded for [%s - %s].%n", charged, userID, u.getAdminName());
+    }
 
 }

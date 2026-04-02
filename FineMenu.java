@@ -5,6 +5,7 @@ public class FineMenu {
     private FineBalance fineBalance;
     private FineReceipt receipt;
 
+    // Constructor
     public FineMenu(FineBalance fineBalance) {
         this.fineBalance = fineBalance;
         this.receipt = new FineReceipt();
@@ -14,14 +15,14 @@ public class FineMenu {
         if (!fineBalance.hasPendingFines(userID)) {
             System.out.println("\n        _________________________________________________");
             System.out.println("        |                                                 |");
-            System.out.println("        |        My Fine & Bills                          |");
+            System.out.println("        |        MY FINE & BILLS                          |");
             System.out.println("        |_________________________________________________|");
             System.out.println("        |                                                 |");
             System.out.printf("        |   User ID  : %-35s|%n", userID);
             System.out.printf("        |   Name     : %-35s|%n", userName);
             System.out.println("        |                                                 |");
-            System.out.println("        |   Your fine balance is clear. No fines! :)      |");
-            System.out.println("        |                                                 |");
+            System.out.println("        |   Your fine balance is clear.                   |");
+            System.out.println("        |   No outstanding fines. Keep it up!  :)         |");
             System.out.println("        |_________________________________________________|");
             return;
         }
@@ -29,12 +30,13 @@ public class FineMenu {
         while (true) {
             System.out.println("\n        _________________________________________________");
             System.out.println("        |                                                 |");
-            System.out.println("        |        My Fine & Bills                          |");
+            System.out.println("        |        MY FINE & BILLS                          |");
             System.out.println("        |_________________________________________________|");
             System.out.println("        |                                                 |");
-            System.out.printf("        |   User ID      : %-31s|%n", userID);
-            System.out.printf("        |   Name         : %-31s|%n", userName);
-            System.out.printf("        |   Outstanding  : RM %-28.2f|%n", fineBalance.getOutstandingBalance(userID));
+            System.out.printf("        |   User ID     : %-31s|%n", userID);
+            System.out.printf("        |   Name        : %-31s|%n", userName);
+            System.out.printf("        |   Outstanding : RM %-28.2f|%n",
+                fineBalance.getOutstandingBalance(userID));
             System.out.println("        |                                                 |");
             System.out.println("        |    [ 1 ]  View Fine Details                     |");
             System.out.println("        |    [ 2 ]  Pay All Fines                         |");
@@ -62,31 +64,31 @@ public class FineMenu {
     public void showFineDetails(String userID, String userName) {
         System.out.println("\n        _________________________________________________");
         System.out.println("        |                                                 |");
-        System.out.println("        |        Fine Details                             |");
+        System.out.println("        |        FINE DETAILS                             |");
         System.out.println("        |_________________________________________________|");
         System.out.println("        |                                                 |");
         System.out.printf("        |   User ID  : %-35s|%n", userID);
         System.out.printf("        |   Name     : %-35s|%n", userName);
         System.out.println("        |_________________________________________________|");
 
-        System.out.printf("%n  %-5s  %-20s  %-8s  %-10s  %-10s  %-10s  %-8s%n",
+        System.out.printf("%n  %-6s  %-20s  %-7s  %-10s  %-10s  %-10s  %-8s%n",
             "ID", "Item Title", "Type", "Date", "Overdue RM", "Penalty RM", "Status");
-        System.out.println("  ─────────────────────────────────────────────────────────────────────────────────");
+        System.out.println("  ─────────────────────────────────────────────────────────────────────────────");
 
         boolean found = false;
         for (int i = 0; i < fineBalance.getRecordCount(); i++) {
             FineBalance.FineRecord r = fineBalance.getFineRecords()[i];
             if (r.getUserID().equals(userID)) {
-                System.out.printf("  %-5s  %-20s  %-8s  %-10s  %-10.2f  %-10.2f  %-8s%n",
+                System.out.printf("  %-6s  %-20s  %-7s  %-10s  %-10.2f  %-10.2f  %-8s%n",
                     r.getFineID(), r.getItemTitle(), r.getFineType(), r.getDate(),
-                    r.getOverdueAmount(), r.getLostPenalty(), r.isPaid() ? "PAID" : "UNPAID");
+                    r.getOverdueAmount(), r.getLostPenalty(),
+                    r.isPaid() ? "PAID" : "UNPAID");
                 found = true;
             }
         }
 
         if (!found) System.out.println("  No fine records found.");
-
-        System.out.println("  ─────────────────────────────────────────────────────────────────────────────────");
+        System.out.println("  ─────────────────────────────────────────────────────────────────────────────");
         System.out.printf("  Outstanding Balance : RM %.2f%n", fineBalance.getOutstandingBalance(userID));
     }
 
@@ -102,57 +104,59 @@ public class FineMenu {
     public void deleteFineEntry(String userID, String userName, Scanner input) {
         System.out.println("\n        _________________________________________________");
         System.out.println("        |                                                 |");
-        System.out.println("        |        Delete Fine Entry                        |");
+        System.out.println("        |        DELETE FINE ENTRY                        |");
         System.out.println("        |_________________________________________________|");
         System.out.println("        |                                                 |");
         System.out.printf("        |   User ID : %-35s|%n", userID);
         System.out.printf("        |   Name    : %-35s|%n", userName);
-        System.out.println("        |                                                 |");
+        System.out.println("        |_________________________________________________|");
 
         boolean found = false;
+        System.out.printf("%n  %-6s  %-20s  %-7s  %-10s  %-8s  %-8s%n",
+            "ID", "Item Title", "Type", "Date", "Total RM", "Status");
+        System.out.println("  ────────────────────────────────────────────────────────────────");
+
         for (int i = 0; i < fineBalance.getRecordCount(); i++) {
             FineBalance.FineRecord r = fineBalance.getFineRecords()[i];
             if (r.getUserID().equals(userID)) {
-                String title = r.getItemTitle().length() > 15 ?
-                    r.getItemTitle().substring(0, 12) + "..." : r.getItemTitle();
-                System.out.printf("        |   %-5s  %-15s  %-7s  RM %6.2f           |%n",
-                    r.getFineID(), title, r.getFineType(), r.getTotal());
+                System.out.printf("  %-6s  %-20s  %-7s  %-10s  %-8.2f  %-8s%n",
+                    r.getFineID(), r.getItemTitle(), r.getFineType(),
+                    r.getDate(), r.getTotal(), r.isPaid() ? "PAID" : "UNPAID");
                 found = true;
             }
         }
 
         if (!found) {
-            System.out.println("        |   No fine records found for this user.          |");
-            System.out.println("        |_________________________________________________|");
+            System.out.println("  No fine records found for this user.");
             return;
         }
 
-        System.out.println("        |                                                 |");
-        System.out.println("        |_________________________________________________|");
-        System.out.print("\n  Enter Fine ID to delete (e.g. F001): ");
+        System.out.println("  ────────────────────────────────────────────────────────────────");
+        System.out.print("  Enter Fine ID to delete, or 0 to cancel: ");
         String fineID = input.nextLine().trim();
 
-        FineBalance.FineRecord target = null;
-        for (int i = 0; i < fineBalance.getRecordCount(); i++) {
-            if (fineBalance.getFineRecords()[i].getFineID().equalsIgnoreCase(fineID) &&
-                fineBalance.getFineRecords()[i].getUserID().equals(userID)) {
-                target = fineBalance.getFineRecords()[i];
-                break;
-            }
-        }
-
-        if (target == null) {
-            System.out.println("  [!] Fine ID not found for this user.");
+        if (fineID.equals("0")) {
+            System.out.println("  Cancelled.");
             return;
         }
 
-        System.out.printf("  Confirm delete: %s — %s — RM %.2f ? (y/n): ",
-            fineID, target.getItemTitle(), target.getTotal());
+        FineBalance.FineRecord toDelete = fineBalance.getFineByID(fineID);
+        if (toDelete == null) {
+            System.out.println("  !! Fine ID not found.");
+            return;
+        }
+        if (!toDelete.getUserID().equals(userID)) {
+            System.out.println("  !! Fine ID does not belong to this user.");
+            return;
+        }
+
+        System.out.printf("  Confirm delete: %s  %s  RM %.2f  (y/n): ",
+            toDelete.getFineID(), toDelete.getItemTitle(), toDelete.getTotal());
         String confirm = input.nextLine().trim();
 
         if (confirm.equalsIgnoreCase("y")) {
             fineBalance.deleteFineByID(fineID);
-            System.out.println("  [OK] Fine " + fineID + " deleted.");
+            System.out.println("  Fine " + fineID + " deleted.");
         } else {
             System.out.println("  Cancelled.");
         }

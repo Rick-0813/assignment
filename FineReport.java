@@ -3,6 +3,7 @@ public class FineReport {
     private FineBalance fineBalance;
     private LibraryManager manager;
 
+    // Constructor
     public FineReport(FineBalance fineBalance, LibraryManager manager) {
         this.fineBalance = fineBalance;
         this.manager = manager;
@@ -11,7 +12,7 @@ public class FineReport {
     public void displayAllFinesWithNames() {
         System.out.println("\n        _________________________________________________");
         System.out.println("        |                                                 |");
-        System.out.println("        |        All Fine Records                         |");
+        System.out.println("        |        ALL FINE RECORDS                         |");
         System.out.println("        |_________________________________________________|");
 
         int count = fineBalance.getRecordCount();
@@ -22,28 +23,79 @@ public class FineReport {
             return;
         }
 
-        System.out.printf("%n  %-5s  %-10s  %-18s  %-18s  %-8s  %-10s  %-8s  %-8s%n",
+        System.out.printf("%n  %-6s  %-10s  %-18s  %-18s  %-7s  %-10s  %-8s  %-8s%n",
             "ID", "User ID", "Name", "Item Title", "Type", "Date", "Total RM", "Status");
-        System.out.println("  ─────────────────────────────────────────────────────────────────────────────────────────────────");
+        System.out.println("  ───────────────────────────────────────────────────────────────────────────────────────────────");
 
         FineBalance.FineRecord[] records = fineBalance.getFineRecords();
         for (int i = 0; i < count; i++) {
             FineBalance.FineRecord r = records[i];
             AdminLibrary user = manager.getUserByID(r.getUserID());
             String name = (user != null) ? user.getAdminName() : "Unknown";
-            System.out.printf("  %-5s  %-10s  %-18s  %-18s  %-8s  %-10s  %-8.2f  %-8s%n",
+            System.out.printf("  %-6s  %-10s  %-18s  %-18s  %-7s  %-10s  %-8.2f  %-8s%n",
                 r.getFineID(), r.getUserID(), name, r.getItemTitle(),
                 r.getFineType(), r.getDate(), r.getTotal(),
                 r.isPaid() ? "PAID" : "UNPAID");
         }
-        System.out.println("  ─────────────────────────────────────────────────────────────────────────────────────────────────");
+        System.out.println("  ───────────────────────────────────────────────────────────────────────────────────────────────");
+    }
+
+    public void displayPendingFinesSorted() {
+        System.out.println("\n        _________________________________________________");
+        System.out.println("        |                                                 |");
+        System.out.println("        |        PENDING FINES  (Highest First)           |");
+        System.out.println("        |_________________________________________________|");
+
+        int count = fineBalance.getRecordCount();
+        if (count == 0) {
+            System.out.println("        |                                                 |");
+            System.out.println("        |   No fine records found.                        |");
+            System.out.println("        |_________________________________________________|");
+            return;
+        }
+
+        FineBalance.FineRecord[] pending = new FineBalance.FineRecord[count];
+        int pendingCount = 0;
+        FineBalance.FineRecord[] records = fineBalance.getFineRecords();
+        for (int i = 0; i < count; i++)
+            if (!records[i].isPaid()) pending[pendingCount++] = records[i];
+
+        if (pendingCount == 0) {
+            System.out.println("        |                                                 |");
+            System.out.println("        |   No pending fines.                             |");
+            System.out.println("        |_________________________________________________|");
+            return;
+        }
+
+        for (int i = 0; i < pendingCount - 1; i++)
+            for (int j = i + 1; j < pendingCount; j++)
+                if (pending[j].getTotal() > pending[i].getTotal()) {
+                    FineBalance.FineRecord temp = pending[i];
+                    pending[i] = pending[j];
+                    pending[j] = temp;
+                }
+
+        System.out.printf("%n  %-6s  %-10s  %-18s  %-18s  %-7s  %-10s  %-8s%n",
+            "ID", "User ID", "Name", "Item Title", "Type", "Date", "Total RM");
+        System.out.println("  ─────────────────────────────────────────────────────────────────────────────────────");
+
+        for (int i = 0; i < pendingCount; i++) {
+            FineBalance.FineRecord r = pending[i];
+            AdminLibrary user = manager.getUserByID(r.getUserID());
+            String name = (user != null) ? user.getAdminName() : "Unknown";
+            System.out.printf("  %-6s  %-10s  %-18s  %-18s  %-7s  %-10s  %-8.2f%n",
+                r.getFineID(), r.getUserID(), name, r.getItemTitle(),
+                r.getFineType(), r.getDate(), r.getTotal());
+        }
+        System.out.println("  ─────────────────────────────────────────────────────────────────────────────────────");
+        System.out.printf("  Total Pending: %d fines%n", pendingCount);
     }
 
     public void generateSummaryReport() {
         System.out.println("\n        _________________________________________________");
         System.out.println("        |                                                 |");
-        System.out.println("        |        Fines Summary Report                     |");
-        System.out.println("        |        Library Admin                            |");
+        System.out.println("        |        FINES SUMMARY                            |");
+        System.out.println("        |        Library Admin Report                     |");
         System.out.println("        |_________________________________________________|");
 
         int count = fineBalance.getRecordCount();
@@ -84,44 +136,34 @@ public class FineReport {
             if (!seen) seenUsers[uniqueCount++] = r.getUserID();
         }
 
-        String highestUser = "None";
-        double highestBalance = 0;
         int usersWithFines = 0;
-        for (int i = 0; i < uniqueCount; i++) {
-            double bal = fineBalance.getOutstandingBalance(seenUsers[i]);
-            if (bal > 0) usersWithFines++;
-            if (bal > highestBalance) {
-                highestBalance = bal;
-                highestUser = seenUsers[i];
-            }
-        }
-        AdminLibrary topUser = manager.getUserByID(highestUser);
-        String topName = (topUser != null) ? topUser.getAdminName() : highestUser;
+        for (int i = 0; i < uniqueCount; i++)
+            if (fineBalance.hasPendingFines(seenUsers[i])) usersWithFines++;
+
+        double paidPct = paidCount * 100.0 / count;
+        double unpaidPct = unpaidCount * 100.0 / count;
+        double overduePct = overdueCount * 100.0 / count;
+        double lostPct = lostCount * 100.0 / count;
 
         System.out.println("        |                                                 |");
-        System.out.println("        |  ── Records ──────────────────────────────────  |");
+        System.out.println("        |  -- Records ----------------------------------  |");
         System.out.println("        |                                                 |");
-        System.out.printf("        |   Total Fine Records     : %-21d|%n", count);
-        System.out.printf("        |   Overdue Cases          : %-21d|%n", overdueCount);
-        System.out.printf("        |   Lost Item Cases        : %-21d|%n", lostCount);
+        System.out.printf("        |   Total Records    : %-28d|%n", count);
+        System.out.printf("        |   Overdue Cases    : %-4d  (%.1f%%)               |%n", overdueCount, overduePct);
+        System.out.printf("        |   Lost Cases       : %-4d  (%.1f%%)               |%n", lostCount, lostPct);
         System.out.println("        |                                                 |");
-        System.out.printf("        |   Paid Records           : %-21d|%n", paidCount);
-        System.out.printf("        |   Unpaid Records         : %-21d|%n", unpaidCount);
+        System.out.printf("        |   Paid             : %-4d  (%.1f%%)               |%n", paidCount, paidPct);
+        System.out.printf("        |   Unpaid           : %-4d  (%.1f%%)               |%n", unpaidCount, unpaidPct);
         System.out.println("        |                                                 |");
-        System.out.println("        |  ── Financials ────────────────────────────────  |");
+        System.out.println("        |  -- Financials --------------------------------  |");
         System.out.println("        |                                                 |");
-        System.out.printf("        |   Total Collected (Paid) : RM %-18.2f|%n", totalCollected);
-        System.out.printf("        |   Total Outstanding      : RM %-18.2f|%n", totalOutstanding);
+        System.out.printf("        |   Total Collected  : RM %-24.2f|%n", totalCollected);
+        System.out.printf("        |   Total Outstanding: RM %-24.2f|%n", totalOutstanding);
         System.out.println("        |                                                 |");
-        System.out.println("        |  ── Users ─────────────────────────────────────  |");
+        System.out.println("        |  -- Users -------------------------------------  |");
         System.out.println("        |                                                 |");
-        System.out.printf("        |   Users With Fines       : %-21d|%n", usersWithFines);
-        if (highestBalance > 0) {
-            System.out.printf("        |   Highest Owing          : %-21s|%n", topName);
-            System.out.printf("        |   Their Balance          : RM %-18.2f|%n", highestBalance);
-        } else {
-            System.out.println("        |   Highest Owing          : All clear!              |");
-        }
+        System.out.printf("        |   Unique Users     : %-28d|%n", uniqueCount);
+        System.out.printf("        |   Users With Fines : %-28d|%n", usersWithFines);
         System.out.println("        |                                                 |");
         System.out.println("        |_________________________________________________|");
     }

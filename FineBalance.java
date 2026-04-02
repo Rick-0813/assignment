@@ -13,9 +13,10 @@ public class FineBalance {
     private static final int MAX_RECORDS = 1000;
     private static final String FINES_FILE = "fines_data.txt";
 
-    private static int idCounter = 1;
+    private int nextFineNumber = 1;
 
     public static class FineRecord {
+
         private String fineID;
         private String userID;
         private String itemTitle;
@@ -26,6 +27,7 @@ public class FineBalance {
         private boolean paid;
         private String date;
 
+        // Constructor
         public FineRecord(String fineID, String userID, String itemTitle, String fineType,
             double overdueAmount, double lostPenalty, String date) {
             this.fineID = fineID;
@@ -39,6 +41,7 @@ public class FineBalance {
             this.date = date;
         }
 
+        // Getters
         public String getFineID() {
             return fineID;
         }
@@ -66,6 +69,8 @@ public class FineBalance {
         public String getDate() {
             return date;
         }
+
+        // Setters
         public void setPaid(boolean p) {
             this.paid = p;
         }
@@ -77,32 +82,43 @@ public class FineBalance {
     private FineRecord[] fineRecords = new FineRecord[MAX_RECORDS];
     private int recordCount = 0;
 
+    // Constructor
     public FineBalance() {
         loadFines();
+    }
+
+    private String generateFineID() {
+        return String.format("FN%03d", nextFineNumber++);
     }
 
     public void loadFines() {
         File file = new File(FINES_FILE);
         if (!file.exists()) return;
+
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine().trim();
                 if (line.isEmpty()) continue;
-                String[] d = line.split(",");
-                if (d.length >= 8) {
-                    FineRecord r = new FineRecord(
-                        d[0].trim(), d[1].trim(), d[2].trim(), d[3].trim(),
-                        Double.parseDouble(d[4].trim()),
-                        Double.parseDouble(d[5].trim()),
-                        d[7].trim());
-                    r.setPaid(Boolean.parseBoolean(d[6].trim()));
-                    fineRecords[recordCount++] = r;
-                    int num = Integer.parseInt(d[0].trim().substring(1));
-                    if (num >= idCounter) idCounter = num + 1;
+                String[] data = line.split(",");
+                if (data.length >= 7) {
+                    try {
+                        String fineID = data[0].trim();
+                        String date = (data.length >= 8) ? data[7].trim() : LocalDate.now().toString();
+                        FineRecord record = new FineRecord(
+                            fineID, data[1].trim(), data[2].trim(), data[3].trim(),
+                            Double.parseDouble(data[4].trim()),
+                            Double.parseDouble(data[5].trim()), date);
+                        record.setPaid(Boolean.parseBoolean(data[6].trim()));
+                        fineRecords[recordCount++] = record;
+                        int num = Integer.parseInt(fineID.replace("FN", ""));
+                        if (num >= nextFineNumber) nextFineNumber = num + 1;
+                    } catch (NumberFormatException e) {
+                        System.out.println("  !! Skipping bad line: " + line);
+                    }
                 }
             }
         } catch (Exception e) {
-            System.out.println("  [System Error] Failed to load fines.");
+            System.out.println("  !! Could not load fines: " + e.getMessage());
         }
     }
 
@@ -116,12 +132,8 @@ public class FineBalance {
             }
             pw.flush();
         } catch (IOException e) {
-            System.out.println("  [System] Error saving fines.");
+            System.out.println("  !! Could not save fines.");
         }
-    }
-
-    private String generateID() {
-        return "F" + String.format("%03d", idCounter++);
     }
 
     public double processFine(String userID, String itemTitle, int daysLate) {
@@ -129,33 +141,39 @@ public class FineBalance {
             System.out.println("  No fine. Item returned on time.");
             return 0.0;
         }
+
         String today = LocalDate.now().toString();
-        String id = generateID();
+        String fineID = generateFineID();
+
         if (daysLate >= LOST_THRESHOLD_DAYS) {
             double overdueAmount = LOST_THRESHOLD_DAYS * FINE_RATE_PER_DAY;
             double total = overdueAmount + LOST_ITEM_PENALTY;
-            fineRecords[recordCount++] = new FineRecord(id, userID, itemTitle, "LOST", overdueAmount, LOST_ITEM_PENALTY, today);
+            fineRecords[recordCount++] = new FineRecord(fineID, userID, itemTitle, "LOST",
+                overdueAmount, LOST_ITEM_PENALTY, today);
             saveFines();
-            System.out.println("  [!] Item marked as LOST (" + daysLate + " days late)");
-            System.out.printf("  Overdue (capped %d days) : RM %.2f%n", LOST_THRESHOLD_DAYS, overdueAmount);
-            System.out.printf("  Lost Penalty             : RM %.2f%n", LOST_ITEM_PENALTY);
-            System.out.printf("  Total Charged            : RM %.2f%n", total);
+            System.out.println("  Item marked as LOST (" + daysLate + " days late)  Fine ID: " + fineID);
+            System.out.printf("  Overdue (capped %d days): RM %.2f  |  Lost Penalty: RM %.2f  |  Total: RM %.2f%n",
+                LOST_THRESHOLD_DAYS, overdueAmount, LOST_ITEM_PENALTY, total);
             return total;
         } else {
             double fine = daysLate * FINE_RATE_PER_DAY;
-            fineRecords[recordCount++] = new FineRecord(id, userID, itemTitle, "OVERDUE", fine, 0, today);
+            fineRecords[recordCount++] = new FineRecord(fineID, userID, itemTitle, "OVERDUE", fine, 0, today);
             saveFines();
-            System.out.printf("  Fine for '%s': %d day(s) late = RM %.2f%n", itemTitle, daysLate, fine);
+            System.out.printf("  Fine ID: %s | '%s' %d day(s) late | RM %.2f%n", fineID, itemTitle, daysLate, fine);
             return fine;
         }
     }
 
     public boolean payFine(String userID) {
         if (getOutstandingBalance(userID) == 0) return false;
-        for (int i = 0; i < recordCount; i++)
-            if (fineRecords[i].getUserID().equals(userID) && !fineRecords[i].isPaid())
+        boolean changed = false;
+        for (int i = 0; i < recordCount; i++) {
+            if (fineRecords[i].getUserID().equals(userID) && !fineRecords[i].isPaid()) {
                 fineRecords[i].markPaid();
-        saveFines();
+                changed = true;
+            }
+        }
+        if (changed) saveFines();
         return true;
     }
 
@@ -172,6 +190,13 @@ public class FineBalance {
         return false;
     }
 
+    public FineRecord getFineByID(String fineID) {
+        for (int i = 0; i < recordCount; i++)
+            if (fineRecords[i].getFineID().equalsIgnoreCase(fineID)) return fineRecords[i];
+        return null;
+    }
+
+    // Getters
     public double getOutstandingBalance(String userID) {
         double total = 0;
         for (int i = 0; i < recordCount; i++)
