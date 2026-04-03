@@ -29,3 +29,5 @@
 [2026-04-03 13:13:49] User: Admin | Action: TOGGLE_STATUS | Details: Changed status of User ID: ST001ACC
 [2026-04-03 13:14:13] User: Admin | Action: TOGGLE_STATUS | Details: Changed status of User ID: ST001DCS
 [2026-04-03 13:22:57] User: Admin | Action: UPDATE_STOCK | Details: Updated Item ID [N001] to stock: 10
+[2026-04-03 22:48:29] User: Admin | Action: ADD_USER | Details: Added User ID: ST003
+[2026-04-03 22:49:31] User: Admin | Action: EDIT_USER | Details: Edited details for User ID: ST003

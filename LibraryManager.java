@@ -343,16 +343,6 @@ bookCatalog.add(new Novel("N001", "The Great Gatsby", "978074", "F. Scott", "Fic
         }
     }
 
-    public static class FineMenu {
-        private FineBalance fineBalance;
-
-        public FineMenu(FineBalance fineBalance) {
-            this.fineBalance = fineBalance;
-        }
-
-        public FineBalance getFineBalance() {
-            return fineBalance;
-        }
-    }
+    
 
 }

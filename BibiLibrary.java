@@ -5,11 +5,11 @@ public class BibiLibrary {
     private static LibraryManager manager = new LibraryManager();
     String currentUserID = "";
     public static void main(String[] args) {
-
-        while (true) {
-            String userType = StaticUser.loginProcess(input);
+        boolean inMainMenu = true;
+        while (inMainMenu) {
+            String userType = StaticUser.loginProcess(input, manager);
             if (userType == null) {
-                break;
+                inMainMenu = false;
             }
             boolean loggedIn = true;
             while (loggedIn) {
@@ -20,7 +20,7 @@ public class BibiLibrary {
                                    "           ██████╔╝██║██████╔╝██║    ███████╗██║██████╔╝██║  ██║██║  ██║██║  ██║   ██║          \n"+
                                    "           ╚═════╝ ╚═╝╚═════╝ ╚═╝    ╚══════╝╚═╝╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝          ");
                 
-                System.out.println("=============================================================================\n");
+                System.out.println("=================================================================================================\n");
                 System.out.println("               .==================================================.");
                 System.out.println("              /                                                  /|");
                 System.out.printf("             /            Current Role: %-24s/ |%n", userType);
@@ -49,6 +49,7 @@ public class BibiLibrary {
 
                 if (choice == 0) {
                     System.out.println("  Logging out...");
+                    StaticUser.logout();
                     loggedIn = false;
                 } else {
 
@@ -87,9 +88,8 @@ public class BibiLibrary {
                     manager.searchBooks(input.nextLine());
                     break;
                 case 2:
-                    System.out.println("  Enter your User ID to view loans: ");
-                    String userID = input.nextLine();
-                    System.out.println("  Checking loans for User ID [" + userID + "]... Current status: Clear.");
+                    String myID = StaticUser.getCurrentUserID(); 
+                    System.out.println("  Checking loans for User ID [" + myID + "]... Current status: Clear.");
                     break;
                 case 3:
                     System.out.print("  Enter your User ID to check bills: ");
@@ -105,7 +105,8 @@ public class BibiLibrary {
     }
 
     private static void ManagmentUser() {
-        while (true) {
+        boolean inUserManagement = true;
+        while (inUserManagement) {
             System.out.println("\n             .==================================================.");
             System.out.println("             |   U s e r   M a n a g e m e n t   O p t i o n s  |");
             System.out.println("             ====================================================");
@@ -123,7 +124,7 @@ public class BibiLibrary {
             input.nextLine();
             if (userChoice == 0) {
                 System.out.println("  Returning to Admin Menu...");
-                break;
+                inUserManagement = false;
             } else if (userChoice == 1) {
                 addUser();
             } else if (userChoice == 2) {
@@ -238,7 +239,8 @@ public class BibiLibrary {
     }
 
     private static void catalogMenu() {
-        while (true) {
+        boolean inCatalogMenu = true;
+        while (inCatalogMenu) {
             System.out.println("\n             .==================================================.");
             System.out.println("             |             C A T A L O G   M E N U              |");
             System.out.println("             |==================================================|");
@@ -264,7 +266,7 @@ public class BibiLibrary {
 
             if (choice == 0) {
                 System.out.println("  Returning to Admin Menu...");
-                break;
+                inCatalogMenu = false;  
             } else if (choice == 1) {
                 addNewCatalogItem();
             } else if (choice == 2) {
@@ -463,7 +465,8 @@ public class BibiLibrary {
         Status auditLog = new Status();
         FineReport fineReport = new FineReport(manager.getFineBalance(), manager);
 
-        while (true) {
+        boolean inFeesAndAudits = true;
+        while (inFeesAndAudits) {
             System.out.println("\n        _________________________________________________");
             System.out.println("        |                                                 |");
             System.out.println("        |        FEES & AUDITS                            |");
@@ -500,7 +503,7 @@ public class BibiLibrary {
 
             if (choice == 0) {
                 System.out.println("  Returning to Admin Menu...");
-                break;
+                inFeesAndAudits = false;
             } else if (choice == 1) {
                 manuallyAddFine();
             } else if (choice == 2) {

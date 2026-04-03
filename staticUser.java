@@ -4,6 +4,21 @@ import java.io.*;
 public class StaticUser {
     private static ArrayList<Account> accounts = new ArrayList<>();
     private static final String FILE_NAME = "accounts.txt";
+    private static String currentUserType = null;
+    private static String currentUserID = null;
+
+    public static String getCurrentUserType() { 
+        return currentUserType;
+    }
+
+    public static String getCurrentUserID() { 
+        return currentUserID; 
+    }
+
+    public static void logout(){
+        currentUserType = null;
+        currentUserID = null;
+    }
 
     static {
         loadAccounts();
@@ -15,7 +30,7 @@ public class StaticUser {
         Account(String u, String p, String t) { this.username = u; this.password = p; this.type = t; }
     }
 
-    public static String loginProcess(Scanner input) {
+    public static String loginProcess(Scanner input, LibraryManager manager){
 
         while (true) {
             System.out.println("\n\n           ██████╗ ██╗██████╗ ██╗    ██╗     ██╗██████╗ ██████╗  █████╗ ██████╗ ██╗   ██╗       \n"+
@@ -26,22 +41,21 @@ public class StaticUser {
                                    "           ╚═════╝ ╚═╝╚═════╝ ╚═╝    ╚══════╝╚═╝╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝          ");
                 
             System.out.println("===================================================================================================");
-            System.out.println("\n             .==================================================.");
-            System.out.println("             |   W e l c o m e   t o   B i b i   L i b r a r y  |");
-            System.out.println("             |==================================================|");
-            System.out.println("             |                                                  |");
-            System.out.println("             |    [ 1 ] Student                                 |");
-            System.out.println("             |    [ 2 ] Faculty                                 |");
-            System.out.println("             |    [ 3 ] Public Member                           |");
-            System.out.println("             |    [ 4 ] Admin (Login Required)                  |");
-            System.out.println("             |                                                  |");
-            System.out.println("             |--------------------------------------------------|");
-            System.out.println("             |                                                  |");
-            System.out.println("             |    [ 0 ] Exit                                    |");
-            System.out.println("             |                                                  |");
-            System.out.println("             .==================================================.");
+            System.out.println("\n                           .==================================================.");
+            System.out.println("                           |   W e l c o m e   t o   B i b i   L i b r a r y  |");
+            System.out.println("                           |==================================================|");
+            System.out.println("                           |                                                  |");
+            System.out.println("                           |    [ 1 ] Student                                 |");
+            System.out.println("                           |    [ 2 ] Faculty                                 |");
+            System.out.println("                           |    [ 3 ] Public Member                           |");
+            System.out.println("                           |    [ 4 ] Admin (Login Required)                  |");
+            System.out.println("                           |                                                  |");
+            System.out.println("                           |--------------------------------------------------|");
+            System.out.println("                           |                                                  |");
+            System.out.println("                           |    [ 0 ] Exit                                    |");
+            System.out.println("                           |                                                  |");
+            System.out.println("                           '=================================================='");
             System.out.print("  Please select your role: ");
-
             if (!input.hasNextInt()) {
                 input.nextLine();
                 System.out.println("  Invalid input!");
@@ -59,8 +73,31 @@ public class StaticUser {
                 return null;
             } else if (choice >= 1 && choice <= 3) {
                 String[] roles = {"Student", "Faculty", "Public Member"}; 
-                System.out.println("  Welcome, " + roles[choice - 1] + "! Enjoy exploring our collection.\n");
-                return roles[choice - 1];
+                System.out.print("  Please enter your ID: ");
+                String typedID = input.nextLine().trim();
+                //make sure this id is register or haven't
+                AdminLibrary userInDB = manager.getUserByID(typedID);
+
+                if (userInDB == null) {
+                    System.out.println("\n  [!] Access Denied: User ID [" + typedID + "] not found!");
+                    System.out.println("      If you are a new user, please contact the Librarian (Admin) to register.\n");
+                    continue; 
+                }
+
+                String expectedRole = roles[choice - 1];
+                if (!userInDB.getUserType().equalsIgnoreCase(expectedRole) && !expectedRole.contains(userInDB.getUserType())) {
+                    System.out.println("\n  [!] Access Denied: Role mismatch!");
+                    System.out.println("      Your ID belongs to a [" + userInDB.getUserType() + "], but you selected [" + expectedRole + "].\n");
+                    continue; 
+                }
+
+                currentUserID = userInDB.getUserID();
+                currentUserType = userInDB.getUserType();
+
+                System.out.println("  Login Success!! Welcome, " + userInDB.getAdminName() + "!");
+                System.out.println("  Role: " + currentUserType + ". Enjoy exploring our collection.\n");
+
+                return currentUserType;
             } else if (choice == 4) {
                 System.out.print("  Admin Username: ");
                 String u = input.nextLine();
@@ -70,6 +107,8 @@ public class StaticUser {
                 for (Account acc : accounts) {
                     if (acc.username.equals(u) && acc.password.equals(p) && acc.type.equals("Admin")) {
                         System.out.println("  Admin Login Success!");
+                        currentUserID = u;
+                        currentUserType = "Admin";
                         return "Admin";
                     }
                 }
