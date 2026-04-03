@@ -226,12 +226,12 @@ bookCatalog.add(new Novel("N001", "The Great Gatsby", "978074", "F. Scott", "Fic
             return;
         }
         
-        String format = " %-10s | %-10s | %-12s | %-18s | %-25s | %-11s | %-10s | %s%n";
+        String format = "| %-10s | %-10s | %-12s | %-18s | %-30s | %-11s | %-10s | %-18s|%n";
         
-        System.out.println("----------------------------------------------------------------------------------------------------------------------------------------");
+        System.out.println(".=============================================================================================================================================.");
         
-        System.out.printf(format, "STATUS", "USER ID", "TYPE", "NAME", "EMAIL", "LOANS (QTY)", "MAX DAYS", "OUTSTANDING FINES");
-        System.out.println("----------------------------------------------------------------------------------------------------------------------------------------");
+        System.out.printf(format, " STATUS", "USER ID", "TYPE", "NAME", "EMAIL", "LOANS (QTY)", "MAX DAYS", "OUTSTANDING FINES ");
+        System.out.println(".=============================================================================================================================================.");
         
         for (AdminLibrary u : userList) {
             String status = u.isActive() ? "[ACTIVE]" : "[DISABLED]";
@@ -245,7 +245,7 @@ bookCatalog.add(new Novel("N001", "The Great Gatsby", "978074", "F. Scott", "Fic
             
             System.out.printf(format, status, u.getUserID(), u.getUserType(), u.getAdminName(), u.getEmail(), loansInfo, daysInfo, finesInfo);
         }
-        System.out.println("----------------------------------------------------------------------------------------------------------------------------------------");
+        System.out.println("'============================================================================================================================================='\n");
     }
 
     public void displayAllCatalog(){

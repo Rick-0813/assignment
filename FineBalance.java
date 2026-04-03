@@ -164,6 +164,124 @@ public class FineBalance {
         }
     }
 
+<<<<<<< Updated upstream
+=======
+    public void displayAllFines() {
+        System.out.println("\n\n       .===================================================================================.");
+        System.out.println("       |                           A L L   F I N E   R E C O R D S                          |");
+        System.out.println("       |====================================================================================|");
+
+        if (recordCount == 0) {
+            System.out.println("       |   No fine records found.                                             |");
+            System.out.println("       '======================================================================'");
+            return;
+        }
+
+        System.out.printf("       | %-3s | %-10s | %-20s | %-7s | %-10s | %-8s | %-6s |%n",
+            "No.", "User ID", "Item Title", "Type", "Date", "Total", "Status");
+        System.out.println("       |====================================================================================|");
+
+        for (int i = 0; i < recordCount; i++) {
+            FineRecord r = fineRecords[i];
+            System.out.printf("       | %-3d | %-10s | %-20s | %-7s | %-10s | RM%-5.2f  | %-6s |%n",
+                (i + 1),
+                r.getUserID(),
+                r.getItemTitle(),
+                r.getFineType(),
+                r.getDate(),
+                r.getTotal(),
+                r.isPaid() ? "PAID" : "UNPAID");
+        }
+        System.out.println("       '======================================================================================'\n\n");
+    }
+
+    public void generateSummaryReport() {
+        System.out.println("\n\n====================================================================================================\n");
+        System.out.println("\n             .==================================================.");
+        System.out.println("             |     F I N E S   S U M M A R Y   R E P O R T      |");
+        System.out.println("             |==================================================|");
+
+        if (recordCount == 0) {
+            System.out.println("             |   No fine records on file.                       |");
+            System.out.println("             .==================================================.");
+            return;
+        }
+
+        double totalCollected = 0;
+        double totalOutstanding = 0;
+        int overdueCount = 0;
+        int lostCount = 0;
+        int paidCount = 0;
+        int unpaidCount = 0;
+
+        String[] seenUsers = new String[MAX_RECORDS];
+        int uniqueCount = 0;
+
+        for (int i = 0; i < recordCount; i++) {
+            FineRecord r = fineRecords[i];
+
+            if (r.isPaid()) {
+                totalCollected += r.getTotal();
+                paidCount++;
+            } else {
+                totalOutstanding += r.getTotal();
+                unpaidCount++;
+            }
+
+            if (r.getFineType().equals("LOST")) lostCount++;
+            else overdueCount++;
+
+            boolean alreadySeen = false;
+            for (int j = 0; j < uniqueCount; j++) {
+                if (seenUsers[j].equals(r.getUserID())) {
+                    alreadySeen = true;
+                    break;
+                }
+            }
+            if (!alreadySeen) seenUsers[uniqueCount++] = r.getUserID();
+        }
+
+        String highestUser = "None";
+        double highestBalance = 0;
+        for (int i = 0; i < uniqueCount; i++) {
+            double bal = getOutstandingBalance(seenUsers[i]);
+            if (bal > highestBalance) {
+                highestBalance = bal;
+                highestUser = seenUsers[i];
+            }
+        }
+
+        int usersWithFines = 0;
+        for (int i = 0; i < uniqueCount; i++) {
+            if (hasPendingFines(seenUsers[i])) usersWithFines++;
+        }
+
+        System.out.println("             |                                                  |");
+        System.out.printf("             |   Total Fine Records     : %-22d|%n", recordCount);
+        System.out.printf("             |   Overdue Cases          : %-22d|%n", overdueCount);
+        System.out.printf("             |   Lost Item Cases        : %-22d|%n", lostCount);
+        System.out.println("             |--------------------------------------------------|");
+        System.out.printf("             |   Paid Records           : %-22d|%n", paidCount);
+        System.out.printf("             |   Unpaid Records         : %-22d|%n", unpaidCount);
+        System.out.println("             |--------------------------------------------------|");
+        System.out.printf("             |   Total Collected (Paid) : RM %-19.2f|%n", totalCollected);
+        System.out.printf("             |   Total Outstanding      : RM %-19.2f|%n", totalOutstanding);
+        System.out.println("             |--------------------------------------------------|");
+        System.out.printf("             |   Users With Fines       : %-22d|%n", usersWithFines);
+
+        if (highestBalance > 0) {
+            System.out.printf("             |   Highest Owing User     : %-22s|%n", highestUser);
+            System.out.printf("             |   Their Balance          : RM %-19.2f|%n", highestBalance);
+        } else {
+            System.out.println("             |   Highest Owing User     : All clear!               |");
+        }
+
+        System.out.println("             |                                                  |");
+        System.out.println("             '=================================================='");
+    }
+
+
+>>>>>>> Stashed changes
     public boolean payFine(String userID) {
         if (getOutstandingBalance(userID) == 0) return false;
         boolean changed = false;

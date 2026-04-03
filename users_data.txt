@@ -1,4 +1,4 @@
-GOH WEI JUN,ST001ACC,student,gohjun@gmail.com,true,1,10.0
-CHIA WEN KHAI,ST001DCS,student,wenkhai@gmail.com,true,0,0.0
+GOH WEI JIN,ST001ACC,student,gohjin@student.tarc.edu.mr,true,1,17.5
+CHIA WEN KHAI,ST001DCS,student,wenkhai@gmail.com,false,0,0.0
 EUVINA,F001,faculty,eVn@gmail.com,true,2,0.0
 WEILE,M001,Member,weile@gmail.com,true,1,0.0

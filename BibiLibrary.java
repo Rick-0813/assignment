@@ -13,32 +13,32 @@ public class BibiLibrary {
             }
             boolean loggedIn = true;
             while (loggedIn) {
-                System.out.println(",-----.  ,--.,--.   ,--.   ,--.   ,--.,--.                                  \r\n" + //
-                    "|  |) /_ `--'|  |-. `--'   |  |   `--'|  |-. ,--.--. ,--,--.,--.--.,--. ,--.\r\n" + //
-                    "|  .-.  \\,--.| .-. ',--.   |  |   ,--.| .-. '|  .--'' ,-.  ||  .--' \\  '  / \r\n" + //
-                    "|  '--' /|  || `-' ||  |   |  '--.|  || `-' ||  |   \\ '-'  ||  |     \\   '  \r\n" + //
-                    "`------' `--' `---' `--'   `-----'`--' `---' `--'    `--`--'`--'   .-'  /   \r\n" + //
-                    "                                                                   `---'    ");
+                System.out.println("\n           ██████╗ ██╗██████╗ ██╗    ██╗     ██╗██████╗ ██████╗  █████╗ ██████╗ ██╗   ██╗       \n"+
+                                     "           ██╔══██╗██║██╔══██╗██║    ██║     ██║██╔══██╗██╔══██╗██╔══██╗██╔══██╗╚██╗ ██╔╝       \n"+
+                                     "           ██████╔╝██║██████╔╝██║    ██║     ██║██████╔╝██████╔╝███████║██████╔╝ ╚████╔╝        \n"+
+                                     "           ██╔══██╗██║██╔══██╗██║    ██║     ██║██╔══██╗██╔══██╗██╔══██║██╔══██╗  ╚██╔╝         \n"+
+                                     "           ██████╔╝██║██████╔╝██║    ███████╗██║██████╔╝██║  ██║██║  ██║██║  ██║   ██║          \n"+
+                                     "           ╚═════╝ ╚═╝╚═════╝ ╚═╝    ╚══════╝╚═╝╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝          ");
 
-                System.out.println("=============================================================================\n");
-                System.out.println("               .==================================================.");
-                System.out.println("              /                                                  /|");
-                System.out.printf("             /            Current Role: %-24s/ |%n", userType);
-                System.out.println("            /                                                  /  |");
-                System.out.println("           .==================================================.   |");
+                System.out.println("===================================================================================================\n");
+                System.out.println("                        .==================================================.");
+                System.out.println("                       /                                                  /|");
+                System.out.printf("                      /            Current Role: %-24s/ |%n", userType);
+                System.out.println("                     /                                                  /  |");
+                System.out.println("                    .==================================================.   |");
 
                 if (userType.trim().equalsIgnoreCase("Admin")) {
-                    System.out.println("           |                                                  |   |");
-                    System.out.println("           |    [ 1 ] User Management                         |   |\n           |    [ 2 ] Circulation Module                      |   |\n           |    [ 3 ] Cataloging Admin                        |   |\n           |    [ 4 ] Fees and Audits                         |   .");
+                    System.out.println("                    |                                                  |   |");
+                    System.out.println("                    |    [ 1 ] User Management                         |   |\n                    |    [ 2 ] Circulation Module                      |   |\n                    |    [ 3 ] Cataloging Admin                        |   |\n                    |    [ 4 ] Fees and Audits                         |   .");
                 } else {
-                    System.out.println("           |                                                  |   |");
-                    System.out.println("           |    [ 1 ] Search Catalog                          |   |\n           |    [ 2 ] My Loans                                |   |\n           |    [ 3 ] My Bills                                |   .");
+                    System.out.println("                    |                                                  |   |");
+                    System.out.println("                    |    [ 1 ] Search Catalog                          |   |\n                    |    [ 2 ] My Loans                                |   |\n                    |    [ 3 ] My Bills                                |   .");
                 }
-                System.out.println("           |                                                  |  /");
-                System.out.println("           |--------------------------------------------------| /");
-                System.out.println("           |    [ 0 ] Logout Back to Main Menu                |/");
-                System.out.println("           .==================================================.");
-                System.out.print("  Choice: ");
+                System.out.println("                    |                                                  |  /");
+                System.out.println("                    |--------------------------------------------------| /");
+                System.out.println("                    |    [ 0 ] Logout Back to Main Menu                |/");
+                System.out.println("                    '=================================================='");
+                System.out.print("    Choice: ");
 
                 if (!input.hasNextInt()) {
                     input.nextLine();
@@ -48,7 +48,7 @@ public class BibiLibrary {
                 input.nextLine();
 
                 if (choice == 0) {
-                    System.out.println("  Logging out...");
+                    System.out.println("    >> Logging out...");
                     loggedIn = false;
                 } else {
 
@@ -74,15 +74,15 @@ public class BibiLibrary {
                     feesAndAudits();
                     break;
                 default:
-                    System.out.println("  Invalid choice.");
+                    System.out.println(" [!] Invalid choice. Please try again~");
             }
         } else {
             switch (choice) {
                 case 1:
-                    System.out.println("\n            .--------------------------------------------------.");
-                    System.out.println("            |             S E A R C H   C A T A L O G          |");
-                    System.out.println("            '--------------------------------------------------'");
-                    System.out.println("            [Tip] You can search by the book ID or keyword of the book title ");
+                    System.out.println("\n                    .--------------------------------------------------.");
+                    System.out.println("                    |             S E A R C H   C A T A L O G          |");
+                    System.out.println("                    '--------------------------------------------------'");
+                    System.out.println("                [Tip] You can search by the book ID or keyword of the book title ");
                     System.out.print("  Enter the keyword :");
                     manager.searchBooks(input.nextLine());
                     break;
@@ -93,10 +93,16 @@ public class BibiLibrary {
                     break;
                 case 3:
                     System.out.print("  Enter your User ID to check bills: ");
+<<<<<<< Updated upstream
                     String billUserID = input.nextLine().trim();
                     AdminLibrary billUser = manager.getUserByID(billUserID);
                     String billName = (billUser != null) ? billUser.getAdminName() : "Unknown";
                     manager.getFineMenu().showFineMenuIfOwed(billUserID, billName, input);
+=======
+                    String billUserID = input.nextLine();
+                    System.out.println("\n\n====================================================================================================\n");
+                    manager.getFineMenu().showFineMenuIfOwed(billUserID, userType.trim(), input);
+>>>>>>> Stashed changes
                     break;
                 default:
                     System.out.println("  Invalid choice.");
@@ -106,21 +112,24 @@ public class BibiLibrary {
 
     private static void ManagmentUser() {
         while (true) {
-            System.out.println("\n             .==================================================.");
-            System.out.println("             |   U s e r   M a n a g e m e n t   O p t i o n s  |");
-            System.out.println("             ====================================================");
-            System.out.println("             |      [ 1 ] Add User                              |");
-            System.out.println("             |      [ 2 ] Remove User                           |");
-            System.out.println("             |      [ 3 ] Edit User                             |");
-            System.out.println("             |      [ 4 ] View All Users                        |");
-            System.out.println("             |      [ 5 ] Account Status Control                |");
-            System.out.println("             ----------------------------------------------------");
-            System.out.println("             |      [ 0 ] Back to Admin Menu                    |");
-            System.out.println("             .==================================================.");
+            System.out.println("\n\n====================================================================================================\n");
+            System.out.println("\n                    .==================================================.");
+            System.out.println("                    |   U s e r   M a n a g e m e n t   O p t i o n s  |");
+            System.out.println("                    |==================================================|");
+            System.out.println("                    |      [ 1 ] Add User                              |");
+            System.out.println("                    |      [ 2 ] Remove User                           |");
+            System.out.println("                    |      [ 3 ] Edit User                             |");
+            System.out.println("                    |      [ 4 ] View All Users                        |");
+            System.out.println("                    |      [ 5 ] Account Status Control                |");
+            System.out.println("                    |--------------------------------------------------|");
+            System.out.println("                    |      [ 0 ] Back to Admin Menu                    |");
+            System.out.println("                    '=================================================='");
             System.out.print("  Select an option: ");
 
             int userChoice = input.nextInt();
             input.nextLine();
+            System.out.println("\n====================================================================================================\n");
+
             if (userChoice == 0) {
                 System.out.println("  Returning to Admin Menu...");
                 break;
@@ -239,18 +248,19 @@ public class BibiLibrary {
 
     private static void catalogMenu() {
         while (true) {
-            System.out.println("\n             .==================================================.");
-            System.out.println("             |             C A T A L O G   M E N U              |");
-            System.out.println("             |==================================================|");
-            System.out.println("             |                                                  |");
-            System.out.println("             |    [ 1 ]  Add New Item                           |");
-            System.out.println("             |    [ 2 ]  View All Catalog                       |");
-            System.out.println("             |    [ 3 ]  Update Stock                           |");
-            System.out.println("             |    [ 4 ]  Remove Item                            |");
-            System.out.println("             |                                                  |");
-            System.out.println("             |--------------------------------------------------|");
-            System.out.println("             |    [ 0 ]  Back to Admin Menu                     |");
-            System.out.println("             '=================================================='");
+            System.out.println("\n\n====================================================================================================\n");
+            System.out.println("\n                    .==================================================.");
+            System.out.println("                    |             C A T A L O G   M E N U              |");
+            System.out.println("                    |==================================================|");
+            System.out.println("                    |                                                  |");
+            System.out.println("                    |    [ 1 ]  Add New Item                           |");
+            System.out.println("                    |    [ 2 ]  View All Catalog                       |");
+            System.out.println("                    |    [ 3 ]  Update Stock                           |");
+            System.out.println("                    |    [ 4 ]  Remove Item                            |");
+            System.out.println("                    |                                                  |");
+            System.out.println("                    |--------------------------------------------------|");
+            System.out.println("                    |    [ 0 ]  Back to Admin Menu                     |");
+            System.out.println("                    '=================================================='");
             System.out.print("  Select an option: ");
 
             if (!input.hasNextInt()) {
@@ -261,6 +271,7 @@ public class BibiLibrary {
 
             int choice = input.nextInt();
             input.nextLine();
+            System.out.println("\n\n====================================================================================================\n");
 
             if (choice == 0) {
                 System.out.println("  Returning to Admin Menu...");
@@ -272,10 +283,10 @@ public class BibiLibrary {
             } else if (choice == 3) {
                 updateCatologItem();
             } else if (choice == 4) {
-                System.out.println("\n  .--------------------------------------------------.");
-                System.out.println("  |              R E M O V E   I T E M               |");
-                System.out.println("  '--------------------------------------------------'");
-                System.out.print("  Enter the Item ID you want to remove (e.g. B001) :");
+                System.out.println("\n                    .--------------------------------------------------.");
+                System.out.println("                    |              R E M O V E   I T E M               |");
+                System.out.println("                    '--------------------------------------------------'");
+                System.out.print("               Enter the Item ID you want to remove (e.g. B001) :");
                 String removeId = input.nextLine();
 
                 manager.removeCatalogItem(removeId);
@@ -286,18 +297,19 @@ public class BibiLibrary {
     }
 
     private static void addNewCatalogItem() {
-        System.out.println("\n             .==================================================.");
-        System.out.println("             |         S E L E C T   I T E M   T Y P E          |");
-        System.out.println("             |==================================================|");
-        System.out.println("             |                                                  |");
-        System.out.println("             |    [ 1 ]  Novel        (Sci-Fi, Romance...)      |");
-        System.out.println("             |    [ 2 ]  Manga        (Comics, Graphic Novels)  |");
-        System.out.println("             |    [ 3 ]  StoryBook    (Kids, Picture Books)     |");
-        System.out.println("             |    [ 4 ]  Self-Help    (Biography, Finance)      |");
-        System.out.println("             |                                                  |");
-        System.out.println("             |--------------------------------------------------|");
-        System.out.println("             |    [ 0 ]  Cancel & Go Back                       |");
-        System.out.println("             '=================================================='");
+        System.out.println("\n\n====================================================================================================\n");
+        System.out.println("\n                    .==================================================.");
+        System.out.println("                    |         S E L E C T   I T E M   T Y P E          |");
+        System.out.println("                    |==================================================|");
+        System.out.println("                    |                                                  |");
+        System.out.println("                    |    [ 1 ]  Novel        (Sci-Fi, Romance...)      |");
+        System.out.println("                    |    [ 2 ]  Manga        (Comics, Graphic Novels)  |");
+        System.out.println("                    |    [ 3 ]  StoryBook    (Kids, Picture Books)     |");
+        System.out.println("                    |    [ 4 ]  Self-Help    (Biography, Finance)      |");
+        System.out.println("                    |                                                  |");
+        System.out.println("                    |--------------------------------------------------|");
+        System.out.println("                    |    [ 0 ]  Cancel & Go Back                       |");
+        System.out.println("                    '=================================================='");
         System.out.print("  Select item type (0-4): ");
 
         if (!input.hasNextInt()) {
@@ -320,10 +332,10 @@ public class BibiLibrary {
             return;
         }
 
-        System.out.println("\n  .--------------------------------------------------.");
-        System.out.println("  |           E N T E R   B O O K   D A T A          |");
-        System.out.println("  '--------------------------------------------------'");
-        System.out.print("  Enter Item ID            : ");
+        System.out.println("\n                    .--------------------------------------------------.");
+        System.out.println("                    |           E N T E R   B O O K   D A T A          |");
+        System.out.println("                    '--------------------------------------------------'");
+        System.out.print("                      Enter Item ID            : ");
         String itemId = input.nextLine();
         if (manager.isItemExists(itemId)) {
             System.out.println("  [!] Error . The ID is already exits ! Please use a different ID");
@@ -404,10 +416,10 @@ public class BibiLibrary {
     }
 
     private static void updateCatologItem() {
-        System.out.println("\n  .--------------------------------------------------.");
-        System.out.println("  |             U P D A T E   S T O C K              |");
-        System.out.println("  '--------------------------------------------------'");
-        System.out.print("  Enter the Item ID to update :");
+        System.out.println("\n                    .--------------------------------------------------.");
+        System.out.println("                    |             U P D A T E   S T O C K              |");
+        System.out.println("                    '--------------------------------------------------'");
+        System.out.print("                    Enter the Item ID to update :");
         String id = input.nextLine().trim();
 
         LibraryItem itemToUpdate = manager.getItemById(id);
@@ -464,6 +476,7 @@ public class BibiLibrary {
         FineReport fineReport = new FineReport(manager.getFineBalance(), manager);
 
         while (true) {
+<<<<<<< Updated upstream
             System.out.println("\n        _________________________________________________");
             System.out.println("        |                                                 |");
             System.out.println("        |        FEES & AUDITS                            |");
@@ -489,6 +502,25 @@ public class BibiLibrary {
             System.out.println("        |    [ 0 ]  Back to Admin Menu                    |");
             System.out.println("        |_________________________________________________|");
             System.out.print("\n  Select an option: ");
+=======
+            System.out.println("\n\n====================================================================================================\n");
+            System.out.println("\n                    .==================================================.");
+            System.out.println("                    |         F E E S   &   A U D I T S   M E N U      |");
+            System.out.println("                    |==================================================|");
+            System.out.println("                    |    [ 1 ]  Manually Add Fine                      |");
+            System.out.println("                    |    [ 2 ]  View All Fines                         |");
+            System.out.println("                    |    [ 3 ]  View Fines by User ID                  |");
+            System.out.println("                    |    [ 4 ]  Delete a Fine Entry                    |");
+            System.out.println("                    |    [ 5 ]  Generate Fine Report                   |");
+            System.out.println("                    |--------------------------------------------------|");
+            System.out.println("                    |    [ 6 ]  View Full Audit Log                    |");
+            System.out.println("                    |    [ 7 ]  Search Audit by User ID                |");
+            System.out.println("                    |    [ 8 ]  Search Audit by Action Type            |");
+            System.out.println("                    |--------------------------------------------------|");
+            System.out.println("                    |    [ 0 ]  Back to Admin Menu                     |");
+            System.out.println("                    '=================================================='\n");
+            System.out.print("  Select an option: ");
+>>>>>>> Stashed changes
 
             if (!input.hasNextInt()) {
                 input.nextLine();
@@ -525,10 +557,35 @@ public class BibiLibrary {
             } else if (choice == 7) {
                 auditLog.displayFullAuditLog();
             } else if (choice == 8) {
+<<<<<<< Updated upstream
                 System.out.print("  Enter User ID to search: ");
                 auditLog.searchAuditByUserID(input.nextLine().trim());
             } else if (choice == 9) {
                 auditLog.searchAuditByAction(input);
+=======
+                System.out.println("\n                    .==================================================.");
+                System.out.println("                    |    A v a i l a b l e   a c t i o n   t y p e s   |");
+                System.out.println("                    |==================================================|");
+                System.out.println("                    | User:                                            |");
+                System.out.println("                    | > ADD_USER                                       |");
+                System.out.println("                    | > REMOVE_USER                                    |");
+                System.out.println("                    | > EDIT_USER                                      |");
+                System.out.println("                    | > TOGGLE_STATUS                                  |");
+                System.out.println("                    |==================================================|");
+                System.out.println("                    | Catalog:                                         |");
+                System.out.println("                    | > ADD_CATALOG                                    |");
+                System.out.println("                    | > REMOVE_CATALOG                                 |");
+                System.out.println("                    | > UPDATE_STOCK                                   |");
+                System.out.println("                    |==================================================|");
+                System.out.println("                    | Fine:                                            |");
+                System.out.println("                    | > MANUAL_FINE                                    |");
+                System.out.println("                    | > CORRECTION                                     |");
+                System.out.println("                    '=================================================='");
+                System.out.print("  Enter action type: ");
+                String action = input.nextLine().trim();
+                auditLog.searchAuditByAction(action);
+
+>>>>>>> Stashed changes
             } else {
                 System.out.println("  Invalid choice.");
             }
@@ -536,6 +593,7 @@ public class BibiLibrary {
     }
 
     private static void manuallyAddFine() {
+<<<<<<< Updated upstream
         System.out.println("\n        _________________________________________________");
         System.out.println("        |                                                 |");
         System.out.println("        |        MANUALLY ADD FINE                        |");
@@ -543,6 +601,14 @@ public class BibiLibrary {
         System.out.println("        |_________________________________________________|");
 
         System.out.print("\n  Enter User ID    : ");
+=======
+        System.out.println("\n                    .--------------------------------------------------.");
+        System.out.println("                    |          M A N U A L L Y   A D D   F I N E      |");
+        System.out.println("                    '--------------------------------------------------'");
+
+        System.out.print("                    Enter User ID    : ");
+        
+>>>>>>> Stashed changes
         String userID = input.nextLine().trim();
         if (userID.isEmpty()) {
             System.out.println("  User ID cannot be empty.");
@@ -581,7 +647,56 @@ public class BibiLibrary {
             " | Item: " + itemTitle +
             " | Days: " + daysLate +
             " | RM: " + String.format("%.2f", charged));
+<<<<<<< Updated upstream
         System.out.printf("  RM %.2f recorded for [%s - %s].%n", charged, userID, u.getAdminName());
+=======
+        System.out.printf("  [OK] Fine of RM %.2f recorded for [%s — %s].%n",
+            charged, userID, u.getAdminName());
+    }
+
+    private static void generateFineReport() {
+        FineBalance fb = manager.getFineBalance();
+        int totalRecords = fb.getRecordCount();
+        int countOverdue = 0;
+        int countLost = 0;
+        int countPaid = 0;
+        int countUnpaid = 0;
+        double totalCharged = 0;
+        double totalCollected = 0;
+        double totalOutstanding = 0;
+
+        for (int i = 0; i < totalRecords; i++) {
+            FineBalance.FineRecord r = fb.getFineRecords()[i];
+            totalCharged += r.getTotal();
+
+            if (r.getFineType().equals("LOST")) countLost++;
+            else countOverdue++;
+
+            if (r.isPaid()) {
+                countPaid++;
+                totalCollected += r.getTotal();
+            } else {
+                countUnpaid++;
+                totalOutstanding += r.getTotal();
+            }
+        }
+
+        System.out.println("\n                    .==================================================.");
+        System.out.println("                    |          F I N E   S U M M A R Y   R E P O R T   |");
+        System.out.println("                    |==================================================|");
+        System.out.printf("                    |   Total Fine Records  : %-25d|%n", totalRecords);
+        System.out.println("                    |--------------------------------------------------|");
+        System.out.printf("                    |   Overdue Fines       : %-25d|%n", countOverdue);
+        System.out.printf("                    |   Lost Item Fines     : %-25d|%n", countLost);
+        System.out.println("                    |--------------------------------------------------|");
+        System.out.printf("                    |   Paid                : %-25d|%n", countPaid);
+        System.out.printf("                    |   Unpaid              : %-25d|%n", countUnpaid);
+        System.out.println("                    |--------------------------------------------------|");
+        System.out.printf("                    |   Total Charged       : RM %-22.2f|%n", totalCharged);
+        System.out.printf("                    |   Total Collected     : RM %-22.2f|%n", totalCollected);
+        System.out.printf("                    |   Total Outstanding   : RM %-22.2f|%n", totalOutstanding);
+        System.out.println("                    .==================================================.");
+>>>>>>> Stashed changes
     }
 
 }
