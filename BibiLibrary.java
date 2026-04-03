@@ -37,7 +37,7 @@ public class BibiLibrary {
                 System.out.println("           |                                                  |  /");
                 System.out.println("           |--------------------------------------------------| /");
                 System.out.println("           |    [ 0 ] Logout Back to Main Menu                |/");
-                System.out.println("           .==================================================.");
+                System.out.println("           '=================================================='");
                 System.out.print("  Choice: ");
 
                 if (!input.hasNextInt()) {
@@ -467,30 +467,33 @@ public class BibiLibrary {
 
         boolean inFeesAndAudits = true;
         while (inFeesAndAudits) {
-            System.out.println("\n        _________________________________________________");
-            System.out.println("        |                                                 |");
-            System.out.println("        |        FEES & AUDITS                            |");
-            System.out.println("        |        Library Admin Panel                      |");
-            System.out.println("        |_________________________________________________|");
-            System.out.println("        |                                                 |");
-            System.out.println("        |  -- Fine Management --------------------------  |");
-            System.out.println("        |                                                 |");
-            System.out.println("        |    [ 1 ]  Manually Add Fine                     |");
-            System.out.println("        |    [ 2 ]  View All Fines                        |");
-            System.out.println("        |    [ 3 ]  View Fines by User ID                 |");
-            System.out.println("        |    [ 4 ]  View Pending Fines (Sorted)           |");
-            System.out.println("        |    [ 5 ]  Delete a Fine Entry                   |");
-            System.out.println("        |    [ 6 ]  Fines Summary Report                  |");
-            System.out.println("        |                                                 |");
-            System.out.println("        |  -- Audit Log --------------------------------  |");
-            System.out.println("        |                                                 |");
-            System.out.println("        |    [ 7 ]  View Full Audit Log                   |");
-            System.out.println("        |    [ 8 ]  Search Audit by User ID               |");
-            System.out.println("        |    [ 9 ]  Search Audit by Action Type           |");
-            System.out.println("        |                                                 |");
-            System.out.println("        |- - - - - - - - - - - - - - - - - - - - - - - - |");
-            System.out.println("        |    [ 0 ]  Back to Admin Menu                    |");
-            System.out.println("        |_________________________________________________|");
+            System.out.println("\n                                .=================================================.");
+            System.out.println("                                |                                                 |");
+            System.out.println("                                |             F E E S  &  A U D I T S             |");
+            System.out.println("                                |       L i b r a r y  A d m i n  P a n e l       |");
+            System.out.println("                                |_________________________________________________|");
+            System.out.println("                                |                                                 |");
+            System.out.println("                                |         F I N E  M A N A G E M E N T            |");
+            System.out.println("                                |-------------------------------------------------|");
+            System.out.println("                                |                                                 |");
+            System.out.println("                                |    [ 1 ]  Manually Add Fine                     |");
+            System.out.println("                                |    [ 2 ]  View All Fines                        |");
+            System.out.println("                                |    [ 3 ]  View Fines by User ID                 |");
+            System.out.println("                                |    [ 4 ]  View Pending Fines (Sorted)           |");
+            System.out.println("                                |    [ 5 ]  Delete a Fine Entry                   |");
+            System.out.println("                                |    [ 6 ]  Fines Summary Report                  |");
+            System.out.println("                                |                                                 |");
+            System.out.println("                                |_________________________________________________|");
+            System.out.println("                                |                 A U D I T  L O G                |");
+            System.out.println("                                |-------------------------------------------------|");
+            System.out.println("                                |                                                 |");
+            System.out.println("                                |    [ 7 ]  View Full Audit Log                   |");
+            System.out.println("                                |    [ 8 ]  Search Audit by User ID               |");
+            System.out.println("                                |    [ 9 ]  Search Audit by Action Type           |");
+            System.out.println("                                |                                                 |");
+            System.out.println("                                |- - - - - - - - - - - - - - - - - - - - - - - - -|");
+            System.out.println("                                |    [ 0 ]  Back to Admin Menu                    |");
+            System.out.println("                                '================================================='");
             System.out.print("\n  Select an option: ");
 
             if (!input.hasNextInt()) {
@@ -545,11 +548,12 @@ public class BibiLibrary {
     }
 
     private static void manuallyAddFine() {
-        System.out.println("\n        _________________________________________________");
+        System.out.println("\n        .=================================================.");
         System.out.println("        |                                                 |");
-        System.out.println("        |        MANUALLY ADD FINE                        |");
-        System.out.println("        |        Admin Fine Entry                         |");
-        System.out.println("        |_________________________________________________|");
+        System.out.println("        |         M A N U A L L Y  A D D  F I N E         |");
+        System.out.println("        |          A d m i n  F i n e  E n t r y          |");
+        System.out.println("        |                                                 |");
+        System.out.println("        '================================================='");
 
         System.out.print("\n  Enter User ID    : ");
         String userID = input.nextLine().trim();

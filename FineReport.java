@@ -10,16 +10,17 @@ public class FineReport {
     }
 
     public void displayAllFinesWithNames() {
-        System.out.println("\n        _________________________________________________");
-        System.out.println("        |                                                 |");
-        System.out.println("        |        ALL FINE RECORDS                         |");
-        System.out.println("        |_________________________________________________|");
+        System.out.println("\n                          .=================================================.");
+        System.out.println("                          |                                                 |");
+        System.out.println("                          |           A L L  F I N E  R E C O R D S         |");
+        System.out.println("                          |                                                 |");
+        System.out.println("                          '================================================='");
 
         int count = fineBalance.getRecordCount();
         if (count == 0) {
-            System.out.println("        |                                                 |");
-            System.out.println("        |   No fine records found.                        |");
-            System.out.println("        |_________________________________________________|");
+            System.out.println("                          |                                                 |");
+            System.out.println("                          |   No fine records found.                        |");
+            System.out.println("                          '================================================='");
             return;
         }
 
@@ -41,16 +42,18 @@ public class FineReport {
     }
 
     public void displayPendingFinesSorted() {
-        System.out.println("\n        _________________________________________________");
-        System.out.println("        |                                                 |");
-        System.out.println("        |        PENDING FINES  (Highest First)           |");
-        System.out.println("        |_________________________________________________|");
+        System.out.println("\n                          .=================================================. ");
+        System.out.println("                          |                                                 |");
+        System.out.println("                          |              P E N D I N G  F I N E S           |\n" + 
+                           "                          |             (H i g h e s t  F i r s t)          |");
+        System.out.println("                          |                                                 |");
+        System.out.println("                          '================================================='\n");
 
         int count = fineBalance.getRecordCount();
         if (count == 0) {
-            System.out.println("        |                                                 |");
-            System.out.println("        |   No fine records found.                        |");
-            System.out.println("        |_________________________________________________|");
+            System.out.println("                          |                                                 |");
+            System.out.println("                          |   No fine records found.                        |");
+            System.out.println("                          '================================================='");
             return;
         }
 
@@ -61,9 +64,9 @@ public class FineReport {
             if (!records[i].isPaid()) pending[pendingCount++] = records[i];
 
         if (pendingCount == 0) {
-            System.out.println("        |                                                 |");
-            System.out.println("        |   No pending fines.                             |");
-            System.out.println("        |_________________________________________________|");
+            System.out.println("                          |                                                 |");
+            System.out.println("                          |   No pending fines.                             |");
+            System.out.println("                          '================================================='");
             return;
         }
 
@@ -75,34 +78,36 @@ public class FineReport {
                     pending[j] = temp;
                 }
 
-        System.out.printf("%n  %-6s  %-10s  %-18s  %-18s  %-7s  %-10s  %-8s%n",
+        System.out.println("  .======================================================================================================.");
+        System.out.printf("  | %-6s | %-10s | %-18s | %-20s | %-8s | %-10s | %-10s |%n",
             "ID", "User ID", "Name", "Item Title", "Type", "Date", "Total RM");
-        System.out.println("  ─────────────────────────────────────────────────────────────────────────────────────");
+        System.out.println("  |──────────────────────────────────────────────────────────────────────────────────────────────────────|");
 
         for (int i = 0; i < pendingCount; i++) {
             FineBalance.FineRecord r = pending[i];
             AdminLibrary user = manager.getUserByID(r.getUserID());
             String name = (user != null) ? user.getAdminName() : "Unknown";
-            System.out.printf("  %-6s  %-10s  %-18s  %-18s  %-7s  %-10s  %-8.2f%n",
+            System.out.printf("  | %-6s | %-10s | %-18s | %-20s | %-8s | %-10s | %-10.2f |%n",
                 r.getFineID(), r.getUserID(), name, r.getItemTitle(),
                 r.getFineType(), r.getDate(), r.getTotal());
         }
-        System.out.println("  ─────────────────────────────────────────────────────────────────────────────────────");
+        System.out.println("  '======================================================================================================'");
         System.out.printf("  Total Pending: %d fines%n", pendingCount);
     }
 
     public void generateSummaryReport() {
-        System.out.println("\n        _________________________________________________");
-        System.out.println("        |                                                 |");
-        System.out.println("        |        FINES SUMMARY                            |");
-        System.out.println("        |        Library Admin Report                     |");
-        System.out.println("        |_________________________________________________|");
+        System.out.println("\n                          .=================================================.");
+        System.out.println("                          |                                                 |");
+        System.out.println("                          |             F I N E S  S U M M A R Y            |");
+        System.out.println("                          |      L i b r a r y  A d m i n  R e p o r t      |");
+        System.out.println("                          |                                                 |");
+        System.out.println("                          '================================================='");
 
         int count = fineBalance.getRecordCount();
         if (count == 0) {
-            System.out.println("        |                                                 |");
-            System.out.println("        |   No fine records on file.                      |");
-            System.out.println("        |_________________________________________________|");
+            System.out.println("                          |                                                 |");
+            System.out.println("                          |   No fine records on file.                      |");
+            System.out.println("                          '================================================='");
             return;
         }
 
@@ -145,26 +150,30 @@ public class FineReport {
         double overduePct = overdueCount * 100.0 / count;
         double lostPct = lostCount * 100.0 / count;
 
-        System.out.println("        |                                                 |");
-        System.out.println("        |  -- Records ----------------------------------  |");
-        System.out.println("        |                                                 |");
-        System.out.printf("        |   Total Records    : %-28d|%n", count);
-        System.out.printf("        |   Overdue Cases    : %-4d  (%.1f%%)               |%n", overdueCount, overduePct);
-        System.out.printf("        |   Lost Cases       : %-4d  (%.1f%%)               |%n", lostCount, lostPct);
-        System.out.println("        |                                                 |");
-        System.out.printf("        |   Paid             : %-4d  (%.1f%%)               |%n", paidCount, paidPct);
-        System.out.printf("        |   Unpaid           : %-4d  (%.1f%%)               |%n", unpaidCount, unpaidPct);
-        System.out.println("        |                                                 |");
-        System.out.println("        |  -- Financials --------------------------------  |");
-        System.out.println("        |                                                 |");
-        System.out.printf("        |   Total Collected  : RM %-24.2f|%n", totalCollected);
-        System.out.printf("        |   Total Outstanding: RM %-24.2f|%n", totalOutstanding);
-        System.out.println("        |                                                 |");
-        System.out.println("        |  -- Users -------------------------------------  |");
-        System.out.println("        |                                                 |");
-        System.out.printf("        |   Unique Users     : %-28d|%n", uniqueCount);
-        System.out.printf("        |   Users With Fines : %-28d|%n", usersWithFines);
-        System.out.println("        |                                                 |");
-        System.out.println("        |_________________________________________________|");
+        System.out.println("                          |                  R e c o r d s                  |");
+        System.out.println("                          |  ---------------------------------------------  |");
+        System.out.println("                          |                                                 |");
+        System.out.printf("                          |   Total Records    : %-27d|%n", count);
+        System.out.printf("                          |   Overdue Cases    : %-4d  (%.1f%%)             |%n", overdueCount, overduePct);
+        System.out.printf("                          |   Lost Cases       : %-4d  (%.1f%%)               |%n", lostCount, lostPct);
+        System.out.println("                          |                                                 |");
+        System.out.printf("                          |   Paid             : %-4d  (%.1f%%)              |%n", paidCount, paidPct);
+        System.out.printf("                          |   Unpaid           : %-4d  (%.1f%%)              |%n", unpaidCount, unpaidPct);
+        System.out.println("                          |                                                 |");
+        System.out.println("                          |  ---------------------------------------------  |");
+        System.out.println("                          |               F i n a n c i a l s               |");
+        System.out.println("                          |  -----------------------------------------------|");
+        System.out.println("                          |                                                 |");
+        System.out.printf("                          |   Total Collected  : RM %-24.2f|%n", totalCollected);
+        System.out.printf("                          |   Total Outstanding: RM %-24.2f|%n", totalOutstanding);
+        System.out.println("                          |                                                 |");
+        System.out.println("                          |  ---------------------------------------------  |");
+        System.out.println("                          |                    U s e r s                    |");
+        System.out.println("                          |  ---------------------------------------------  |");
+        System.out.println("                          |                                                 |");
+        System.out.printf("                          |   Unique Users     : %-28d|%n", uniqueCount);
+        System.out.printf("                          |   Users With Fines : %-28d|%n", usersWithFines);
+        System.out.println("                          |                                                 |");
+        System.out.println("                          '================================================='\n\n");
     }
 }
