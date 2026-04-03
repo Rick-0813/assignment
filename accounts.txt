@@ -1,4 +1,4 @@
 Derrick,1234,Admin
 ChongLiang,1234,Admin
-Samual,1234,Admin
+Samuel,1234,Admin
 Dennis,1234,Admin

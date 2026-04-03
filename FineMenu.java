@@ -70,7 +70,7 @@ public class FineMenu {
         System.out.println("        |_________________________________________________|");
         System.out.printf("%n  %-6s  %-20s  %-7s  %-10s  %-10s  %-10s  %-8s%n",
             "ID", "Item Title", "Type", "Date", "Overdue RM", "Penalty RM", "Status");
-        System.out.println("  ─────────────────────────────────────────────────────────────────────────────");
+        System.out.println("  ─────────────────────────────────────────────────────────────────────────────────");
         boolean found = false;
         for (int i = 0; i < fineBalance.getRecordCount(); i++) {
             FineBalance.FineRecord r = fineBalance.getFineRecords()[i];
@@ -84,7 +84,7 @@ public class FineMenu {
         }
 
         if (!found) System.out.println("  No fine records found.");
-        System.out.println("  ─────────────────────────────────────────────────────────────────────────────");
+        System.out.println("  ─────────────────────────────────────────────────────────────────────────────────");
         System.out.printf("  Outstanding Balance : RM %.2f%n", fineBalance.getOutstandingBalance(userID));
     }
 
@@ -98,18 +98,18 @@ public class FineMenu {
     }
 
     public void deleteFineEntry(String userID, String userName, Scanner input) {
-        System.out.println("\n        _________________________________________________");
+        System.out.println("\n         _________________________________________________");
         System.out.println("        |                                                 |");
         System.out.println("        |        DELETE FINE ENTRY                        |");
         System.out.println("        |_________________________________________________|");
         System.out.println("        |                                                 |");
-        System.out.printf("        |   User ID : %-35s|%n", userID);
-        System.out.printf("        |   Name    : %-35s|%n", userName);
+        System.out.printf("        |   User ID : %-36s|%n", userID);
+        System.out.printf("        |   Name    : %-36s|%n", userName);
         System.out.println("        |_________________________________________________|");
         boolean found = false;
         System.out.printf("%n  %-6s  %-20s  %-7s  %-10s  %-8s  %-8s%n",
             "ID", "Item Title", "Type", "Date", "Total RM", "Status");
-        System.out.println("  ────────────────────────────────────────────────────────────────");
+        System.out.println("  ───────────────────────────────────────────────────────────────────");
 
         for (int i = 0; i < fineBalance.getRecordCount(); i++) {
             FineBalance.FineRecord r = fineBalance.getFineRecords()[i];
@@ -126,7 +126,7 @@ public class FineMenu {
             return;
         }
 
-        System.out.println("  ────────────────────────────────────────────────────────────────");
+        System.out.println("  ───────────────────────────────────────────────────────────────────");
         System.out.print("  Enter Fine ID to delete, or 0 to cancel: ");
         String fineID = input.nextLine().trim();
 

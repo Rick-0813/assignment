@@ -464,28 +464,28 @@ public class BibiLibrary {
         FineReport fineReport = new FineReport(manager.getFineBalance(), manager);
 
         while (true) {
-            System.out.println("\n        _________________________________________________");
+            System.out.println("\n         _________________________________________________");
             System.out.println("        |                                                 |");
             System.out.println("        |        FEES & AUDITS                            |");
             System.out.println("        |        Library Admin Panel                      |");
             System.out.println("        |_________________________________________________|");
             System.out.println("        |                                                 |");
-            System.out.println("        |  -- Fine Management --------------------------  |");
+            System.out.println("        |  ── Fine Management ──────────────────────────  |");
             System.out.println("        |                                                 |");
             System.out.println("        |    [ 1 ]  Manually Add Fine                     |");
             System.out.println("        |    [ 2 ]  View All Fines                        |");
-            System.out.println("        |    [ 3 ]  View Fines by User ID                 |");
-            System.out.println("        |    [ 4 ]  View Pending Fines (Sorted)           |");
+            System.out.println("        |    [ 3 ]  View Pending User Fines               |");
+            System.out.println("        |    [ 4 ]  View Fines by User ID                 |");
             System.out.println("        |    [ 5 ]  Delete a Fine Entry                   |");
             System.out.println("        |    [ 6 ]  Fines Summary Report                  |");
             System.out.println("        |                                                 |");
-            System.out.println("        |  -- Audit Log --------------------------------  |");
+            System.out.println("        |  ── Audit Log ────────────────────────────────  |");
             System.out.println("        |                                                 |");
             System.out.println("        |    [ 7 ]  View Full Audit Log                   |");
             System.out.println("        |    [ 8 ]  Search Audit by User ID               |");
             System.out.println("        |    [ 9 ]  Search Audit by Action Type           |");
             System.out.println("        |                                                 |");
-            System.out.println("        |- - - - - - - - - - - - - - - - - - - - - - - - |");
+            System.out.println("        |-- - - - - - - - - - - - - - - - - - - - - - - - |");
             System.out.println("        |    [ 0 ]  Back to Admin Menu                    |");
             System.out.println("        |_________________________________________________|");
             System.out.print("\n  Select an option: ");
@@ -506,13 +506,13 @@ public class BibiLibrary {
             } else if (choice == 2) {
                 fineReport.displayAllFinesWithNames();
             } else if (choice == 3) {
+                fineReport.displayPendingUserFines();
+            } else if (choice == 4) {
                 System.out.print("  Enter User ID: ");
                 String uid = input.nextLine().trim();
                 AdminLibrary u = manager.getUserByID(uid);
                 String name = (u != null) ? u.getAdminName() : "Unknown";
                 manager.getFineMenu().showFineDetails(uid, name);
-            } else if (choice == 4) {
-                fineReport.displayPendingFinesSorted();
             } else if (choice == 5) {
                 System.out.print("  Enter User ID to delete fine from: ");
                 String uid = input.nextLine().trim();
@@ -520,8 +520,6 @@ public class BibiLibrary {
                 String name = (u != null) ? u.getAdminName() : "Unknown";
                 manager.getFineMenu().deleteFineEntry(uid, name, input);
                 manager.addLog("Admin", "CORRECTION", "Deleted fine for User [" + uid + "]");
-
-
             } else if (choice == 6) {
                 fineReport.generateSummaryReport();
             } else if (choice == 7) {
@@ -531,10 +529,6 @@ public class BibiLibrary {
                 auditLog.searchAuditByUserID(input.nextLine().trim());
             } else if (choice == 9) {
                 auditLog.searchAuditByAction(input);
-
-
-
-
             } else {
                 System.out.println("  Invalid choice.");
             }
@@ -542,10 +536,10 @@ public class BibiLibrary {
     }
 
     private static void manuallyAddFine() {
-        System.out.println("\n        _________________________________________________");
+        System.out.println("\n         _________________________________________________");
         System.out.println("        |                                                 |");
-        System.out.println("        |        MANUALLY ADD FINE                        |");
-        System.out.println("        |        Admin Fine Entry                         |");
+        System.out.println("        |               MANUALLY ADD FINE                 |");
+        System.out.println("        |               Admin Fine Entry                  |");
         System.out.println("        |_________________________________________________|");
 
         System.out.print("\n  Enter User ID    : ");

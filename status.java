@@ -8,7 +8,7 @@ public class Status {
     private void printHeader() {
         System.out.printf("  %-4s  %-19s  %-10s  %-15s  %-55s%n",
             "Row", "Timestamp", "User", "Action", "Details");
-        System.out.println("  ──────────────────────────────────────────────────────────────────────────────────────────────────────────────");
+        System.out.println("  ───────────────────────────────────────────────────────────────────────────────");
     }
 
     private void printRow(int rowNum, String line) {
@@ -30,7 +30,7 @@ public class Status {
     }
 
     private void printFooter() {
-        System.out.println("  ──────────────────────────────────────────────────────────────────────────────────────────────────────────────");
+        System.out.println("  ───────────────────────────────────────────────────────────────────────────────");
     }
 
     private String extractAction(String line) {
@@ -44,7 +44,7 @@ public class Status {
     }
 
     public void displayFullAuditLog() {
-        System.out.println("\n        _________________________________________________");
+        System.out.println("\n         _________________________________________________");
         System.out.println("        |                                                 |");
         System.out.println("        |        FULL AUDIT LOG                           |");
         System.out.println("        |_________________________________________________|");
@@ -77,9 +77,9 @@ public class Status {
     }
 
     public void searchAuditByUserID(String userID) {
-        System.out.println("\n        _________________________________________________");
+        System.out.println("\n         _________________________________________________");
         System.out.println("        |                                                 |");
-        System.out.printf("        |   Audit Log  User: %-30s|%n", userID);
+        System.out.printf("        |   Audit Log  User: %-29s|%n", userID);
         System.out.println("        |_________________________________________________|");
 
         File file = new File(LOG_FILE);
@@ -146,15 +146,15 @@ public class Status {
             return;
         }
 
-        System.out.println("\n        _________________________________________________");
+        System.out.println("\n         _________________________________________________");
         System.out.println("        |                                                 |");
         System.out.println("        |        SEARCH AUDIT BY ACTION                   |");
         System.out.println("        |_________________________________________________|");
         System.out.println("        |                                                 |");
         for (int i = 0; i < actionCount; i++)
-            System.out.printf("        |    [ %d ]  %-39s|%n", (i + 1), uniqueActions[i]);
+            System.out.printf("        |    [ %d ]  %-38s|%n", (i + 1), uniqueActions[i]);
         System.out.println("        |                                                 |");
-        System.out.println("        |- - - - - - - - - - - - - - - - - - - - - - - - |");
+        System.out.println("        | - - - - - - - - - - - - - - - - - - - - - - - - |");
         System.out.println("        |    [ 0 ]  Cancel                                |");
         System.out.println("        |_________________________________________________|");
         System.out.print("\n  Select action: ");
@@ -180,7 +180,7 @@ public class Status {
 
         System.out.println("\n        _________________________________________________");
         System.out.println("        |                                                 |");
-        System.out.printf("        |   Audit Log  Action: %-28s|%n", chosen);
+        System.out.printf("        |   Audit Log  Action: %-27s|%n", chosen);
         System.out.println("        |_________________________________________________|");
 
         try (Scanner scanner = new Scanner(file)) {
