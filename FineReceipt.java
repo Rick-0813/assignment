@@ -23,35 +23,42 @@ public class FineReceipt {
         String userName, String bookTitle,
         int overdueDays, double amount,
         boolean isPaid, String timestamp) {
-        String dots = "············";
-        System.out.println("\n        _________________________________________________");
-        System.out.println("        |                                                 |");
-        System.out.printf("        |   LIBRARY FINE RECEIPT              No. %04d  |%n", receiptNo);
-        System.out.println("        |_________________________________________________|");
-        System.out.println("        |                                                 |");
-        System.out.printf("        |   Fine ID     " + dots + "  %-26s|%n", fineID);
-        System.out.printf("        |   Date        " + dots + "  %-26s|%n", timestamp);
-        System.out.printf("        |   User ID     " + dots + "  %-26s|%n", userId);
-        System.out.printf("        |   Name        " + dots + "  %-26s|%n", userName);
-        System.out.printf("        |   Book        " + dots + "  %-26s|%n", bookTitle);
-        System.out.printf("        |   Overdue     " + dots + "  %-23s|%n", overdueDays + " days");
-        System.out.println("        |                                                 |");
-        System.out.println("        |- - - - - - - - - - - - - - - - - - - - - - - - |");
-        System.out.println("        |                                                 |");
-        System.out.printf("        |   Fine Amount              RM         %6.2f   |%n", amount);
-        System.out.println("        |                                                 |");
-        System.out.println("        |- - - - - - - - - - - - - - - - - - - - - - - - |");
-        System.out.println("        |                                                 |");
+
+        // 如果书名太长，自动截断，防止撑爆表格
+        String safeTitle = bookTitle.length() > 42 ? bookTitle.substring(0, 39) + "..." : bookTitle;
+        String amountStr = String.format("RM %.2f", amount);
+
+        System.out.println("\n  .================================================================.");
+        System.out.println("  |                                                                |");
+        System.out.println("  |               L I B R A R Y   R E C E I P T                    |");
+        System.out.printf ("  |                                                    No. %04d    |%n", receiptNo);
+        System.out.println("  |----------------------------------------------------------------|");
+        System.out.println("  |                                                                |");
+        System.out.printf ("  |   %-13s : %-44s |%n", "Fine ID", fineID);
+        System.out.printf ("  |   %-13s : %-44s |%n", "Date", timestamp);
+        System.out.printf ("  |   %-13s : %-44s |%n", "User ID", userId);
+        System.out.printf ("  |   %-13s : %-44s |%n", "Name", userName);
+        System.out.printf ("  |   %-13s : %-44s |%n", "Book", safeTitle);
+        System.out.printf ("  |   %-13s : %-44s |%n", "Overdue", overdueDays + " days");
+        System.out.println("  |                                                                |");
+        System.out.println("  |----------------------------------------------------------------|");
+        System.out.println("  |                                                                |");
+        System.out.printf ("  |   %-13s : %-44s |%n", "Fine Amount", amountStr);
+        System.out.println("  |                                                                |");
+        System.out.println("  | - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  |");
+        System.out.println("  |                                                                |");
+        
         if (isPaid) {
-            System.out.printf("        |   Status      [ PAID ]     %-21s|%n", timestamp);
-            System.out.println("        |                                                 |");
-            System.out.println("        |      Thank you. Please return books on time.    |");
+            System.out.printf ("  |   %-13s : %-44s |%n", "Status", "[ PAID ]");
+            System.out.println("  |                                                                |");
+            System.out.println("  |         Thank you. Please return books on time.                |");
         } else {
-            System.out.println("        |   Status      [ UNPAID ]   Payment pending      |");
-            System.out.println("        |                                                 |");
-            System.out.println("        |      Please settle at the counter. Thank you.   |");
+            System.out.printf ("  |   %-13s : %-44s |%n", "Status", "[ UNPAID ]  Payment pending");
+            System.out.println("  |                                                                |");
+            System.out.println("  |         Please settle at the counter. Thank you.               |");
         }
-        System.out.println("        |_________________________________________________|");
-        System.out.println("        /\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/");
+        
+        System.out.println("  |                                                                |");
+        System.out.println("  '================================================================'");
     }
 }
