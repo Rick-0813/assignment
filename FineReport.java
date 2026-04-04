@@ -57,8 +57,8 @@ public class FineReport {
             return;
         }
 
-        String[] seenUsers = new String[1000];
-        int uniqueCount = 0;
+        FineBalance.FineRecord[] pending = new FineBalance.FineRecord[count];
+        int pendingCount = 0;
         FineBalance.FineRecord[] records = fineBalance.getFineRecords();
         for (int i = 0; i < count; i++)
             if (!records[i].isPaid()) pending[pendingCount++] = records[i];
@@ -93,6 +93,10 @@ public class FineReport {
         }
         System.out.println("  '======================================================================================================'");
         System.out.printf("  Total Pending: %d fines%n", pendingCount);
+    }
+
+    public void displayPendingUserFines() {
+        displayPendingFinesSorted();
     }
 
     public void generateSummaryReport() {
