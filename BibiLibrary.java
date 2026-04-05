@@ -593,7 +593,7 @@ public class BibiLibrary {
     }
 
     private static void promptEnterKey() {
-        System.out.println("  \n[Tips}] Press 'ENTER' to Continue ... ");
+        System.out.println("  \n[Tips] Press 'ENTER' to Continue ... ");
         input.nextLine();
     }
 }
