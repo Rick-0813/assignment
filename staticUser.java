@@ -7,12 +7,12 @@ public class StaticUser {
     private static String currentUserType = null;
     private static String currentUserID = null;
 
-    public static String getCurrentUserType() { 
+    public static String getCurrentUserType() {
         return currentUserType;
     }
 
-    public static String getCurrentUserID() { 
-        return currentUserID; 
+    public static String getCurrentUserID() {
+        return currentUserID;
     }
 
     public static void logout(){

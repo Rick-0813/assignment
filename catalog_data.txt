@@ -83,4 +83,4 @@ SelfHelp,H007,Java A Beginners Guide,9781260440218,Herbert Schildt,Programming,5
 SelfHelp,H008,Speed Cubers Guide,9781524784966,Ian Scheffler,Hobby,10
 SelfHelp,H009,Mechanical Keyboards 101,9781988888888,K. Enthusiast,Tech,4
 SelfHelp,H010,Rich Dad Poor Dad,9781612680194,Robert Kiyosaki,Finance,10
-Novel, 0 ,1 ,1 ,1 ,1 ,10
+Novel, 1 ,1 , ,1 ,1 ,1
