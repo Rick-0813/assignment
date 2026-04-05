@@ -85,6 +85,7 @@ public class BibiLibrary {
                     System.out.println("            [Tip] You can search by the book ID or keyword of the book title ");
                     System.out.print("  Enter the keyword :");
                     manager.searchBooks(input.nextLine());
+                    promptEnterKey();
                     break;
                 case 2:
                     String myID = StaticUser.getCurrentUserID(); 
@@ -265,11 +266,12 @@ public class BibiLibrary {
 
             if (choice == 0) {
                 System.out.println("  Returning to Admin Menu...");
-                inCatalogMenu = false;  
+                inCatalogMenu = false;
             } else if (choice == 1) {
                 addNewCatalogItem();
             } else if (choice == 2) {
                 manager.displayAllCatalog();
+                promptEnterKey();
             } else if (choice == 3) {
                 updateCatologItem();
             } else if (choice == 4) {
@@ -590,4 +592,8 @@ public class BibiLibrary {
         System.out.printf("  RM %.2f recorded for [%s - %s].%n", charged, userID, u.getAdminName());
     }
 
+    private static void promptEnterKey() {
+        System.out.println("  \n[Tips}] Press 'ENTER' to Continue ... ");
+        input.nextLine();
+    }
 }
