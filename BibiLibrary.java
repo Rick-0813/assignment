@@ -513,13 +513,13 @@ public class BibiLibrary {
             } else if (choice == 2) {
                 fineReport.displayAllFinesWithNames();
             } else if (choice == 3) {
-                fineReport.displayPendingUserFines();
-            } else if (choice == 4) {
                 System.out.print("  Enter User ID: ");
                 String uid = input.nextLine().trim();
                 AdminLibrary u = manager.getUserByID(uid);
                 String name = (u != null) ? u.getAdminName() : "Unknown";
                 manager.getFineMenu().showFineDetails(uid, name);
+            } else if (choice == 4) {
+                fineReport.displayPendingFinesSorted();
             } else if (choice == 5) {
                 System.out.print("  Enter User ID to delete fine from: ");
                 String uid = input.nextLine().trim();
@@ -527,6 +527,8 @@ public class BibiLibrary {
                 String name = (u != null) ? u.getAdminName() : "Unknown";
                 manager.getFineMenu().deleteFineEntry(uid, name, input);
                 manager.addLog("Admin", "CORRECTION", "Deleted fine for User [" + uid + "]");
+
+
             } else if (choice == 6) {
                 fineReport.generateSummaryReport();
             } else if (choice == 7) {
@@ -536,6 +538,10 @@ public class BibiLibrary {
                 auditLog.searchAuditByUserID(input.nextLine().trim());
             } else if (choice == 9) {
                 auditLog.searchAuditByAction(input);
+
+
+
+
             } else {
                 System.out.println("  Invalid choice.");
             }

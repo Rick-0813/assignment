@@ -217,51 +217,51 @@ public class LibraryManager {
         
         if (!novels.isEmpty()){
             System.out.println("\n  Novel Match ");
-            System.out.println("  --------------------------------------------------------------------------------------------------");
+            System.out.println("  -------------------------------------------------------------------------------------------------");
             System.out.printf("  | %-5s | %-23s | %-13s | %-17s | %-15s | %-5s | %n" , "ID" , "TITLE" , "ISBN" ,"AUTHOR" , "GENRE" , "STOCK");
-            System.out.println("  --------------------------------------------------------------------------------------------------");
+            System.out.println("  -------------------------------------------------------------------------------------------------");
             for (Novel n : novels){
                 System.out.printf("  | %-5s | %-23s | %-13s | %-17s | %-15s | %-5s | %n" ,
                 n.getItemId() , limitString(n.getTitle() ,23) , n.getIsbn() , limitString(n.getAuthor(),17) , limitString(n.getGenre(), 15), n.getStockQuantity());
             }
-            System.out.println("  --------------------------------------------------------------------------------------------------");
+            System.out.println("  -------------------------------------------------------------------------------------------------");
         }
 
         if (!mangas.isEmpty()){
             System.out.println("\n  Manga Match  ");
-            System.out.println("  --------------------------------------------------------------------------------------------------");
+            System.out.println("  -------------------------------------------------------------------------------------------------");
             System.out.printf("  | %-5s | %-23s | %-13s | %-17s | %-15s | %-5s | %n" , "ID" , "TITLE" , "ISBN" ,"ILLUSTRATOR" , "VOLUME" , "STOCK");
-            System.out.println("  --------------------------------------------------------------------------------------------------");
+            System.out.println("  -------------------------------------------------------------------------------------------------");
             for (Manga m : mangas){
                 String volstr = "Vols. " + m.getVolumeNumber();
                 System.out.printf("  | %-5s | %-23s | %-13s | %-17s | %-15s | %-5s | %n" ,
                 m.getItemId() , limitString(m.getTitle() ,23) , m.getIsbn() , limitString(m.getIllustrator(),17) , volstr , m.getStockQuantity());
             }
-            System.out.println("  --------------------------------------------------------------------------------------------------");
+            System.out.println("  -------------------------------------------------------------------------------------------------");
         }
 
         if (!storybooks.isEmpty()){
             System.out.println("\n  StoryBook Match ");
-            System.out.println("  --------------------------------------------------------------------------------------------------");
+            System.out.println("  -------------------------------------------------------------------------------------------------");
             System.out.printf("  | %-5s | %-23s | %-13s | %-17s | %-15s | %-5s | %n" , "ID" , "TITLE" , "ISBN" ,"AUTHOR" , "TARGET AGE" , "STOCK");
-            System.out.println("  --------------------------------------------------------------------------------------------------");
+            System.out.println("  -------------------------------------------------------------------------------------------------");
             for (StoryBook sb : storybooks){
                 System.out.printf("  | %-5s | %-23s | %-13s | %-17s | %-15s | %-5s | %n" ,
                 sb.getItemId() , limitString(sb.getTitle() ,23) , sb.getIsbn() , limitString(sb.getAuthor(),17) , limitString(sb.getTargetAge(), 15), sb.getStockQuantity());
             }
-            System.out.println("  --------------------------------------------------------------------------------------------------");
+            System.out.println("  -------------------------------------------------------------------------------------------------");
         }
 
         if (!selfhelps.isEmpty()){
             System.out.println("\n  Self-Help Match ");
-            System.out.println("  --------------------------------------------------------------------------------------------------");
+            System.out.println("  -------------------------------------------------------------------------------------------------");
             System.out.printf("  | %-5s | %-23s | %-13s | %-17s | %-15s | %-5s | %n" , "ID" , "TITLE" , "ISBN" ,"AUTHOR" , "TOPIC" , "STOCK");
-            System.out.println("  --------------------------------------------------------------------------------------------------");
+            System.out.println("  -------------------------------------------------------------------------------------------------");
             for (SelfHelp sh :selfhelps){
                 System.out.printf("  | %-5s | %-23s | %-13s | %-17s | %-15s | %-5s | %n" ,
                 sh.getItemId() , limitString(sh.getTitle() ,23) , sh.getIsbn() , limitString(sh.getAuthor(),17) , limitString(sh.getTopic(), 15), sh.getStockQuantity());
             }
-            System.out.println("  --------------------------------------------------------------------------------------------------");
+            System.out.println("  -------------------------------------------------------------------------------------------------");
         }
     }
 
