@@ -89,7 +89,8 @@ public class BibiLibrary {
                     break;
                 case 2:
                     String myID = StaticUser.getCurrentUserID(); 
-                    System.out.println("  Checking loans for User ID [" + myID + "]... Current status: Clear.");
+                    manager.displayUserLoans(myID);
+                    promptEnterKey();
                     break;
                 case 3:
                     System.out.print("  Enter your User ID to check bills: ");
@@ -605,13 +606,13 @@ public class BibiLibrary {
 
     private static void circulationMenu() {
         while (true) {
-            System.out.println("\n  .--------------------------------------------------.");
-            System.out.println("  |          C I R C U L A T I O N   D E S K         |");
-            System.out.println("  '--------------------------------------------------'");
-            System.out.println("  |    [ 1 ] Process Borrow (Checkout)               |");
-            System.out.println("  |    [ 2 ] Process Return (Check-in)               |");
-            System.out.println("  |    [ 0 ] Back to Admin Menu                      |");
-            System.out.println("  '--------------------------------------------------'");
+            System.out.println("\n            .--------------------------------------------------.");
+            System.out.println("            |          C I R C U L A T I O N   D E S K         |");
+            System.out.println("            '--------------------------------------------------'");
+            System.out.println("            |    [ 1 ] Process Borrow (Checkout)               |");
+            System.out.println("            |    [ 2 ] Process Return (Check-in)               |");
+            System.out.println("            |    [ 0 ] Back to Admin Menu                      |");
+            System.out.println("            '--------------------------------------------------'");
             System.out.print("  Select action: ");
 
             if (!input.hasNextInt()) {

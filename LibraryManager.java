@@ -1,9 +1,8 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.*;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
+ 
 
 public class LibraryManager {
 
@@ -19,6 +18,8 @@ public class LibraryManager {
     
     private static final String LOG_FILE = "system_logs.txt";
     private static final String USER_DATA_FILE = "users_data.txt";
+    private static final String LOANS_FILE = "loans_data.txt";
+    private static final String RESERVATIONS_FILE = "reservations_data.txt";
 
     public FineMenu getFineMenu() {
         return fineMenu;
@@ -42,6 +43,7 @@ public class LibraryManager {
         
         System.out.println("\n  [System Boot] Booting up Library Database...");
         loadUsersData();
+        loadCirculationData();
     }
 
     public void borrowItem(String userID, String itemID) {
@@ -84,6 +86,7 @@ public class LibraryManager {
     saveCatalogToFile();
     addLog(userID, "BORROW", "Borrowed Item: " + itemID + " | Due: " + newLoan.getDueDate());
     saveUsersData(); 
+    saveCirculationData();
     
     System.out.println("  Successfully borrowed item! Also You can still borrow ^v^ " + (currentUser.getBorrowLimit() - currentUser.getCurrentBorrowedBooks()) + " more books.");
     System.out.println("  Loan ID   : " + loanID);
@@ -125,6 +128,7 @@ public class LibraryManager {
         addLog(userID, "RETURN", "Returned Item: " + itemID);
 
         checkReservations(itemID);
+        saveCirculationData();
     }  
     
     private void reserveItem(String userID, String itemID) {
@@ -132,6 +136,7 @@ public class LibraryManager {
         Reservation res = new Reservation(resID, userID, itemID);
         reservationList.add(res);
         addLog(userID, "RESERVE", "Placed reservation for Item: " + itemID);
+        saveCirculationData();
         System.out.println("  [Success] Reservation placed! ID: " + resID + ". You will be notified when it is returned.");
     }
 
@@ -566,5 +571,95 @@ public class LibraryManager {
             return text.substring( 0 , maxLength-3) + "...";
         }
         return text;
+    }
+
+    public void displayUserLoans(String userID) {
+    System.out.println("\n            .===================================================================================.");
+    System.out.println("            |                                   M Y   L O A N S                                 |");
+    System.out.println("            '==================================================================================='");
+    System.out.printf("            | %-10s | %-25s | %-12s | %-12s | %-10s |%n", 
+                      "Loan ID", "Book Title", "Issue Date", "Due Date", "Status");
+    System.out.println("            |-----------------------------------------------------------------------------------|");
+
+    boolean hasLoans = false;
+    for (Loan loan : loanList) {
+        if (loan.getUserID().equalsIgnoreCase(userID)) {
+            LibraryItem item = getItemById(loan.getItemID());
+            String title = (item != null) ? item.getTitle() : "Unknown Item";
+            
+            // Limit title length for table formatting
+            if (title.length() > 25) title = title.substring(0, 22) + "...";
+
+            String status = loan.isReturned() ? "Returned" : (loan.isLate() ? "OVERDUE" : "Active");
+
+            System.out.printf("            | %-10s | %-25s | %-12s | %-12s | %-10s |%n",
+                              loan.getLoanID(), title, loan.getIssueDate(), loan.getDueDate(), status);
+            hasLoans = true;
+        }
+    }
+
+    if (!hasLoans) {
+        System.out.println("            |                      You have no current or past loans.                           |");
+    }
+    System.out.println("            '==================================================================================='");
+}
+
+
+    public void saveCirculationData() {
+        try (PrintWriter pw = new PrintWriter(new FileWriter(LOANS_FILE, false))) {
+            for (Loan l : loanList) {
+                pw.println(l.toFileString());
+            }
+        } catch (IOException e) {
+            System.out.println("  [System] ERROR saving loans data: " + e.getMessage());
+        }
+
+        try (PrintWriter pw = new PrintWriter(new FileWriter(RESERVATIONS_FILE, false))) {
+            for (Reservation r : reservationList) {
+                pw.println(r.toFileString());
+            }
+        } catch (IOException e) {
+            System.out.println("  [System] ERROR saving reservations data: " + e.getMessage());
+        }
+    }
+
+    private void loadCirculationData() {
+        File loanFile = new File(LOANS_FILE);
+        if (loanFile.exists()) {
+            try (Scanner scanner = new Scanner(loanFile)) {
+                while (scanner.hasNextLine()) {
+                    String line = scanner.nextLine().trim();
+                    if (line.isEmpty()) continue;
+                    String[] data = line.split(",");
+                    if (data.length == 7) {
+                        Loan loan = new Loan(data[0], data[1], data[2], data[3], data[4], data[5], Boolean.parseBoolean(data[6]));
+                        loanList.add(loan); 
+                        int idNum = Integer.parseInt(data[0].replace("LN", ""));
+                        if (idNum >= loanCounter) loanCounter = idNum + 1;
+                    }
+                }
+            } catch (Exception e) {
+                System.out.println("  [System Error] Failed to load loans: " + e.getMessage());
+            }
+        }
+
+        File resFile = new File(RESERVATIONS_FILE);
+        if (resFile.exists()) {
+            try (Scanner scanner = new Scanner(resFile)) {
+                while (scanner.hasNextLine()) {
+                    String line = scanner.nextLine().trim();
+                    if (line.isEmpty()) continue;
+                    String[] data = line.split(",");
+                    if (data.length == 5) {
+                        Reservation res = new Reservation(data[0], data[1], data[2], data[3], Boolean.parseBoolean(data[4]));
+                        reservationList.add(res);
+                        int idNum = Integer.parseInt(data[0].replace("RS", ""));
+                        if (idNum >= reserveCounter) reserveCounter = idNum + 1;
+                    }
+                }
+            } catch (Exception e) {
+                System.out.println("  [System Error] Failed to load reservations: " + e.getMessage());
+            }
+        }
     }
 }

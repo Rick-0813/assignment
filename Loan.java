@@ -19,6 +19,21 @@ public class Loan {
         this.isReturned = false;
     }
 
+    public Loan(String loanID, String userID, String itemID, String issueDateStr, String dueDateStr, String returnDateStr, boolean isReturned) {
+        this.loanID = loanID;
+        this.userID = userID;
+        this.itemID = itemID;
+        this.issueDate = LocalDate.parse(issueDateStr);
+        this.dueDate = LocalDate.parse(dueDateStr);
+        this.returnDate = returnDateStr.equals("null") ? null : LocalDate.parse(returnDateStr);
+        this.isReturned = isReturned;
+    }
+
+    public String toFileString() {
+        String returnStr = (returnDate == null) ? "null" : returnDate.toString();
+        return loanID + "," + userID + "," + itemID + "," + issueDate.toString() + "," + dueDate.toString() + "," + returnStr + "," + isReturned;
+    }
+
     public String getLoanID() { return loanID; }
     public String getUserID() { return userID; }
     public String getItemID() { return itemID; }
