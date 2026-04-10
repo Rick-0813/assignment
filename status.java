@@ -1,7 +1,7 @@
 import java.io.File;
 import java.util.Scanner;
 
-public class Status {
+public class status {
 
     private static final String LOG_FILE = "system_logs.txt";
 

@@ -145,6 +145,38 @@ public class LibraryManager {
         }
     }
 
+    public void displayUserLoans(String userID) {
+    System.out.println("\n  .================================================================================.");
+    System.out.println("  |                                M Y   L O A N S                                 |");
+    System.out.println("  '================================================================================'");
+    System.out.printf("  | %-10s | %-25s | %-12s | %-12s | %-10s |%n", 
+                      "Loan ID", "Book Title", "Issue Date", "Due Date", "Status");
+    System.out.println("  |--------------------------------------------------------------------------------|");
+
+    boolean hasLoans = false;
+    for (Loan loan : loanList) {
+        if (loan.getUserID().equalsIgnoreCase(userID)) {
+            LibraryItem item = getItemById(loan.getItemID());
+            String title = (item != null) ? item.getTitle() : "Unknown Item";
+            
+            // Limit title length for table formatting
+            if (title.length() > 25) title = title.substring(0, 22) + "...";
+
+            String status = loan.isReturned() ? "Returned" : (loan.isLate() ? "OVERDUE" : "Active");
+
+            System.out.printf("  | %-10s | %-25s | %-12s | %-12s | %-10s |%n",
+                              loan.getLoanID(), title, loan.getIssueDate(), loan.getDueDate(), status);
+            hasLoans = true;
+        }
+    }
+
+    if (!hasLoans) {
+        System.out.println("  |                      You have no current or past loans.                        |");
+    }
+    System.out.println("  '================================================================================'");
+}
+    
+
 
 
     public AdminLibrary getUserByID(String id) {
@@ -567,4 +599,8 @@ public class LibraryManager {
         }
         return text;
     }
+
+    
+
+    
 }

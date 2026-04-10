@@ -7,7 +7,7 @@ public class BibiLibrary {
     public static void main(String[] args) {
         boolean inMainMenu = true;
         while (inMainMenu) {
-            String userType = StaticUser.loginProcess(input, manager);
+            String userType = staticUser.loginProcess(input, manager);
             if (userType == null) {
                 inMainMenu = false;
             }
@@ -48,7 +48,7 @@ public class BibiLibrary {
 
                 if (choice == 0) {
                     System.out.println("  Logging out...");
-                    StaticUser.logout();
+                    staticUser.logout();
                     loggedIn = false;
                 } else {
 
@@ -88,8 +88,9 @@ public class BibiLibrary {
                     promptEnterKey();
                     break;
                 case 2:
-                    String myID = StaticUser.getCurrentUserID(); 
-                    System.out.println("  Checking loans for User ID [" + myID + "]... Current status: Clear.");
+                    String myID = staticUser.getCurrentUserID(); 
+                    manager.displayUserLoans(myID);
+                    promptEnterKey();
                     break;
                 case 3:
                     System.out.print("  Enter your User ID to check bills: ");
@@ -463,7 +464,7 @@ public class BibiLibrary {
     }
 
     private static void feesAndAudits() {
-        Status auditLog = new Status();
+        status auditLog = new status();
         FineReport fineReport = new FineReport(manager.getFineBalance(), manager);
 
         boolean inFeesAndAudits = true;
