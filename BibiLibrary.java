@@ -88,7 +88,7 @@ public class BibiLibrary {
                     promptEnterKey();
                     break;
                 case 2:
-                    String myID = staticUser.getCurrentUserID(); 
+                    String myID = StaticUser.getCurrentUserID(); 
                     manager.displayUserLoans(myID);
                     promptEnterKey();
                     break;
@@ -606,13 +606,13 @@ public class BibiLibrary {
 
     private static void circulationMenu() {
         while (true) {
-            System.out.println("\n  .--------------------------------------------------.");
-            System.out.println("  |          C I R C U L A T I O N   D E S K         |");
-            System.out.println("  '--------------------------------------------------'");
-            System.out.println("  |    [ 1 ] Process Borrow (Checkout)               |");
-            System.out.println("  |    [ 2 ] Process Return (Check-in)               |");
-            System.out.println("  |    [ 0 ] Back to Admin Menu                      |");
-            System.out.println("  '--------------------------------------------------'");
+            System.out.println("\n            .--------------------------------------------------.");
+            System.out.println("            |          C I R C U L A T I O N   D E S K         |");
+            System.out.println("            '--------------------------------------------------'");
+            System.out.println("            |    [ 1 ] Process Borrow (Checkout)               |");
+            System.out.println("            |    [ 2 ] Process Return (Check-in)               |");
+            System.out.println("            |    [ 0 ] Back to Admin Menu                      |");
+            System.out.println("            '--------------------------------------------------'");
             System.out.print("  Select action: ");
 
             if (!input.hasNextInt()) {

@@ -15,6 +15,18 @@ public class Reservation {
         this.isFulfilled = false;
     }
 
+    public Reservation(String reservationID, String userID, String itemID, String requestDateStr, boolean isFulfilled) {
+        this.reservationID = reservationID;
+        this.userID = userID;
+        this.itemID = itemID;
+        this.requestDate = LocalDate.parse(requestDateStr);
+        this.isFulfilled = isFulfilled;
+    }
+
+    public String toFileString() {
+        return reservationID + "," + userID + "," + itemID + "," + requestDate.toString() + "," + isFulfilled;
+    }
+    
     public String getReservationID() { return reservationID; }
     public String getUserID() { return userID; }
     public String getItemID() { return itemID; }

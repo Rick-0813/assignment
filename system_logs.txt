@@ -9,3 +9,14 @@
 [2026-04-03 23:53:59] User: Admin | Action: MANUAL_FINE | Details: Fine for [ST001ACC] GOH WEI JIN | Item: Manga | Days: 1 | RM: 0.50
 [2026-04-04 00:25:26] User: Admin | Action: CORRECTION | Details: Deleted fine for User [ST001ACC]
 [2026-04-05 14:29:01] User: Admin | Action: ADD_CATALOG | Details: Added Item: 1
+[2026-04-10 14:06:29] User: ST001ACC | Action: BORROW | Details: Borrowed Item: N001 | Due: 2026-04-24
+[2026-04-10 14:07:08] User: ST001ACC | Action: BORROW | Details: Borrowed Item: M001 | Due: 2026-04-24
+[2026-04-10 14:07:18] User: ST001ACC | Action: RETURN | Details: Returned Item: M001
+[2026-04-10 14:54:41] User: ST001ACC | Action: BORROW | Details: Borrowed Item: N001 | Due: 2026-04-24
+[2026-04-10 14:54:52] User: ST001ACC | Action: BORROW | Details: Borrowed Item: M001 | Due: 2026-04-24
+[2026-04-10 14:57:10] User: ST001ACC | Action: BORROW | Details: Borrowed Item: N001 | Due: 2026-04-24
+[2026-04-10 16:18:00] User: ST001ACC | Action: BORROW | Details: Borrowed Item: N001 | Due: 2026-04-24
+[2026-04-10 16:18:14] User: ST001ACC | Action: BORROW | Details: Borrowed Item: M001 | Due: 2026-04-24
+[2026-04-10 16:18:28] User: ST001ACC | Action: BORROW | Details: Borrowed Item: N002 | Due: 2026-04-24
+[2026-04-10 16:46:53] User: ST001ACC | Action: BORROW | Details: Borrowed Item: N001 | Due: 2026-04-24
+[2026-04-10 16:47:04] User: ST001ACC | Action: BORROW | Details: Borrowed Item: M001 | Due: 2026-04-24

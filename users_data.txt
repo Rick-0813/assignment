@@ -1,5 +1,5 @@
-GOH WEI JIN,ST001ACC,student,gohjin@student.tarc.edu.mr,true,1,0.0
-CHIA WEN KHAI,ST001DCS,student,wenkhai@gmail.com,false,0,0.0
-EUVINA,F001,faculty,eVn@gmail.com,true,2,4.0
-WEILE,M001,Member,weile@gmail.com,true,1,1.5
+GOH WEI JIN,ST001ACC,Student,gohjin@student.tarc.edu.mr,true,2,0.5
+CHIA WEN KHAI,ST001DCS,Student,wenkhai@gmail.com,false,0,0.0
+EUVINA,F001,Faculty,eVn@gmail.com,true,2,4.0
+WEILE,M001,Member,weile@gmail.com,true,1,0.0
 Lee Wen Li,ST003SCS,Student,wenli@student.tarc.edu.my,true,0,0.0
