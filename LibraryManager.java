@@ -46,6 +46,7 @@ public class LibraryManager {
 
     public void borrowItem(String userID, String itemID) {
     AdminLibrary currentUser = getUserByID(userID);
+    LibraryItem item = getItemById(itemID);
 
     for (AdminLibrary u : userList) {
         if (u.getUserID().equals(userID)) {
@@ -59,18 +60,92 @@ public class LibraryManager {
         return;
     }
 
+    if (!item.isAvailable()) {
+            System.out.println("  [!] Item [" + item.getTitle() + "] is currently out of stock.");
+            System.out.println("  [System] Placing a reservation request for User [" + userID + "]...");
+            reserveItem(userID, itemID);
+            return;
+        }
+
     if (!currentUser.canBorrow()) {
         System.out.println("  [!] Failed to borrow item.");
         System.out.println("  Your current user type is " + currentUser.getUserType() + ", and you can borrow up to " + currentUser.getBorrowLimit() + " books.");
         System.out.println("  You have currently borrowed " + currentUser.getCurrentBorrowedBooks() + " books. Please return some books first.");
         return;
     }
+
+    String loanID = "LN" + String.format("%04d", loanCounter++);
+    Loan newLoan = new Loan(loanID, userID, itemID, currentUser.getLoanDuration());
+    loanList.add(newLoan);
     
     currentUser.incrementBorrowedBooks(); 
+    adjustStock(item, -1);
+    updateUser();
+    saveCatalogToFile();
+    addLog(userID, "BORROW", "Borrowed Item: " + itemID + " | Due: " + newLoan.getDueDate());
     saveUsersData(); 
     
     System.out.println("  Successfully borrowed item! Also You can still borrow ^v^ " + (currentUser.getBorrowLimit() - currentUser.getCurrentBorrowedBooks()) + " more books.");
+    System.out.println("  Loan ID   : " + loanID);
+    System.out.println("  Issue Date: " + newLoan.getIssueDate());
+    System.out.println("  Due Date  : " + newLoan.getDueDate());
 }
+
+    public void returnItem(String userID, String itemID) {
+        Loan activeLoan = null;
+        for (Loan l: loanList){
+            if (l.getUserID().equals(userID) && l.getItemID().equals(itemID) && !l.isReturned()){
+                activeLoan = l;
+                break;
+            }
+        }
+        
+        if (activeLoan == null) {
+            System.out.println("  [!] No active loan found for User [" + userID + "] and Item [" + itemID + "].");
+            return;
+        }
+
+        LibraryItem item = getItemById(itemID);
+        AdminLibrary currentUser = getUserByID(userID);
+
+        activeLoan.returnItem();
+        currentUser.decrementBorrowedBooks();
+        adjustStock(item, 1);
+
+        System.out.println("  [Success] Item returned on: " + activeLoan.getReturnDate());
+
+        if (activeLoan.isLate()) {
+            int daysLate = activeLoan.getDaysLate();
+            System.out.println("  [!] Warning: Item is returned " + daysLate + " days late.");
+            fineBalance.processFine(userID, item.getTitle(), daysLate);
+        }
+
+        updateUser();
+        saveCatalogToFile();
+        addLog(userID, "RETURN", "Returned Item: " + itemID);
+
+        checkReservations(itemID);
+    }  
+    
+    private void reserveItem(String userID, String itemID) {
+        String resID = "RS" + String.format("%04d", reserveCounter++);
+        Reservation res = new Reservation(resID, userID, itemID);
+        reservationList.add(res);
+        addLog(userID, "RESERVE", "Placed reservation for Item: " + itemID);
+        System.out.println("  [Success] Reservation placed! ID: " + resID + ". You will be notified when it is returned.");
+    }
+
+    private void checkReservations(String itemID) {
+        for (Reservation res : reservationList) {
+            if (res.getItemID().equals(itemID) && !res.isFulfilled()) {
+                System.out.println("  [System Notification] Item [" + itemID + "] is now back in stock and reserved for User [" + res.getUserID() + "].");
+                res.setFulfilled(true);
+                break; // Only fulfill the first person in the queue
+            }
+        }
+    }
+
+
 
     public AdminLibrary getUserByID(String id) {
         for (AdminLibrary u : userList) {

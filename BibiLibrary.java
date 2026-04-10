@@ -65,7 +65,7 @@ public class BibiLibrary {
                     ManagmentUser();
                     break;
                 case 2:
-                    System.out.println("  Managing circulation...");
+                    circulationMenu();
                     break;
                 case 3:
                     catalogMenu();
@@ -601,5 +601,43 @@ public class BibiLibrary {
     private static void promptEnterKey() {
         System.out.println("  \n[Tips] Press 'ENTER' to Continue ... ");
         input.nextLine();
+    }
+
+    private static void circulationMenu() {
+        while (true) {
+            System.out.println("\n  .--------------------------------------------------.");
+            System.out.println("  |          C I R C U L A T I O N   D E S K         |");
+            System.out.println("  '--------------------------------------------------'");
+            System.out.println("  |    [ 1 ] Process Borrow (Checkout)               |");
+            System.out.println("  |    [ 2 ] Process Return (Check-in)               |");
+            System.out.println("  |    [ 0 ] Back to Admin Menu                      |");
+            System.out.println("  '--------------------------------------------------'");
+            System.out.print("  Select action: ");
+
+            if (!input.hasNextInt()) {
+                input.nextLine();
+                continue;
+            }
+            int choice = input.nextInt();
+            input.nextLine();
+
+            if (choice == 0) {
+                break;
+            } else if (choice == 1) {
+                System.out.print("  Enter User ID: ");
+                String uid = input.nextLine().trim();
+                System.out.print("  Enter Item ID (e.g., N001, M001): ");
+                String iid = input.nextLine().trim();
+                manager.borrowItem(uid, iid);
+            } else if (choice == 2) {
+                System.out.print("  Enter User ID: ");
+                String uid = input.nextLine().trim();
+                System.out.print("  Enter Item ID: ");
+                String iid = input.nextLine().trim();
+                manager.returnItem(uid, iid);
+            } else {
+                System.out.println("  Invalid choice.");
+            }
+        }
     }
 }
