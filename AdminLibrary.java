@@ -6,8 +6,11 @@ public class AdminLibrary extends BaseUser {
     private double outstandingFines = 0.0;
 
     public AdminLibrary(String name, String id, String type, String email) {
-        super(name, id, type, email);
-        
+        super(name, id, type, email); 
+        setLimitsBasedOnType(type);
+    }
+
+    private void setLimitsBasedOnType(String type) {
         if (type.equalsIgnoreCase("Faculty")) {
             this.borrowLimit = 20;
             this.loanDuration = 30;
@@ -20,61 +23,42 @@ public class AdminLibrary extends BaseUser {
         }
     }
 
-    public String getAdminName(){
-        return super.getName();
+    //getters and setters
+    public double getOutstandingFines() { 
+        return outstandingFines; 
     }
-
-    public void setAdminName(String name) {
-        super.setName(name);
+    public void setOutstandingFines(double amount) { 
+        this.outstandingFines = amount; 
     }
-
-    public double getOutstandingFines() {
-        return outstandingFines;
-    }
-
-    public void setOutstandingFines(double amount) {
-        this.outstandingFines = amount;
-    }
-
-    public void setCurrentBorrowedBooks(int amount) {
-        this.currentBorrowedBooks = amount;
+    public void setCurrentBorrowedBooks(int amount) { 
+        this.currentBorrowedBooks = amount; 
     }
     
+    @Override
     public void setUserType(String type) {
         super.setUserType(type); 
-        if (type.equalsIgnoreCase("Faculty")) {
-            this.borrowLimit = 20; 
-            this.loanDuration = 30;
-        } else if (type.equalsIgnoreCase("Student")) {
-            this.borrowLimit = 15; 
-            this.loanDuration = 14;
-        } else {
-            this.borrowLimit = 7;
-            this.loanDuration = 7;
-        }
+        setLimitsBasedOnType(type);
     }
 
-
-    public String getUserID() {
-        return super.getUserID();
+    public int getLoanDuration() { 
+        return loanDuration; 
     }
-
-    public String getUserType() {
-        return super.getUserType();
+    public int getBorrowLimit() { 
+        return borrowLimit; 
+    }
+    public int getCurrentBorrowedBooks() { 
+        return currentBorrowedBooks; 
+    }
+    public boolean isActive() { 
+        return isActive; 
+    }
+    public void setActive(boolean active) { 
+        this.isActive = active; 
+    }
+    public boolean canBorrow() { 
+        return currentBorrowedBooks < borrowLimit; 
     }
     
-    public String getEmail() {
-        return super.getEmail();
-    }
-
-    public int getLoanDuration() {
-        return loanDuration;
-    }
-
-    public boolean canBorrow() {
-        return currentBorrowedBooks < borrowLimit;
-    }
-
     public void incrementBorrowedBooks() {
         if (canBorrow()) {
             currentBorrowedBooks++;
@@ -86,26 +70,5 @@ public class AdminLibrary extends BaseUser {
             currentBorrowedBooks--;
         }
     }
-
-    public int getBorrowLimit() {
-
-        return borrowLimit;
-    }
-    
-    public int getCurrentBorrowedBooks() {
-        return currentBorrowedBooks;
-    }
-
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public void setActive(boolean active) {
-        this.isActive = active;
-    }
-
-
-    
-
 }
 

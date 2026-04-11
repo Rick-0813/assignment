@@ -159,7 +159,7 @@ public class Status {
             return;
         }
 
-        System.out.println("\n                          .==================================================.");
+        System.out.println("\n                          .=================================================.");
         System.out.println("                          |                                                 |");
         System.out.println("                          |        SEARCH AUDIT BY ACTION                   |");
         System.out.println("                          |_________________________________________________|");
@@ -169,7 +169,7 @@ public class Status {
         System.out.println("                          |                                                 |");
         System.out.println("                          |- - - - - - - - - - - - - - - - - - - - - - - - -|");
         System.out.println("                          |    [ 0 ]  Cancel                                |");
-        System.out.println("                          '=================================================='");
+        System.out.println("                          '================================================='");
         System.out.print("\n  Select action: ");
 
         if (!input.hasNextInt()) {

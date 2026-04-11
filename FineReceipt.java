@@ -24,7 +24,6 @@ public class FineReceipt {
         int overdueDays, double amount,
         boolean isPaid, String timestamp) {
 
-        // 如果书名太长，自动截断，防止撑爆表格
         String safeTitle = bookTitle.length() > 42 ? bookTitle.substring(0, 39) + "..." : bookTitle;
         String amountStr = String.format("RM %.2f", amount);
 

@@ -146,6 +146,7 @@ public class FineBalance {
         String fineID = generateFineID();
 
         if (daysLate >= LOST_THRESHOLD_DAYS) {
+            
             double overdueAmount = LOST_THRESHOLD_DAYS * FINE_RATE_PER_DAY;
             double total = overdueAmount + LOST_ITEM_PENALTY;
             fineRecords[recordCount++] = new FineRecord(fineID, userID, itemTitle, "LOST",

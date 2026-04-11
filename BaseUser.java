@@ -21,4 +21,12 @@ public class BaseUser {
     
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        BaseUser user = (BaseUser) obj;
+        return userID.equals(user.userID);
+    }
 }

@@ -13,33 +13,11 @@ public class BibiLibrary {
                 break;
             }
             boolean loggedIn = true;
-            System.out.println("\n\n           ██████╗ ██╗██████╗ ██╗    ██╗     ██╗██████╗ ██████╗  █████╗ ██████╗ ██╗   ██╗       \n"+
-                                   "           ██╔══██╗██║██╔══██╗██║    ██║     ██║██╔══██╗██╔══██╗██╔══██╗██╔══██╗╚██╗ ██╔╝       \n"+
-                                   "           ██████╔╝██║██████╔╝██║    ██║     ██║██████╔╝██████╔╝███████║██████╔╝ ╚████╔╝        \n"+
-                                   "           ██╔══██╗██║██╔══██╗██║    ██║     ██║██╔══██╗██╔══██╗██╔══██║██╔══██╗  ╚██╔╝         \n"+
-                                   "           ██████╔╝██║██████╔╝██║    ███████╗██║██████╔╝██║  ██║██║  ██║██║  ██║   ██║          \n"+
-                                   "           ╚═════╝ ╚═╝╚═════╝ ╚═╝    ╚══════╝╚═╝╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝          ");
+            LibraryUI.printWelcomeLogo();
+            
             while (loggedIn) {
-                System.out.println("=================================================================================================\n");
-                System.out.println("               .==================================================.");
-                System.out.println("              /                                                  /|");
-                System.out.printf("             /            Current Role: %-24s/ |%n", userType);
-                System.out.println("            /                                                  /  |");
-                System.out.println("           .==================================================.   |");
-
-                if (userType.trim().equalsIgnoreCase("Admin")) {
-                    System.out.println("           |                                                  |   |");
-                    System.out.println("           |    [ 1 ] User Management                         |   |\n           |    [ 2 ] Circulation Module                      |   |\n           |    [ 3 ] Cataloging Admin                        |   |\n           |    [ 4 ] Fees and Audits                         |   .");
-                } else {
-                    System.out.println("           |                                                  |   |");
-                    System.out.println("           |    [ 1 ] Search Catalog                          |   |\n           |    [ 2 ] My Loans                                |   |\n           |    [ 3 ] My Bills                                |   .");
-                }
-                System.out.println("           |                                                  |  /");
-                System.out.println("           |--------------------------------------------------| /");
-                System.out.println("           |    [ 0 ] Logout Back to Main Menu                |/");
-                System.out.println("           '=================================================='");
-                System.out.print("  Choice: ");
-
+                LibraryUI.printRoleMenu(userType);
+                
                 if (!input.hasNextInt()) {
                     input.nextLine();
                     continue;
@@ -52,7 +30,6 @@ public class BibiLibrary {
                     StaticUser.logout();
                     loggedIn = false;
                 } else {
-
                     handleMenu(userType, choice);
                 }
             }
@@ -63,7 +40,7 @@ public class BibiLibrary {
         if (userType.trim().equalsIgnoreCase("Admin")) {
             switch (choice) {
                 case 1:
-                    ManagmentUser();
+                    managementUser();
                     break;
                 case 2:
                     circulationMenu();
@@ -97,7 +74,7 @@ public class BibiLibrary {
                     System.out.print("  Enter your User ID to check bills: ");
                     String billUserID = input.nextLine().trim();
                     AdminLibrary billUser = manager.getUserByID(billUserID);
-                    String billName = (billUser != null) ? billUser.getAdminName() : "Unknown";
+                    String billName = (billUser != null) ? billUser.getName() : "Unknown"; 
                     manager.getFineMenu().showFineMenuIfOwed(billUserID, billName, input);
                     break;
                 default:
@@ -106,7 +83,7 @@ public class BibiLibrary {
         }
     }
 
-    private static void ManagmentUser() {
+    private static void managementUser() {
         boolean inUserManagement = true;
         while (inUserManagement) {
             System.out.println("\n             .==================================================.");
@@ -117,13 +94,21 @@ public class BibiLibrary {
             System.out.println("             |      [ 3 ] Edit User                             |");
             System.out.println("             |      [ 4 ] View All Users                        |");
             System.out.println("             |      [ 5 ] Account Status Control                |");
-            System.out.println("             ----------------------------------------------------");
+            System.out.println("             |--------------------------------------------------|");
             System.out.println("             |      [ 0 ] Back to Admin Menu                    |");
             System.out.println("             .==================================================.");
             System.out.print("  Select an option: ");
 
+            if (!input.hasNextInt()) {
+                System.out.println("  [!] Error: Invalid input. Please enter a number.");
+                input.nextLine(); 
+                continue;        
+            }
+          
+
             int userChoice = input.nextInt();
             input.nextLine();
+
             if (userChoice == 0) {
                 System.out.println("  Returning to Admin Menu...");
                 inUserManagement = false;
@@ -145,8 +130,7 @@ public class BibiLibrary {
 
     private static void editUser() {
         System.out.print("  Enter User ID to edit: ");
-        String id = input.nextLine().trim();
-
+        String id = input.nextLine().trim().toUpperCase();
         AdminLibrary user = manager.getUserByID(id);
 
         if (user == null) {
@@ -154,25 +138,28 @@ public class BibiLibrary {
             return;
         }
 
-        System.out.println("\n                --- Editing User: " + user.getAdminName() + " ---");
+        System.out.println("\n                --- Editing User: " + user.getName() + " ---"); 
         System.out.println("  (Tip: Press ENTER to keep current data)");
 
-        System.out.print("  New Name [" + user.getAdminName() + "]: ");
+        System.out.print("  New Name [" + user.getName() + "]: "); 
         String newName = input.nextLine().trim();
-        if (!newName.isEmpty()) {
-            user.setAdminName(newName);
-        }
+        if (!newName.isEmpty()) { user.setName(newName); }
 
         System.out.print("  New Email [" + user.getEmail() + "]: ");
         String newEmail = input.nextLine().trim();
-        if (!newEmail.isEmpty()) {
-            user.setEmail(newEmail);
-        }
+        if (!newEmail.isEmpty()) { user.setEmail(newEmail); }
 
         System.out.print("  New Type [" + user.getUserType() + "]: ");
         String newType = input.nextLine().trim();
         if (!newType.isEmpty()) {
-            user.setUserType(newType);
+            if (newType.equalsIgnoreCase("Admin") || newType.equalsIgnoreCase("Faculty") || 
+                newType.equalsIgnoreCase("Student") || newType.equalsIgnoreCase("Public Member")) {
+                if (newType.equalsIgnoreCase("Public Member")) newType = "Public Member";
+                else newType = newType.substring(0, 1).toUpperCase() + newType.substring(1).toLowerCase();
+                user.setUserType(newType);
+            } else {
+                System.out.println("  [!] Invalid Type. Type not updated.");
+            }
         }
 
         manager.updateUser();
@@ -181,45 +168,49 @@ public class BibiLibrary {
     }
 
     private static void addUser() {
-        String name;
+        String name, id, email, type;
         do {
             System.out.print("  Name (IC/Passport): ");
             name = input.nextLine().trim();
-            if (name.isEmpty()) {
-                System.out.println("                   [!] Error: Name cannot be empty. Please try again.");
-            }
+            if (name.isEmpty()) System.out.println("                   [!] Error: Name cannot be empty.");
         } while (name.isEmpty());
 
-        String id;
         do {
             System.out.print("  User ID: ");
-            id = input.nextLine().trim();
-            if (id.isEmpty()) {
-                System.out.println("                   [!] Error: User ID cannot be empty. Please try again.");
+            id = input.nextLine().trim().toUpperCase(); 
+            if (id.isEmpty()) System.out.println("                   [!] Error: User ID cannot be empty.");
+            else if (manager.getUserByID(id) != null) {
+                System.out.println("                   [!] Error: User ID already exists!");
+                id = "";
             }
         } while (id.isEmpty());
 
-        String email;
         do {
             System.out.print("  Email: ");
             email = input.nextLine().trim();
-            if (email.isEmpty()) {
-                System.out.println("                   [!] Error: Email cannot be empty. Please try again.");
-            }
+            if (email.isEmpty()) System.out.println("                   [!] Error: Email cannot be empty.");
         } while (email.isEmpty());
 
-        String type;
         do {
-
-            System.out.print("  Type (Admin/Faculty/Student/Public Member): ");
+            System.out.print("  Type (Faculty/Student/Public Member): ");
             type = input.nextLine().trim();
             if (type.isEmpty()) {
-                System.out.println("                   [!] Error: Type cannot be empty. Please try again.");
+                System.out.println("                   [!] Error: Type cannot be empty.");
+            } else if (type.equalsIgnoreCase("Admin")) {
+                type = "Admin";
+            } else if (type.equalsIgnoreCase("Faculty")) {
+                type = "Faculty";
+            } else if (type.equalsIgnoreCase("Student")) {
+                type = "Student";
+            } else if (type.equalsIgnoreCase("Public Member")) {
+                type = "Public Member";
+            } else {
+                System.out.println("                   [!] Error: Invalid type. Please choose from the options.");
+                type = ""; 
             }
         } while (type.isEmpty());
 
         AdminLibrary profile = new AdminLibrary(name, id, type, email);
-
         manager.addUser(profile);
     }
 
@@ -275,7 +266,7 @@ public class BibiLibrary {
                 manager.displayAllCatalog();
                 promptEnterKey();
             } else if (choice == 3) {
-                updateCatologItem();
+                updateCatalogItem();
             } else if (choice == 4) {
                 System.out.println("\n  .--------------------------------------------------.");
                 System.out.println("  |              R E M O V E   I T E M               |");
@@ -408,7 +399,7 @@ public class BibiLibrary {
         }
     }
 
-    private static void updateCatologItem() {
+    private static void updateCatalogItem() {
         System.out.println("\n  .--------------------------------------------------.");
         System.out.println("  |             U P D A T E   S T O C K              |");
         System.out.println("  '--------------------------------------------------'");
@@ -515,20 +506,17 @@ public class BibiLibrary {
             } else if (choice == 2) {
                 fineReport.displayAllFinesWithNames();
             } else if (choice == 3) {
-                System.out.print("  Enter User ID: ");
-                String uid = input.nextLine().trim();
+                System.out.print("  Enter User ID: "); String uid = input.nextLine().trim();
                 AdminLibrary u = manager.getUserByID(uid);
-                String name = (u != null) ? u.getAdminName() : "Unknown";
+                String name = (u != null) ? u.getName() : "Unknown";
                 manager.getFineMenu().showFineDetails(uid, name);
             } else if (choice == 4) {
                 fineReport.displayPendingFinesSorted();
             } else if (choice == 5) {
-                System.out.print("  Enter User ID to delete fine from: ");
-                String uid = input.nextLine().trim();
+                System.out.print("  Enter User ID to delete fine from: "); String uid = input.nextLine().trim();
                 AdminLibrary u = manager.getUserByID(uid);
-                String name = (u != null) ? u.getAdminName() : "Unknown";
+                String name = (u != null) ? u.getName() : "Unknown"; 
                 manager.getFineMenu().deleteFineEntry(uid, name, input);
-                manager.addLog("Admin", "CORRECTION", "Deleted fine for User [" + uid + "]");
 
 
             } else if (choice == 6) {
@@ -599,12 +587,8 @@ public class BibiLibrary {
         }
 
         double charged = manager.getFineBalance().processFine(userID, itemInput, daysLate);
-        manager.addLog("Admin", "MANUAL_FINE",
-            "Fine for [" + userID + "] " + u.getAdminName() +
-            " | Item: " + itemInput +
-            " | Days: " + daysLate +
-            " | RM: " + String.format("%.2f", charged));
-        System.out.printf("  RM %.2f recorded for [%s - %s].%n", charged, userID, u.getAdminName());
+        manager.addLog("Admin", "MANUAL_FINE", "Fine for [" + userID + "] " + u.getName() + " | RM: " + charged); 
+        System.out.printf("  RM %.2f recorded for [%s - %s].%n", charged, userID, u.getName()); 
     }
 
     private static void promptEnterKey() {

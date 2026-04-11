@@ -144,7 +144,7 @@ public class LibraryManager {
             if (res.getItemID().equals(itemID) && !res.isFulfilled()) {
                 System.out.println("  [System Notification] Item [" + itemID + "] is now back in stock and reserved for User [" + res.getUserID() + "].");
                 res.setFulfilled(true);
-                break; // Only fulfill the first person in the queue
+                break; 
             }
         }
     }
@@ -213,7 +213,7 @@ public class LibraryManager {
                 double currentOwed = fineBalance.getOutstandingBalance(u.getUserID());
                 u.setOutstandingFines(currentOwed);
 
-                pw.println(u.getAdminName() + "," + u.getUserID() + "," + u.getUserType() + "," + u.getEmail() + "," + u.isActive() + "," + u.getCurrentBorrowedBooks() + "," + currentOwed);
+                pw.println(u.getName() + "," + u.getUserID() + "," + u.getUserType() + "," + u.getEmail() + "," + u.isActive() + "," + u.getCurrentBorrowedBooks() + "," + currentOwed);
             }
             pw.flush(); 
             System.out.println("  [System] Save trigger: Data successfully updated at " + file.getAbsolutePath());
@@ -347,7 +347,7 @@ public class LibraryManager {
 
     public void addUser(AdminLibrary newUser){
         userList.add(newUser);
-        System.out.println(" User [" + newUser.getAdminName() + "] added successfully.");
+        System.out.println(" User [" + newUser.getName() + "] added successfully.");
         addLog("Admin", "ADD_USER", "Added User ID: " + newUser.getUserID());
         saveUsersData();
     }
@@ -366,7 +366,7 @@ public class LibraryManager {
         for (AdminLibrary u : userList) {
             if (u.getUserID().equals(id)) {
                 u.setActive(!u.isActive());
-                System.out.println("User [" + u.getAdminName() + "] is now " + (u.isActive() ? "ENABLED" : "DISABLED") );
+                System.out.println("User [" + u.getName() + "] is now " + (u.isActive() ? "ENABLED" : "DISABLED") );
                 addLog("Admin", "TOGGLE_STATUS", "Changed status of User ID: " + id);
                 saveUsersData();
                 return;
@@ -399,7 +399,7 @@ public class LibraryManager {
             
             String finesInfo = String.format("RM %.2f", owed); 
             
-            System.out.printf(format, status, u.getUserID(), u.getUserType(), u.getAdminName(), u.getEmail(), loansInfo, daysInfo, finesInfo);
+           System.out.printf(format, status, u.getUserID(), u.getUserType(), u.getName(), u.getEmail(), loansInfo, daysInfo, finesInfo);
         }
         System.out.println("'============================================================================================================================================='\n");
     }
@@ -586,8 +586,7 @@ public class LibraryManager {
         if (loan.getUserID().equalsIgnoreCase(userID)) {
             LibraryItem item = getItemById(loan.getItemID());
             String title = (item != null) ? item.getTitle() : "Unknown Item";
-            
-            // Limit title length for table formatting
+        
             if (title.length() > 25) title = title.substring(0, 22) + "...";
 
             String status = loan.isReturned() ? "Returned" : (loan.isLate() ? "OVERDUE" : "Active");

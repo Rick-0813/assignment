@@ -32,7 +32,7 @@ public class FineReport {
         for (int i = 0; i < count; i++) {
             FineBalance.FineRecord r = records[i];
             AdminLibrary user = manager.getUserByID(r.getUserID());
-            String name = (user != null) ? user.getAdminName() : "Unknown";
+            String name = (user != null) ? user.getName() : "Unknown";
             System.out.printf("  %-6s  %-10s  %-18s  %-18s  %-7s  %-10s  %-8.2f  %-8s%n",
                     r.getFineID(), r.getUserID(), name, r.getItemTitle(),
                     r.getFineType(), r.getDate(), r.getTotal(),
@@ -86,7 +86,7 @@ public class FineReport {
         for (int i = 0; i < pendingCount; i++) {
             FineBalance.FineRecord r = pending[i];
             AdminLibrary user = manager.getUserByID(r.getUserID());
-            String name = (user != null) ? user.getAdminName() : "Unknown";
+            String name = (user != null) ? user.getName() : "Unknown";
             System.out.printf("  | %-6s | %-10s | %-18s | %-20s | %-8s | %-10s | %-10.2f |%n",
                 r.getFineID(), r.getUserID(), name, r.getItemTitle(),
                 r.getFineType(), r.getDate(), r.getTotal());

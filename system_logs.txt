@@ -29,3 +29,20 @@
 [2026-04-11 11:33:06] User: Admin | Action: CORRECTION | Details: Deleted fine for User [M001]
 [2026-04-11 11:33:46] User: Admin | Action: CORRECTION | Details: Deleted fine for User [ST001DCS]
 [2026-04-11 11:41:49] User: Admin | Action: CORRECTION | Details: Deleted fine for User []
+[2026-04-11 17:26:17] User: Admin | Action: ADD_USER | Details: Added User ID: F002
+[2026-04-11 17:26:55] User: Admin | Action: ADD_USER | Details: Added User ID: 9090
+[2026-04-11 17:30:15] User: Admin | Action: ADD_USER | Details: Added User ID: 334GRER
+[2026-04-11 17:38:28] User: Admin | Action: ADD_USER | Details: Added User ID: ST002ACC
+[2026-04-11 17:52:52] User: Admin | Action: ADD_USER | Details: Added User ID: ST002ACC
+[2026-04-11 17:53:30] User: Admin | Action: EDIT_USER | Details: Edited details for User ID: M001
+[2026-04-11 17:53:52] User: Admin | Action: EDIT_USER | Details: Edited details for User ID: ST002ACC
+[2026-04-11 17:54:08] User: Admin | Action: ADD_USER | Details: Added User ID: 0
+[2026-04-11 17:54:24] User: Admin | Action: EDIT_USER | Details: Edited details for User ID: F002
+[2026-04-11 17:54:42] User: Admin | Action: EDIT_USER | Details: Edited details for User ID: ST003SCS
+[2026-04-11 17:56:35] User: Admin | Action: TOGGLE_STATUS | Details: Changed status of User ID: ST001ACC
+[2026-04-11 17:57:18] User: Admin | Action: ADD_USER | Details: Added User ID: TSET
+[2026-04-11 17:58:34] User: Admin | Action: ADD_USER | Details: Added User ID: SREG
+[2026-04-11 17:58:49] User: Admin | Action: TOGGLE_STATUS | Details: Changed status of User ID: ST001
+[2026-04-11 17:59:10] User: ST001 | Action: BORROW | Details: Borrowed Item: M005 | Due: 2026-04-25
+[2026-04-11 17:59:18] User: ST001 | Action: RETURN | Details: Returned Item: M005
+[2026-04-11 18:00:09] User: Admin | Action: MANUAL_FINE | Details: Fine for [ST001] GOH WEI JIN | RM: 0.5
