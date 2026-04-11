@@ -1,7 +1,7 @@
 import java.io.File;
 import java.util.Scanner;
 
-public class status {
+public class Status {
 
     private static final String LOG_FILE = "system_logs.txt";
 
@@ -85,6 +85,10 @@ public class status {
     }
 
     public void searchAuditByUserID(String userID) {
+        if (userID == null || userID.trim().isEmpty()) {
+            System.out.println("  [!] Error: User ID cannot be empty.");
+            return; 
+        }
         System.out.println("\n        .=================================================.");
         System.out.println("        |                                                 |");
         System.out.printf("        |   Audit Log  User: %-29s|%n", userID);
@@ -188,8 +192,8 @@ public class status {
         String chosen = uniqueActions[pick - 1];
 
         System.out.println("\n                          .==================================================.");
-        System.out.println("                          |                                                 |");
-        System.out.printf("                          |   Audit Log  Action: %-27s|%n", chosen);
+        System.out.println("                          |                                                  |");
+        System.out.printf("                          |   Audit Log  Action: %-28s|%n", chosen);
         System.out.println("                          '=================================================='");
 
         try (Scanner scanner = new Scanner(file)) {

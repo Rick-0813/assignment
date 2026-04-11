@@ -7,9 +7,10 @@ public class BibiLibrary {
     public static void main(String[] args) {
         boolean inMainMenu = true;
         while (inMainMenu) {
-            String userType = staticUser.loginProcess(input, manager);
+            String userType = StaticUser.loginProcess(input, manager);
             if (userType == null) {
                 inMainMenu = false;
+                break;
             }
             boolean loggedIn = true;
             System.out.println("\n\n           ██████╗ ██╗██████╗ ██╗    ██╗     ██╗██████╗ ██████╗  █████╗ ██████╗ ██╗   ██╗       \n"+
@@ -48,7 +49,7 @@ public class BibiLibrary {
 
                 if (choice == 0) {
                     System.out.println("  Logging out...");
-                    staticUser.logout();
+                    StaticUser.logout();
                     loggedIn = false;
                 } else {
 
@@ -464,7 +465,7 @@ public class BibiLibrary {
     }
 
     private static void feesAndAudits() {
-        status auditLog = new status();
+        Status auditLog = new Status();
         FineReport fineReport = new FineReport(manager.getFineBalance(), manager);
 
         boolean inFeesAndAudits = true;
@@ -570,10 +571,17 @@ public class BibiLibrary {
             return;
         }
 
-        System.out.print("  Enter Item Title : ");
-        String itemTitle = input.nextLine().trim();
-        if (itemTitle.isEmpty()) {
-            System.out.println("  Item title cannot be empty.");
+        System.out.print("  Enter Item Title or ID : "); 
+        String itemInput = input.nextLine().trim();
+        if (itemInput.isEmpty()) {
+            System.out.println("  Item title/ID cannot be empty.");
+            return;
+        }
+
+        if (!manager.verifyUserBorrowedItem(userID, itemInput)) {
+            System.out.println("\n  [!] Error: Invalid Fine Entry!");
+            System.out.println("  User [" + userID + "] did NOT borrow item [" + itemInput + "].");
+            System.out.println("  Action Aborted: You cannot fine a user for an item they never borrowed.\n");
             return;
         }
 
@@ -590,10 +598,10 @@ public class BibiLibrary {
             return;
         }
 
-        double charged = manager.getFineBalance().processFine(userID, itemTitle, daysLate);
+        double charged = manager.getFineBalance().processFine(userID, itemInput, daysLate);
         manager.addLog("Admin", "MANUAL_FINE",
             "Fine for [" + userID + "] " + u.getAdminName() +
-            " | Item: " + itemTitle +
+            " | Item: " + itemInput +
             " | Days: " + daysLate +
             " | RM: " + String.format("%.2f", charged));
         System.out.printf("  RM %.2f recorded for [%s - %s].%n", charged, userID, u.getAdminName());

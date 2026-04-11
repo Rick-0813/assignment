@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-public class staticUser {
+public class StaticUser {
     private static ArrayList<Account> accounts = new ArrayList<>();
     private static final String FILE_NAME = "accounts.txt";
     private static String currentUserType = null;
@@ -31,7 +31,6 @@ public class staticUser {
     }
 
     public static String loginProcess(Scanner input, LibraryManager manager){
-
         while (true) {
             System.out.println("\n\n           ██████╗ ██╗██████╗ ██╗    ██╗     ██╗██████╗ ██████╗  █████╗ ██████╗ ██╗   ██╗       \n"+
                                    "           ██╔══██╗██║██╔══██╗██║    ██║     ██║██╔══██╗██╔══██╗██╔══██╗██╔══██╗╚██╗ ██╔╝       \n"+
@@ -71,6 +70,7 @@ public class staticUser {
                 System.out.println("  /                                                              /");
                 System.out.println(" .==============================================================.\n");
                 return null;
+            
             } else if (choice >= 1 && choice <= 3) {
                 String[] roles = {"Student", "Faculty", "Public Member"}; 
                 System.out.print("  Please enter your ID: ");

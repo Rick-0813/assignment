@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.*;
-import java.time.format.DateTimeFormatter;
  
 
 public class LibraryManager {
@@ -662,5 +661,21 @@ public class LibraryManager {
                 System.out.println("  [System Error] Failed to load reservations: " + e.getMessage());
             }
         }
+    }
+
+    public boolean verifyUserBorrowedItem(String userID, String itemQuery) {
+        for (Loan loan : loanList) {
+            if (loan.getUserID().equalsIgnoreCase(userID)) {
+                if(loan.getItemID().equalsIgnoreCase(itemQuery)) {
+                    return true;
+                }
+
+                LibraryItem item = getItemById(loan.getItemID());
+                if (item != null && item.getTitle().equalsIgnoreCase(itemQuery)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

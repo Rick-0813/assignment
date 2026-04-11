@@ -167,8 +167,8 @@ public class FineReport {
         System.out.println("                          |                    U s e r s                    |");
         System.out.println("                          |  ---------------------------------------------  |");
         System.out.println("                          |                                                 |");
-        System.out.printf("                          |   Unique Users     : %-28d|%n", uniqueCount);
-        System.out.printf("                          |   Users With Fines : %-28d|%n", usersWithFines);
+        System.out.printf("                          |   Unique Users     : %-27d|%n", uniqueCount);
+        System.out.printf("                          |   Users With Fines : %-27d|%n", usersWithFines);
         System.out.println("                          |                                                 |");
         System.out.println("                          '================================================='\n\n");
     }

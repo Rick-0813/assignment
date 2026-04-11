@@ -1,4 +1,4 @@
-Novel, N001 ,The Great Gatsby ,9780743273565 ,F. Scott Fitzgerald ,Fiction ,5
+Novel, N001 ,The Great Gatsby ,9780743273565 ,F. Scott Fitzgerald ,Fiction ,10
 Novel, N002 ,The Martian ,9780553418026 ,Andy Weir ,Sci-Fi ,7
 Novel, N003 ,Murder on the Orient Express ,9780062073501 ,Agatha Christie ,Mystery ,3
 Novel, N004 ,1984 ,9780451524935 ,George Orwell ,Dystopian ,12

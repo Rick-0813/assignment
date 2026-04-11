@@ -20,3 +20,12 @@
 [2026-04-10 16:18:28] User: ST001ACC | Action: BORROW | Details: Borrowed Item: N002 | Due: 2026-04-24
 [2026-04-10 16:46:53] User: ST001ACC | Action: BORROW | Details: Borrowed Item: N001 | Due: 2026-04-24
 [2026-04-10 16:47:04] User: ST001ACC | Action: BORROW | Details: Borrowed Item: M001 | Due: 2026-04-24
+[2026-04-11 11:07:20] User: ST001DCS | Action: BORROW | Details: Borrowed Item: M002 | Due: 2026-04-25
+[2026-04-11 11:09:30] User: ST001DCS | Action: RETURN | Details: Returned Item: M002
+[2026-04-11 11:24:11] User: Admin | Action: UPDATE_STOCK | Details: Updated Item ID [N001] to stock: 10
+[2026-04-11 11:24:38] User: Admin | Action: MANUAL_FINE | Details: Fine for [ST001DCS] CHIA WEN KHAI | Item: N001 | Days: 5 | RM: 2.50
+[2026-04-11 11:31:29] User: Admin | Action: MANUAL_FINE | Details: Fine for [ST001DCS] CHIA WEN KHAI | Item: M002 | Days: 3 | RM: 1.50
+[2026-04-11 11:32:34] User: Admin | Action: CORRECTION | Details: Deleted fine for User [ST001DCS]
+[2026-04-11 11:33:06] User: Admin | Action: CORRECTION | Details: Deleted fine for User [M001]
+[2026-04-11 11:33:46] User: Admin | Action: CORRECTION | Details: Deleted fine for User [ST001DCS]
+[2026-04-11 11:41:49] User: Admin | Action: CORRECTION | Details: Deleted fine for User []
