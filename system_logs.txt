@@ -46,3 +46,5 @@
 [2026-04-11 17:59:10] User: ST001 | Action: BORROW | Details: Borrowed Item: M005 | Due: 2026-04-25
 [2026-04-11 17:59:18] User: ST001 | Action: RETURN | Details: Returned Item: M005
 [2026-04-11 18:00:09] User: Admin | Action: MANUAL_FINE | Details: Fine for [ST001] GOH WEI JIN | RM: 0.5
+[2026-04-12 04:31:51] User: ST001 | Action: BORROW | Details: Borrowed Item: M002 | Due: 2026-04-26
+[2026-04-12 04:31:59] User: ST001 | Action: RETURN | Details: Returned Item: M002

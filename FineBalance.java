@@ -136,7 +136,7 @@ public class FineBalance {
         }
     }
 
-    public double processFine(String userID, String itemTitle, int daysLate) {
+    public double processFine(String userID, String itemTitle, int daysLate, String userType) {
         if (daysLate <= 0) {
             System.out.println("  No fine. Item returned on time.");
             return 0.0;
@@ -144,10 +144,14 @@ public class FineBalance {
 
         String today = LocalDate.now().toString();
         String fineID = generateFineID();
+        
+        double fineRate = FINE_RATE_PER_DAY;
+        if (userType != null && userType.equalsIgnoreCase("Faculty")) {
+            fineRate = 0.20; 
 
+        }
         if (daysLate >= LOST_THRESHOLD_DAYS) {
-            
-            double overdueAmount = LOST_THRESHOLD_DAYS * FINE_RATE_PER_DAY;
+            double overdueAmount = LOST_THRESHOLD_DAYS * fineRate;
             double total = overdueAmount + LOST_ITEM_PENALTY;
             fineRecords[recordCount++] = new FineRecord(fineID, userID, itemTitle, "LOST",
                 overdueAmount, LOST_ITEM_PENALTY, today);
@@ -157,7 +161,7 @@ public class FineBalance {
                 LOST_THRESHOLD_DAYS, overdueAmount, LOST_ITEM_PENALTY, total);
             return total;
         } else {
-            double fine = daysLate * FINE_RATE_PER_DAY;
+            double fine = daysLate * fineRate;
             fineRecords[recordCount++] = new FineRecord(fineID, userID, itemTitle, "OVERDUE", fine, 0, today);
             saveFines();
             System.out.printf("  Fine ID: %s | '%s' %d day(s) late | RM %.2f%n", fineID, itemTitle, daysLate, fine);

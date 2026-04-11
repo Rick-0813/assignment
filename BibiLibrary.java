@@ -586,10 +586,10 @@ public class BibiLibrary {
             return;
         }
 
-        double charged = manager.getFineBalance().processFine(userID, itemInput, daysLate);
-        manager.addLog("Admin", "MANUAL_FINE", "Fine for [" + userID + "] " + u.getName() + " | RM: " + charged); 
-        System.out.printf("  RM %.2f recorded for [%s - %s].%n", charged, userID, u.getName()); 
-    }
+        double charged = manager.getFineBalance().processFine(userID, itemInput, daysLate, u.getUserType());
+        
+        manager.addLog("Admin", "MANUAL_FINE", "Fine for [" + userID + "] " + u.getName() + " | Item: " + itemInput + " | Days: " + daysLate + " | RM: " + String.format("%.2f", charged));
+        System.out.printf("  RM %.2f recorded for [%s - %s].%n", charged, userID, u.getName());    }
 
     private static void promptEnterKey() {
         System.out.println("  \n[Tips] Press 'ENTER' to Continue ... ");
