@@ -117,9 +117,10 @@ public class LibraryManager {
         System.out.println("  [Success] Item returned on: " + activeLoan.getReturnDate());
 
         if (activeLoan.isLate()) {
-            int daysLate = activeLoan.getDaysLate();
+           int daysLate = activeLoan.getDaysLate();
             System.out.println("  [!] Warning: Item is returned " + daysLate + " days late.");
-            fineBalance.processFine(userID, item.getTitle(), daysLate);
+            double fineAmt = fineBalance.processFine(userID, item.getTitle(), daysLate, currentUser.getUserType());
+            addLog(userID, "FINE_ISSUED", "Late return: " + itemID + " | " + daysLate + " days late | RM " + String.format("%.2f", fineAmt));
         }
 
         updateUser();
