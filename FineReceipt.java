@@ -10,9 +10,7 @@ public class FineReceipt {
         for (int i = 0; i < fineBalance.getRecordCount(); i++) {
             FineBalance.FineRecord r = fineBalance.getFineRecords()[i];
             if (r.getUserID().equals(userID) && r.isPaid()) {
-                int overdueDays = r.getFineType().equals("LOST") ?
-                    30 :
-                    (int) Math.round(r.getOverdueAmount() / 0.50);
+                int overdueDays = r.getDaysLate(); 
                 printSingleReceipt(receiptCounter++, r.getFineID(), userID, userName,
                     r.getItemTitle(), overdueDays, r.getTotal(), true, today);
             }
