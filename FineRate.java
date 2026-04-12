@@ -3,7 +3,7 @@ public class FineRate {
         if (userType == null) return 0.50;
         if (userType.equalsIgnoreCase("Faculty"))     return 0.30;
         if (userType.equalsIgnoreCase("Student"))     return 0.50;
-        return 0.70; // Public Member
+        return 0.70; 
     }
 }
  

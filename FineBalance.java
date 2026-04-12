@@ -149,7 +149,7 @@ public class FineBalance {
 
     String today = LocalDate.now().toString();
     String fineID = generateFineID();
-    double rate = FineRate.getRatePerDay(userType);  // ← this is where rate comes from
+    double rate = FineRate.getRatePerDay(userType);  
 
     if (daysLate >= LOST_THRESHOLD_DAYS) {
         double overdueAmount = LOST_THRESHOLD_DAYS * rate;

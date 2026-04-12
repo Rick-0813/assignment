@@ -1,8 +1,8 @@
-Novel, N001 ,The Great Gatsby ,9780743273565 ,F. Scott Fitzgerald ,Fiction ,10
+Novel, N001 ,The Great Gatsby ,9780743273565 ,F. Scott Fitzgerald ,Fiction ,9
 Novel, N002 ,The Martian ,9780553418026 ,Andy Weir ,Sci-Fi ,7
 Novel, N003 ,Murder on the Orient Express ,9780062073501 ,Agatha Christie ,Mystery ,3
 Novel, N004 ,1984 ,9780451524935 ,George Orwell ,Dystopian ,12
-Novel, N005 ,Pride and Prejudice ,9780141439518 ,Jane Austen ,Romance ,6
+Novel, N005 ,Pride and Prejudice ,9780141439518 ,Jane Austen ,Romance ,5
 Novel, N006 ,To Kill a Mockingbird ,9780060935467 ,Harper Lee ,Fiction ,10
 Novel, N007 ,Dune ,9780441172719 ,Frank Herbert ,Sci-Fi ,7
 Novel, N008 ,The Hobbit ,9780345339683 ,J.R.R. Tolkien ,Fantasy ,15

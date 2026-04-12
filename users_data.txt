@@ -1,8 +1,8 @@
-GOH WEI JIN,ST001,Student,gohjin@student.tarc.edu.mr,true,2,0.0
-CHIA WEN KHAI,ST001,Student,wenkhai@gmail.com,false,0,0.0
+GOH WEI JUN,ST001,Student,gohjin@student.tarc.edu.mr,true,3,0.0
+CHIA WEN KHAI,ST004,Student,wenkhai@gmail.com,false,0,0.0
 EUVINA,F001,Faculty,eVn@gmail.com,true,2,4.0
 LIM WEI LE,M001,Member,weile@gmail.com,true,1,0.0
 LEE WEN LI,ST003,Student,wenli@student.tarc.edu.my,true,0,0.0
 GAN PEI NEE,F002,faculty,ganpn@gamil.com,true,0,0.0
-SOO QIAO WEI,ST002,Student,sqw@student.tarc.edu.my,true,0,0.0
+SOO QIAO WEI,ST002,Student,sqw@student.tarc.edu.my,true,1,0.0
 STEST,SREG,Student,EFWE,true,0,0.0

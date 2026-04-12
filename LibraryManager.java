@@ -49,49 +49,47 @@ public class LibraryManager {
     AdminLibrary currentUser = getUserByID(userID);
     LibraryItem item = getItemById(itemID);
 
-    for (AdminLibrary u : userList) {
-        if (u.getUserID().equals(userID)) {
-            currentUser = u;
-            break;
-        }
-    }
-
     if (currentUser == null) {
-        System.out.println("  [!] Error: User not found.");
-        return;
-    }
+            System.out.println("  [!] Error: User not found.");
+            return;
+        }
+        // 防止空指针异常
+        if (item == null) {
+            System.out.println("  [!] Error: Item ID [" + itemID + "] not found in the catalog.");
+            return;
+        }
 
-    if (!item.isAvailable()) {
+        if (!item.isAvailable()) {
             System.out.println("  [!] Item [" + item.getTitle() + "] is currently out of stock.");
             System.out.println("  [System] Placing a reservation request for User [" + userID + "]...");
             reserveItem(userID, itemID);
             return;
         }
 
-    if (!currentUser.canBorrow()) {
-        System.out.println("  [!] Failed to borrow item.");
-        System.out.println("  Your current user type is " + currentUser.getUserType() + ", and you can borrow up to " + currentUser.getBorrowLimit() + " books.");
-        System.out.println("  You have currently borrowed " + currentUser.getCurrentBorrowedBooks() + " books. Please return some books first.");
-        return;
-    }
+        if (!currentUser.canBorrow()) {
+            System.out.println("  [!] Failed to borrow item.");
+            System.out.println("  Your current user type is " + currentUser.getUserType() + ", and you can borrow up to " + currentUser.getBorrowLimit() + " books.");
+            System.out.println("  You have currently borrowed " + currentUser.getCurrentBorrowedBooks() + " books. Please return some books first.");
+            return;
+        }
 
-    String loanID = "LN" + String.format("%04d", loanCounter++);
-    Loan newLoan = new Loan(loanID, userID, itemID, currentUser.getLoanDuration());
-    loanList.add(newLoan);
-    
-    currentUser.incrementBorrowedBooks(); 
-    adjustStock(item, -1);
-    updateUser();
-    saveCatalogToFile();
-    addLog(userID, "BORROW", "Borrowed Item: " + itemID + " | Due: " + newLoan.getDueDate());
-    saveUsersData(); 
-    saveCirculationData();
-    
-    System.out.println("  Successfully borrowed item! Also You can still borrow ^v^ " + (currentUser.getBorrowLimit() - currentUser.getCurrentBorrowedBooks()) + " more books.");
-    System.out.println("  Loan ID   : " + loanID);
-    System.out.println("  Issue Date: " + newLoan.getIssueDate());
-    System.out.println("  Due Date  : " + newLoan.getDueDate());
-}
+        String loanID = "LN" + String.format("%04d", loanCounter++);
+        Loan newLoan = new Loan(loanID, userID, itemID, currentUser.getLoanDuration());
+        loanList.add(newLoan);
+        
+        currentUser.incrementBorrowedBooks(); 
+        adjustStock(item, -1);
+        updateUser();
+        saveCatalogToFile();
+        addLog(userID, "BORROW", "Borrowed Item: " + itemID + " | Due: " + newLoan.getDueDate());
+        saveUsersData(); 
+        saveCirculationData();
+        
+        System.out.println("  Successfully borrowed item! Also You can still borrow ^v^ " + (currentUser.getBorrowLimit() - currentUser.getCurrentBorrowedBooks()) + " more books.");
+        System.out.println("  Loan ID   : " + loanID);
+        System.out.println("  Issue Date: " + newLoan.getIssueDate());
+        System.out.println("  Due Date  : " + newLoan.getDueDate());
+    }
 
     public void returnItem(String userID, String itemID) {
         Loan activeLoan = null;

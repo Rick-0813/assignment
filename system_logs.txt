@@ -1,13 +1,5 @@
-[2026-04-03 11:06:50] User: Admin | Action: MANUAL_FINE | Details: User [ST001ACC] (GOH WEI JUN) | Item: The Great Gatsby | Days: 15 | RM: 7.50
-[2026-04-03 12:56:59] User: Admin | Action: EDIT_USER | Details: Edited details for User ID: ST001ACC
-[2026-04-03 13:13:27] User: Admin | Action: TOGGLE_STATUS | Details: Changed status of User ID: ST001ACC
-[2026-04-03 13:13:49] User: Admin | Action: TOGGLE_STATUS | Details: Changed status of User ID: ST001ACC
-[2026-04-03 13:14:13] User: Admin | Action: TOGGLE_STATUS | Details: Changed status of User ID: ST001DCS
-[2026-04-03 13:22:57] User: Admin | Action: UPDATE_STOCK | Details: Updated Item ID [N001] to stock: 10
-[2026-04-03 22:48:29] User: Admin | Action: ADD_USER | Details: Added User ID: ST003
-[2026-04-03 22:49:31] User: Admin | Action: EDIT_USER | Details: Edited details for User ID: ST003
 [2026-04-03 23:53:59] User: Admin | Action: MANUAL_FINE | Details: Fine for [ST001ACC] GOH WEI JIN | Item: Manga | Days: 1 | RM: 0.50
-[2026-04-04 00:25:26] User: Admin | Action: CORRECTION | Details: Deleted fine for User [ST001ACC]
+[2026-04-04 00:25:26] User: Admin | Action: CORRECTION | Details: Deleted fine for User [ST001]
 [2026-04-05 14:29:01] User: Admin | Action: ADD_CATALOG | Details: Added Item: 1
 [2026-04-10 14:06:29] User: ST001ACC | Action: BORROW | Details: Borrowed Item: N001 | Due: 2026-04-24
 [2026-04-10 14:07:08] User: ST001ACC | Action: BORROW | Details: Borrowed Item: M001 | Due: 2026-04-24
@@ -23,23 +15,20 @@
 [2026-04-11 11:07:20] User: ST001DCS | Action: BORROW | Details: Borrowed Item: M002 | Due: 2026-04-25
 [2026-04-11 11:09:30] User: ST001DCS | Action: RETURN | Details: Returned Item: M002
 [2026-04-11 11:24:11] User: Admin | Action: UPDATE_STOCK | Details: Updated Item ID [N001] to stock: 10
-[2026-04-11 11:24:38] User: Admin | Action: MANUAL_FINE | Details: Fine for [ST001DCS] CHIA WEN KHAI | Item: N001 | Days: 5 | RM: 2.50
-[2026-04-11 11:31:29] User: Admin | Action: MANUAL_FINE | Details: Fine for [ST001DCS] CHIA WEN KHAI | Item: M002 | Days: 3 | RM: 1.50
-[2026-04-11 11:32:34] User: Admin | Action: CORRECTION | Details: Deleted fine for User [ST001DCS]
+[2026-04-11 11:24:38] User: Admin | Action: MANUAL_FINE | Details: Fine for [ST004] CHIA WEN KHAI | Item: N001 | Days: 5 | RM: 2.50
+[2026-04-11 11:31:29] User: Admin | Action: MANUAL_FINE | Details: Fine for [ST004] CHIA WEN KHAI | Item: M002 | Days: 3 | RM: 1.50
+[2026-04-11 11:32:34] User: Admin | Action: CORRECTION | Details: Deleted fine for User [ST004]
 [2026-04-11 11:33:06] User: Admin | Action: CORRECTION | Details: Deleted fine for User [M001]
-[2026-04-11 11:33:46] User: Admin | Action: CORRECTION | Details: Deleted fine for User [ST001DCS]
-[2026-04-11 11:41:49] User: Admin | Action: CORRECTION | Details: Deleted fine for User []
+[2026-04-11 11:33:46] User: Admin | Action: CORRECTION | Details: Deleted fine for User [ST004]
 [2026-04-11 17:26:17] User: Admin | Action: ADD_USER | Details: Added User ID: F002
 [2026-04-11 17:26:55] User: Admin | Action: ADD_USER | Details: Added User ID: 9090
-[2026-04-11 17:30:15] User: Admin | Action: ADD_USER | Details: Added User ID: 334GRER
-[2026-04-11 17:38:28] User: Admin | Action: ADD_USER | Details: Added User ID: ST002ACC
-[2026-04-11 17:52:52] User: Admin | Action: ADD_USER | Details: Added User ID: ST002ACC
+[2026-04-11 17:38:28] User: Admin | Action: ADD_USER | Details: Added User ID: ST002
+[2026-04-11 17:52:52] User: Admin | Action: ADD_USER | Details: Added User ID: ST002
 [2026-04-11 17:53:30] User: Admin | Action: EDIT_USER | Details: Edited details for User ID: M001
-[2026-04-11 17:53:52] User: Admin | Action: EDIT_USER | Details: Edited details for User ID: ST002ACC
-[2026-04-11 17:54:08] User: Admin | Action: ADD_USER | Details: Added User ID: 0
+[2026-04-11 17:53:52] User: Admin | Action: EDIT_USER | Details: Edited details for User ID: ST002
 [2026-04-11 17:54:24] User: Admin | Action: EDIT_USER | Details: Edited details for User ID: F002
-[2026-04-11 17:54:42] User: Admin | Action: EDIT_USER | Details: Edited details for User ID: ST003SCS
-[2026-04-11 17:56:35] User: Admin | Action: TOGGLE_STATUS | Details: Changed status of User ID: ST001ACC
+[2026-04-11 17:54:42] User: Admin | Action: EDIT_USER | Details: Edited details for User ID: ST003
+[2026-04-11 17:56:35] User: Admin | Action: TOGGLE_STATUS | Details: Changed status of User ID: ST001
 [2026-04-11 17:57:18] User: Admin | Action: ADD_USER | Details: Added User ID: TSET
 [2026-04-11 17:58:34] User: Admin | Action: ADD_USER | Details: Added User ID: SREG
 [2026-04-11 17:58:49] User: Admin | Action: TOGGLE_STATUS | Details: Changed status of User ID: ST001
@@ -48,3 +37,7 @@
 [2026-04-11 18:00:09] User: Admin | Action: MANUAL_FINE | Details: Fine for [ST001] GOH WEI JIN | RM: 0.5
 [2026-04-12 04:31:51] User: ST001 | Action: BORROW | Details: Borrowed Item: M002 | Due: 2026-04-26
 [2026-04-12 04:31:59] User: ST001 | Action: RETURN | Details: Returned Item: M002
+[2026-04-12 16:52:55] User: Admin | Action: EDIT_USER | Details: Edited details for User ID: ST001
+[2026-04-12 17:39:03] User: ST002 | Action: BORROW | Details: Borrowed Item: N001 | Due: 2026-04-26
+[2026-04-12 17:40:14] User: ST001 | Action: BORROW | Details: Borrowed Item: N005 | Due: 2026-04-26
+[2026-04-12 17:40:28] User: Admin | Action: MANUAL_FINE | Details: Fine for [ST001] GOH WEI JUN | RM: 2.5
