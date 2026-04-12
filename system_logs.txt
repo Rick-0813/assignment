@@ -41,3 +41,5 @@
 [2026-04-12 17:39:03] User: ST002 | Action: BORROW | Details: Borrowed Item: N001 | Due: 2026-04-26
 [2026-04-12 17:40:14] User: ST001 | Action: BORROW | Details: Borrowed Item: N005 | Due: 2026-04-26
 [2026-04-12 17:40:28] User: Admin | Action: MANUAL_FINE | Details: Fine for [ST001] GOH WEI JUN | RM: 2.5
+[2026-04-12 22:36:10] User: Admin | Action: ADD_CATALOG | Details: Added Item: 
+[2026-04-12 22:36:50] User: Admin | Action: UPDATE_STOCK | Details: Updated Item ID [n001] to stock: 10

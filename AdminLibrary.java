@@ -49,6 +49,7 @@ public class AdminLibrary extends BaseUser {
     public int getCurrentBorrowedBooks() { 
         return currentBorrowedBooks; 
     }
+    
     public boolean isActive() { 
         return isActive; 
     }

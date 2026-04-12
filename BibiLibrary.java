@@ -321,6 +321,10 @@ public class BibiLibrary {
         System.out.println("  '--------------------------------------------------'");
         System.out.print("  Enter Item ID            : ");
         String itemId = input.nextLine();
+        if (itemId.isEmpty()){
+            System.out.println("  [!] Error . Item ID can not empty.");
+            return;
+        }
         if (manager.isItemExists(itemId)) {
             System.out.println("  [!] Error . The ID is already exits ! Please use a different ID");
             return;
@@ -329,9 +333,17 @@ public class BibiLibrary {
 
         System.out.print("  Enter Title              : ");
         String title = input.nextLine();
+        if (title.isEmpty()){
+            System.out.println("  [!] Error . Title can not empty.");
+            return;
+        }
 
         System.out.print("  Enter ISBN               : ");
         String isbn = input.nextLine();
+        if (isbn.isEmpty()){
+            System.out.println("  [!] Error . ISBN can not empty.");
+            return;
+        }
 
         System.out.print("  Enter Stock Quantity     : ");
         if (!input.hasNextInt()) {
@@ -340,6 +352,9 @@ public class BibiLibrary {
             return;
         }
         int stockQuantity = input.nextInt();
+        if(stockQuantity < 0 ){
+            System.out.println("  [!] Error , Stock Quantity can not be negative !");
+        }
         input.nextLine();
 
         switch (typeChoice) {
@@ -347,8 +362,16 @@ public class BibiLibrary {
                 {
                     System.out.print("  Enter Author             : ");
                     String author = input.nextLine();
+                    if (author.isEmpty()){
+                        System.out.println("  [!] Error . Author can not empty.");
+                        return;
+                        }
                     System.out.print("  Enter Genre              : ");
                     String genre = input.nextLine();
+                    if (genre.isEmpty()){
+                        System.out.println("  [!] Error . Genre can not empty.");
+                        return;
+                        }
 
                     Novel newNovel = new Novel(itemId, title, isbn, author, genre, stockQuantity);
                     manager.addCatalogItem(newNovel);
@@ -359,6 +382,10 @@ public class BibiLibrary {
                 {
                     System.out.print("  Enter Illustrator        : ");
                     String illustrator = input.nextLine();
+                    if (illustrator.isEmpty()){
+                        System.out.println("  [!] Error . Illustrator can not empty.");
+                        return;
+                        }
                     System.out.print("  Enter Volume Number      : ");
 
                     if (!input.hasNextInt()) {
@@ -367,6 +394,9 @@ public class BibiLibrary {
                         return;
                     }
                     int volumeNumber = input.nextInt();
+                    if(stockQuantity < 0 ){
+                        System.out.println("  [!] Error , Volume Number can not be negative !");
+                        }
                     input.nextLine();
 
                     Manga newManga = new Manga(itemId, title, isbn, illustrator, volumeNumber, stockQuantity);
@@ -378,8 +408,16 @@ public class BibiLibrary {
                 {
                     System.out.print("  Enter Author             : ");
                     String author = input.nextLine();
+                    if (author.isEmpty()){
+                        System.out.println("  [!] Error . Author can not empty.");
+                        return;
+                        }
                     System.out.print("  Enter Target Age         : ");
                     String targetAge = input.nextLine();
+                    if (targetAge.isEmpty()){
+                        System.out.println("  [!] Error . Target Age can not empty.");
+                        return;
+                        }
 
                     StoryBook newStoryBook = new StoryBook(itemId, title, isbn, author, targetAge, stockQuantity);
                     manager.addCatalogItem(newStoryBook);
@@ -389,8 +427,16 @@ public class BibiLibrary {
                 {
                     System.out.print("  Enter Author             : ");
                     String author = input.nextLine();
+                    if (author.isEmpty()){
+                        System.out.println("  [!] Error . Author can not empty.");
+                        return;
+                        }
                     System.out.print("  Enter Topic              : ");
                     String topic = input.nextLine();
+                    if (topic.isEmpty()){
+                        System.out.println("  [!] Error . Topic can not empty.");
+                        return;
+                        }
 
                     SelfHelp newSelfHelp = new SelfHelp(itemId, title, isbn, author, topic, stockQuantity);
                     manager.addCatalogItem(newSelfHelp);
