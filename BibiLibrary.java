@@ -612,14 +612,6 @@ public class BibiLibrary {
             return;
         }
 
-        if (!manager.verifyUserBorrowedItem(userID, itemInput)) {
-            System.out.println("\n  [!] Error: Invalid Fine Entry!");
-            System.out.println("  User [" + userID + "] did NOT borrow item [" + itemInput + "].");
-            System.out.println("  Action Aborted: You cannot fine a user for an item they never borrowed.\n");
-            return;
-        }
-
-
         System.out.print("  Enter Days Late  : ");
         if (!input.hasNextInt()) {
             input.nextLine();
