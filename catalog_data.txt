@@ -1,4 +1,4 @@
-Novel, N001 ,The Great Gatsby ,9780743273565 ,F. Scott Fitzgerald ,Fiction ,9
+Novel, N001 ,The Great Gatsby ,9780743273565 ,F. Scott Fitzgerald ,Fiction ,10
 Novel, N002 ,The Martian ,9780553418026 ,Andy Weir ,Sci-Fi ,7
 Novel, N003 ,Murder on the Orient Express ,9780062073501 ,Agatha Christie ,Mystery ,3
 Novel, N004 ,1984 ,9780451524935 ,George Orwell ,Dystopian ,12
@@ -83,4 +83,3 @@ SelfHelp,H007,Java A Beginners Guide,9781260440218,Herbert Schildt,Programming,5
 SelfHelp,H008,Speed Cubers Guide,9781524784966,Ian Scheffler,Hobby,10
 SelfHelp,H009,Mechanical Keyboards 101,9781988888888,K. Enthusiast,Tech,4
 SelfHelp,H010,Rich Dad Poor Dad,9781612680194,Robert Kiyosaki,Finance,10
-
