@@ -38,7 +38,7 @@
 [2026-04-12 04:31:51] User: ST001 | Action: BORROW | Details: Borrowed Item: M002 | Due: 2026-04-26
 [2026-04-12 04:31:59] User: ST001 | Action: RETURN | Details: Returned Item: M002
 [2026-04-12 16:52:55] User: Admin | Action: EDIT_USER | Details: Edited details for User ID: ST001
-[2026-04-12 17:39:03] User: ST002 | Action: BORROW | Details: Borrowed Item: N001 | Due: 2026-04-26
+[2026-04-12 17:39:03] User: ST002 | Action: BORROW | Details: Borrowed Item: N001 | Due: 2026-04-10
 [2026-04-12 17:40:14] User: ST001 | Action: BORROW | Details: Borrowed Item: N005 | Due: 2026-04-26
 [2026-04-12 17:40:28] User: Admin | Action: MANUAL_FINE | Details: Fine for [ST001] GOH WEI JUN | RM: 2.5
 [2026-04-12 22:36:10] User: Admin | Action: ADD_CATALOG | Details: Added Item: 
@@ -48,3 +48,5 @@
 [2026-04-15 13:06:46] User: Admin | Action: REMOVE_USER | Details: Removed User ID: SREG
 [2026-04-15 13:19:49] User: Admin | Action: EDIT_USER | Details: Edited details for User ID: F001
 [2026-04-15 13:43:22] User: Admin | Action: TOGGLE_STATUS | Details: Changed status of User ID: ST005
+[2026-04-16 22:13:46] User: Admin | Action: MANUAL_RESERVE | Details: Admin reserved Item: N001 for User: ST001
+[2026-04-16 22:17:32] User: Admin | Action: MANUAL_RESERVE | Details: Admin reserved Item: N001 for User: ST005

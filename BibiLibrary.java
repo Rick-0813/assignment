@@ -77,6 +77,11 @@ public class BibiLibrary {
                     String billName = (billUser != null) ? billUser.getName() : "Unknown"; 
                     manager.getFineMenu().showFineMenuIfOwed(billUserID, billName, input);
                     break;
+                case 4:
+                    String resID = StaticUser.getCurrentUserID(); 
+                    manager.displayUserReservations(resID);
+                    promptEnterKey();
+                    break;
                 default:
                     System.out.println("  Invalid choice.");
             }
@@ -635,13 +640,15 @@ public class BibiLibrary {
 
     private static void circulationMenu() {
         while (true) {
-            System.out.println("\n            .--------------------------------------------------.");
-            System.out.println("            |          C I R C U L A T I O N   D E S K         |");
-            System.out.println("            '--------------------------------------------------'");
-            System.out.println("            |    [ 1 ] Process Borrow (Checkout)               |");
-            System.out.println("            |    [ 2 ] Process Return (Check-in)               |");
-            System.out.println("            |    [ 0 ] Back to Admin Menu                      |");
-            System.out.println("            '--------------------------------------------------'");
+            System.out.println("\n            .------------------------------------------------------.");
+            System.out.println("            |          C I R C U L A T I O N   D E S K             |");
+            System.out.println("            '------------------------------------------------------'");
+            System.out.println("            |    [ 1 ] Process Borrow (Checkout)                   |");
+            System.out.println("            |    [ 2 ] Process Return (Check-in)                   |");
+            System.out.println("            |    [ 3 ] Add Reserve Item For User                   |");
+            System.out.println("            |    [ 4 ] View all active reservatiions               |");
+            System.out.println("            |    [ 0 ] Back to Admin Menu                          |");
+            System.out.println("            '------------------------------------------------------'");
             System.out.print("  Select action: ");
 
             if (!input.hasNextInt()) {
@@ -665,7 +672,17 @@ public class BibiLibrary {
                 System.out.print("  Enter Item ID: ");
                 String iid = input.nextLine().trim();
                 manager.returnItem(uid, iid);
-            } else {
+            } else if (choice == 3){
+                System.out.print("  Enter User ID to reserve for: ");
+                String uid = input.nextLine().trim();
+                System.out.print("  Enter Item ID to reserve: ");
+                String iid = input.nextLine().trim();
+                manager.adminManualReserve(uid, iid);
+                promptEnterKey();
+            } else if (choice == 4){
+                manager.displayAllReservations();
+                promptEnterKey();
+            }else {
                 System.out.println("  Invalid choice.");
             }
         }
