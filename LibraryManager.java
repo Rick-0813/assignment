@@ -53,7 +53,6 @@ public class LibraryManager {
             System.out.println("  [!] Error: User not found.");
             return;
         }
-        // 防止空指针异常
         if (item == null) {
             System.out.println("  [!] Error: Item ID [" + itemID + "] not found in the catalog.");
             return;

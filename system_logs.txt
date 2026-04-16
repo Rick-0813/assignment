@@ -43,3 +43,8 @@
 [2026-04-12 17:40:28] User: Admin | Action: MANUAL_FINE | Details: Fine for [ST001] GOH WEI JUN | RM: 2.5
 [2026-04-12 22:36:10] User: Admin | Action: ADD_CATALOG | Details: Added Item: 
 [2026-04-12 22:36:50] User: Admin | Action: UPDATE_STOCK | Details: Updated Item ID [n001] to stock: 10
+[2026-04-15 12:17:47] User: Admin | Action: ADD_USER | Details: Added User ID: ST005
+[2026-04-15 12:20:58] User: Admin | Action: ADD_USER | Details: Added User ID: ST005
+[2026-04-15 13:06:46] User: Admin | Action: REMOVE_USER | Details: Removed User ID: SREG
+[2026-04-15 13:19:49] User: Admin | Action: EDIT_USER | Details: Edited details for User ID: F001
+[2026-04-15 13:43:22] User: Admin | Action: TOGGLE_STATUS | Details: Changed status of User ID: ST005

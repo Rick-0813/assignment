@@ -215,7 +215,7 @@ public class BibiLibrary {
     }
 
     private static void removeUser() {
-        System.out.println("  Enter User ID to remove: ");
+        System.out.print("  Enter User ID to remove: ");
         String id = input.nextLine();
         if (manager.removeUser(id)) {
             System.out.println("                   [!] User removed successfully.");
@@ -225,8 +225,7 @@ public class BibiLibrary {
     }
 
     private static void accountStatusControl() {
-        System.out.println("  Enter User ID to toggle status ");
-        System.out.println("V");
+        System.out.print("  Enter User ID to toggle status: ");
         String id = input.nextLine();
         manager.toggleUserStatus(id);
     }
