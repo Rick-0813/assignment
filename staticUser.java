@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-public class StaticUser {
+public class staticUser {
     private static ArrayList<Account> accounts = new ArrayList<>();
     private static final String FILE_NAME = "accounts.txt";
     private static String currentUserType = null;

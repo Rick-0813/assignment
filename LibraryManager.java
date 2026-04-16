@@ -79,6 +79,7 @@ public class LibraryManager {
         
         currentUser.incrementBorrowedBooks(); 
         adjustStock(item, -1);
+        reservationList.removeIf(res -> res.getUserID().equalsIgnoreCase(userID) && res.getItemID().equalsIgnoreCase(itemID));
         updateUser();
         saveCatalogToFile();
         addLog(userID, "BORROW", "Borrowed Item: " + itemID + " | Due: " + newLoan.getDueDate());
@@ -676,4 +677,84 @@ public class LibraryManager {
         }
         return false;
     }
+
+    public void displayUserReservations(String userID) {
+        System.out.println("\n            .===================================================================================.");
+        System.out.println("            |                              M Y   R E S E R V A T I O N S                        |");
+        System.out.println("            '==================================================================================='");
+        System.out.printf("            | %-15s | %-30s | %-15s | %-12s |%n", 
+                          "Reservation ID", "Book Title", "Request Date", "Status");
+        System.out.println("            |-----------------------------------------------------------------------------------|");
+
+        boolean hasReservations = false;
+        for (Reservation res : reservationList) {
+            if (res.getUserID().equalsIgnoreCase(userID)) {
+                LibraryItem item = getItemById(res.getItemID());
+                String title = (item != null) ? item.getTitle() : "Unknown Item";
+                if (title.length() > 30) title = title.substring(0, 27) + "...";
+
+                String status = res.isFulfilled() ? "READY" : "Pending";
+                System.out.printf("            | %-15s | %-30s | %-15s | %-12s |%n",
+                                  res.getReservationID(), title, res.getRequestDate(), status);
+                hasReservations = true;
+            }
+        }
+        if (!hasReservations) {
+            System.out.println("            |                      You have no current reservations.                            |");
+        }
+        System.out.println("            '==================================================================================='");
+    }
+
+    public void adminManualReserve(String userID, String itemID) {
+        AdminLibrary user = getUserByID(userID);
+        LibraryItem item = getItemById(itemID);
+
+        if (user == null) {
+            System.out.println("  [!] Error: User ID [" + userID + "] not found."); return;
+        }
+        if (item == null) {
+            System.out.println("  [!] Error: Item ID [" + itemID + "] not found in catalog."); return;
+        }
+
+        for (Reservation r : reservationList) {
+            if (r.getUserID().equalsIgnoreCase(userID) && r.getItemID().equalsIgnoreCase(itemID) && !r.isFulfilled()) {
+                System.out.println("  [!] Notice: User [" + userID + "] already has a pending reservation for this item.");
+                return;
+            }
+        }
+
+        String resID = "RS" + String.format("%04d", reserveCounter++);
+        Reservation res = new Reservation(resID, userID, itemID);
+        reservationList.add(res);
+        
+        addLog("Admin", "MANUAL_RESERVE", "Admin reserved Item: " + itemID + " for User: " + userID);
+        saveCirculationData();
+        
+        System.out.println("  [Success] Manual reservation placed by Admin! ID: " + resID);
+        System.out.println("  User [" + user.getName() + "] is now in the queue for [" + item.getTitle() + "].");
+    }
+
+    public void displayAllReservations() {
+        System.out.println("\n            .====================================================================================================.");
+        System.out.println("            |                                    A L L   R E S E R V A T I O N S                                 |");
+        System.out.println("            '===================================================================================================='");
+        System.out.printf("            | %-10s | %-12s | %-30s | %-15s | %-12s |%n", 
+                          "Res ID", "User ID", "Book Title", "Request Date", "Status");
+        System.out.println("            |----------------------------------------------------------------------------------------------------|");
+
+        if (reservationList.isEmpty()) {
+             System.out.println("            |                                  No reservations in the system.                                    |");
+        } else {
+            for (Reservation res : reservationList) {
+                LibraryItem item = getItemById(res.getItemID());
+                String title = (item != null) ? item.getTitle() : "Unknown Item";
+                if (title.length() > 30) title = title.substring(0, 27) + "...";
+                String status = res.isFulfilled() ? "READY" : "Pending";
+                System.out.printf("            | %-10s | %-12s | %-30s | %-15s | %-12s |%n",
+                                  res.getReservationID(), res.getUserID(), title, res.getRequestDate(), status);
+            }
+        }
+        System.out.println("            '===================================================================================================='");
+    }
+
 }
