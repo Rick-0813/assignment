@@ -40,7 +40,7 @@ public class LibraryUI {
             System.out.println("           |    [ 1 ] User Management                         |   |\n           |    [ 2 ] Circulation Module                      |   |\n           |    [ 3 ] Cataloging Admin                        |   |\n           |    [ 4 ] Fees and Audits                         |   .");
         } else {
             System.out.println("           |                                                  |   |");
-            System.out.println("           |    [ 1 ] Search Catalog                          |   |\n           |    [ 2 ] My Loans                                |   |\n           |    [ 3 ] My Bills                                |   .");
+            System.out.println("           |    [ 1 ] Search Catalog                          |   |\n           |    [ 2 ] My Loans                                |   |\n           |    [ 3 ] My Bills                                |   |\n           |    [ 4 ] My Reservations                        |   .");
         }
         System.out.println("           |                                                  |  /");
         System.out.println("           |--------------------------------------------------| /");

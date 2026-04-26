@@ -23,7 +23,7 @@ Novel, N022 ,The Shining ,9780307743657 ,Stephen King ,Horror ,6
 Novel, N023 ,Jurassic Park ,9780345538987 ,Michael Crichton ,Sci-Fi ,9
 Novel, N024 ,The Catch ,9781250233481 ,T.M. Logan ,Thriller ,3
 Novel, N025 ,Foundation ,9780553293357 ,Isaac Asimov ,Sci-Fi ,7
-Manga, M001 ,Naruto: Uzumaki Naruto ,9781569319000 ,Masashi Kishimoto ,1 ,7
+Manga, M001 ,Naruto: Uzumaki Naruto ,9781569319000 ,Masashi Kishimoto ,1 ,6
 Manga, M002 ,Naruto: Worst Client ,9781569319001 ,Masashi Kishimoto ,2 ,8
 Manga, M003 ,Naruto: Dreams ,9781569319002 ,Masashi Kishimoto ,3 ,9
 Manga, M004 ,Naruto: Heros Bridge ,9781569319003 ,Masashi Kishimoto ,4 ,7
