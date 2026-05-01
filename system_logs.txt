@@ -50,3 +50,7 @@
 [2026-04-15 13:43:22] User: Admin | Action: TOGGLE_STATUS | Details: Changed status of User ID: ST005
 [2026-04-16 22:13:46] User: Admin | Action: MANUAL_RESERVE | Details: Admin reserved Item: N001 for User: ST001
 [2026-04-16 22:17:32] User: Admin | Action: MANUAL_RESERVE | Details: Admin reserved Item: N001 for User: ST005
+[2026-04-26 21:30:56] User: Admin | Action: ADD_CATALOG | Details: Added Item: N026
+[2026-04-26 21:32:09] User: Admin | Action: UPDATE_STOCK | Details: Updated Item ID [N026] to stock: 15
+[2026-04-27 10:10:04] User: Admin | Action: ADD_CATALOG | Details: Added Item: N026
+[2026-04-27 10:11:33] User: Admin | Action: UPDATE_STOCK | Details: Updated Item ID [N026] to stock: 5
